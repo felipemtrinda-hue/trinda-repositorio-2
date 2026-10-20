@@ -28,6 +28,18 @@ ferramentas/preparar-video.sh ~/Downloads/fazenda.mp4 plantacao
 ferramentas/preparar-video.sh ~/Downloads/frutos.mp4 fruto 960 8
 ```
 
+Vídeos atuais — Adobe Stock (coleção gratuita, licenciados na conta Adobe do Felipe; guarde o registro da licença):
+
+| Arquivo | Adobe Stock ID | Descrição |
+|---|---|---|
+| `plantacao` | 508863068 | Vista aérea de fileiras de café em fazenda no Brasil |
+| `cafeeiro` | 320274617 | Frutos de café amadurecendo no pé |
+| `fruto` | 298195064 | Frutos de café no galho, close |
+| `grao` | 472143423 | Grãos torrados em câmera lenta |
+| `xicara` | 525370684 | Café servido em xícara de vidro, com vapor |
+
+São imagens ilustrativas de banco — não representam a propriedade da Família Nardi. Quando houver vídeos próprios da fazenda, substitua com o mesmo nome.
+
 Prefira vídeos próprios da família/fazenda. Se usar banco de imagens (Pexels, Pixabay), confira a licença de uso comercial.
 
 ## Pendências (procure por `EDITAR` no HTML)

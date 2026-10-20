@@ -145,10 +145,10 @@
     </div>
 
     <!-- ORIGEM: faixa cinematográfica (vídeo da plantação) -->
-    <!-- VÍDEO: coloque assets/video/plantacao.mp4 e .webm (veja ferramentas/preparar-video.sh). Sem o arquivo, a faixa mostra a gravura animada. -->
+    <!-- VÍDEO: assets/video/plantacao (Adobe Stock 508863068). Sem vídeo (economia de dados / movimento reduzido), aparece o quadro estático. -->
     <section class="cinema on-dark" id="origem" aria-labelledby="cinema-title" data-progress="through">
+      <picture class="cinema__poster" aria-hidden="true"><source type="image/avif" srcset="assets/img/cinema-plantacao.avif"><img src="assets/img/cinema-plantacao.webp" width="960" height="540" loading="lazy" decoding="async" alt=""></picture>
       <video class="cinema__video" data-video="assets/video/plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
-      <span class="cinema__branch" aria-hidden="true"></span>
       <div class="container cinema__content">
         <p class="kicker fx">Café arábica</p>
         <h2 class="headline cinema__title fx" id="cinema-title" style="--d:.08s">Cada xícara começa <em>no campo.</em></h2>
@@ -168,7 +168,7 @@
         <ol class="journey__cards">
           <li class="jcard">
             <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-cafeeiro-900.avif"><img src="assets/img/step-cafeeiro-900.webp" width="900" height="480" loading="lazy" decoding="async" alt="Gravura de um ramo de cafeeiro com frutos, em marfim sobre azul"></picture>
+              <picture><source type="image/avif" srcset="assets/img/step-cafeeiro.avif"><img src="assets/img/step-cafeeiro.webp" width="432" height="540" loading="lazy" decoding="async" alt="Ramo de cafeeiro arábica com frutos amadurecendo"></picture>
               <video data-video="assets/video/cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">01</p>
@@ -177,7 +177,7 @@
           </li>
           <li class="jcard">
             <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-fruto-660.avif"><img src="assets/img/step-fruto-660.webp" width="660" height="432" loading="lazy" decoding="async" alt="Folhas e frutos vermelhos de café ao lado de grãos torrados"></picture>
+              <picture><source type="image/avif" srcset="assets/img/step-fruto.avif"><img src="assets/img/step-fruto.webp" width="432" height="540" loading="lazy" decoding="async" alt="Frutos vermelhos maduros de café arábica no pé"></picture>
               <video data-video="assets/video/fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">02</p>
@@ -186,7 +186,7 @@
           </li>
           <li class="jcard">
             <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-grao-560.avif"><img src="assets/img/step-grao-560.webp" width="560" height="560" loading="lazy" decoding="async" alt="Grãos de café torrados suspensos no ar"></picture>
+              <picture><source type="image/avif" srcset="assets/img/step-grao.avif"><img src="assets/img/step-grao.webp" width="432" height="540" loading="lazy" decoding="async" alt="Grãos de café torrados caindo em câmera lenta sobre fundo escuro"></picture>
               <video data-video="assets/video/grao" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">03</p>
@@ -195,7 +195,7 @@
           </li>
           <li class="jcard">
             <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-xicara-500.avif"><img src="assets/img/step-xicara-500.webp" width="500" height="500" loading="lazy" decoding="async" alt="Xícara de café vista de cima, cercada por folhas de cafeeiro"></picture>
+              <picture><source type="image/avif" srcset="assets/img/step-xicara.avif"><img src="assets/img/step-xicara.webp" width="432" height="540" loading="lazy" decoding="async" alt="Café sendo servido em uma xícara de vidro, com vapor"></picture>
               <video data-video="assets/video/xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">04</p>
