@@ -249,6 +249,7 @@
         if (!e.isIntersecting) return;
         var v = e.target, base = v.getAttribute("data-video");
         vload.unobserve(v);
+        if (!base) return;
         fetch(base + ".mp4", { method: "HEAD" }).then(function (res) {
           if (!res.ok) return;
           var webm = document.createElement("source");
@@ -294,6 +295,40 @@
         .catch(function () { viewer.classList.add("viewer--fallback"); });
     }, { rootMargin: "600px 0px" });
     vio.observe(viewer);
+  }
+
+  /* Galeria com visualização ampliada ----------------------------------- */
+  var lb = document.querySelector(".lightbox");
+  var galBtns = Array.prototype.slice.call(document.querySelectorAll(".gal__btn"));
+  if (lb && galBtns.length && typeof lb.showModal === "function") {
+    var lbImg = lb.querySelector(".lightbox__img"), lbCap = lb.querySelector(".lightbox__cap");
+    var current = 0, opener = null;
+    var show = function (i) {
+      current = (i + galBtns.length) % galBtns.length;
+      var b = galBtns[current];
+      lbImg.src = b.dataset.full;
+      lbImg.alt = b.querySelector("img").alt;
+      lbCap.textContent = b.dataset.caption + " · " + (current + 1) + "/" + galBtns.length;
+    };
+    galBtns.forEach(function (b, i) {
+      b.addEventListener("click", function () { opener = b; show(i); lb.showModal(); document.body.style.overflow = "hidden"; });
+    });
+    lb.querySelectorAll("[data-lb]").forEach(function (b) {
+      b.addEventListener("click", function () { show(current + Number(b.dataset.lb)); });
+    });
+    lb.querySelector(".lightbox__close").addEventListener("click", function () { lb.close(); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+    lb.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") show(current + 1);
+      if (e.key === "ArrowLeft") show(current - 1);
+    });
+    lb.addEventListener("close", function () { document.body.style.overflow = ""; if (opener) opener.focus(); });
+    var sx = 0;
+    lb.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", function (e) {
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    });
   }
 
   /* WhatsApp flutuante e ano --------------------------------------------- */

@@ -9,9 +9,10 @@ Para ver localmente: `python3 -m http.server` dentro desta pasta → http://loca
 - `assets/js/main.js` — navegação, animações de rolagem, carrossel.
 - `assets/js/viewer360.js` — modelo 3D da embalagem (Three.js r170, em `assets/vendor/three`, licença MIT). Carregado só quando a seção se aproxima da tela.
 - `assets/brand/` — logo e símbolo oficiais vetorizados.
+- Galeria "A marca em aplicações" — imagens do manual de identidade (`assets/img/g-*`), com visualização ampliada.
 
 ## Vídeos (plantação, cafeeiro, fruto, grão, xícara)
-O site já tem cinco espaços para vídeo. Eles só carregam quando o arquivo existe e a seção se aproxima da tela; sem arquivo, aparece a imagem/gravura atual.
+O site já tem cinco espaços para vídeo, hoje desativados (`data-video=""`). Para ativar um, gere os arquivos com o script abaixo e preencha o atributo no `index.html`, por exemplo `data-video="assets/video/plantacao"` no elemento com `data-video-name="plantacao"`. O vídeo só carrega quando a seção se aproxima da tela; sem vídeo, aparece a imagem/gravura atual.
 
 | Nome | Onde aparece | Sugestão |
 |---|---|---|

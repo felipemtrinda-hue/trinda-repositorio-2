@@ -147,7 +147,7 @@
     <!-- ORIGEM: faixa cinematográfica (vídeo da plantação) -->
     <!-- VÍDEO: coloque assets/video/plantacao.mp4 e .webm (veja ferramentas/preparar-video.sh). Sem o arquivo, a faixa mostra a gravura animada. -->
     <section class="cinema on-dark" id="origem" aria-labelledby="cinema-title" data-progress="through">
-      <video class="cinema__video" data-video="assets/video/plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <video class="cinema__video" data-video="" data-video-name="plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
       <span class="cinema__branch" aria-hidden="true"></span>
       <div class="container cinema__content">
         <p class="kicker fx">Café arábica</p>
@@ -169,7 +169,7 @@
           <li class="jcard">
             <div class="jcard__media">
               <picture><source type="image/avif" srcset="assets/img/step-cafeeiro-900.avif"><img src="assets/img/step-cafeeiro-900.webp" width="900" height="480" loading="lazy" decoding="async" alt="Gravura de um ramo de cafeeiro com frutos, em marfim sobre azul"></picture>
-              <video data-video="assets/video/cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video data-video="" data-video-name="cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">01</p>
             <h3 class="jcard__title">O cafeeiro</h3>
@@ -178,7 +178,7 @@
           <li class="jcard">
             <div class="jcard__media">
               <picture><source type="image/avif" srcset="assets/img/step-fruto-660.avif"><img src="assets/img/step-fruto-660.webp" width="660" height="432" loading="lazy" decoding="async" alt="Folhas e frutos vermelhos de café ao lado de grãos torrados"></picture>
-              <video data-video="assets/video/fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video data-video="" data-video-name="fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">02</p>
             <h3 class="jcard__title">O fruto</h3>
@@ -187,7 +187,7 @@
           <li class="jcard">
             <div class="jcard__media">
               <picture><source type="image/avif" srcset="assets/img/step-grao-560.avif"><img src="assets/img/step-grao-560.webp" width="560" height="560" loading="lazy" decoding="async" alt="Grãos de café torrados suspensos no ar"></picture>
-              <video data-video="assets/video/grao" muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video data-video="" data-video-name="grao" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">03</p>
             <h3 class="jcard__title">O grão</h3>
@@ -196,7 +196,7 @@
           <li class="jcard">
             <div class="jcard__media">
               <picture><source type="image/avif" srcset="assets/img/step-xicara-500.avif"><img src="assets/img/step-xicara-500.webp" width="500" height="500" loading="lazy" decoding="async" alt="Xícara de café vista de cima, cercada por folhas de cafeeiro"></picture>
-              <video data-video="assets/video/xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video data-video="" data-video-name="xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <p class="jcard__num">04</p>
             <h3 class="jcard__title">A xícara</h3>
@@ -414,6 +414,94 @@
       </div>
     </section>
 
+    <!-- A MARCA EM APLICAÇÕES (imagens do manual de identidade) -->
+    <section class="gallery" id="aplicacoes" aria-labelledby="gal-title">
+      <div class="container container--wide">
+        <header class="gallery__head">
+          <div>
+            <p class="kicker fx">Identidade visual</p>
+            <h2 class="headline headline--md fx" id="gal-title" style="--d:.08s">A marca em <em>aplicações.</em></h2>
+          </div>
+          <p class="sub fx" style="--d:.16s">Da assinatura às embalagens, cada ponto de contato carrega a mesma identidade. Toque para ampliar.</p>
+        </header>
+        <ul class="gal">
+          <li class="gal__item gal__item--w fx" style="--d:0.00s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-012-1600.webp" data-caption="Assinatura" aria-label="Ampliar: Assinatura Família Nardi sobre o azul da marca">
+              <picture><source type="image/avif" srcset="assets/img/g-012-800.avif 800w, assets/img/g-012-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-012-800.webp" srcset="assets/img/g-012-800.webp 800w, assets/img/g-012-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Assinatura Família Nardi sobre o azul da marca"></picture>
+              <span class="gal__label">Assinatura</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.05s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-030-1600.webp" data-caption="Traço" aria-label="Ampliar: Logotipo em versão de desenho a traço">
+              <picture><source type="image/avif" srcset="assets/img/g-030-800.avif 800w, assets/img/g-030-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-030-800.webp" srcset="assets/img/g-030-800.webp 800w, assets/img/g-030-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Logotipo em versão de desenho a traço"></picture>
+              <span class="gal__label">Traço</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.10s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-014-1600.webp" data-caption="Ilustrações" aria-label="Ampliar: Conjunto de ilustrações em gravura da marca: ramos, grãos, xícaras e utensílios">
+              <picture><source type="image/avif" srcset="assets/img/g-014-800.avif 800w, assets/img/g-014-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-014-800.webp" srcset="assets/img/g-014-800.webp 800w, assets/img/g-014-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Conjunto de ilustrações em gravura da marca: ramos, grãos, xícaras e utensílios"></picture>
+              <span class="gal__label">Ilustrações</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.15s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-022-1600.webp" data-caption="Uniforme" aria-label="Ampliar: Camisa polo azul com a assinatura Família Nardi">
+              <picture><source type="image/avif" srcset="assets/img/g-022-800.avif 800w, assets/img/g-022-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-022-800.webp" srcset="assets/img/g-022-800.webp 800w, assets/img/g-022-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Camisa polo azul com a assinatura Família Nardi"></picture>
+              <span class="gal__label">Uniforme</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.00s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-025-1600.webp" data-caption="Papelaria" aria-label="Ampliar: Caderno em couro com a assinatura em relevo dourado">
+              <picture><source type="image/avif" srcset="assets/img/g-025-800.avif 800w, assets/img/g-025-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-025-800.webp" srcset="assets/img/g-025-800.webp 800w, assets/img/g-025-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Caderno em couro com a assinatura em relevo dourado"></picture>
+              <span class="gal__label">Papelaria</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--w fx" style="--d:0.05s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-028-1600.webp" data-caption="Porta-copos" aria-label="Ampliar: Porta-copos com a gravura do ramo e a assinatura">
+              <picture><source type="image/avif" srcset="assets/img/g-028-800.avif 800w, assets/img/g-028-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-028-800.webp" srcset="assets/img/g-028-800.webp 800w, assets/img/g-028-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Porta-copos com a gravura do ramo e a assinatura"></picture>
+              <span class="gal__label">Porta-copos</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.10s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-034-1600.webp" data-caption="Digital" aria-label="Ampliar: Celular exibindo a identidade digital da marca">
+              <picture><source type="image/avif" srcset="assets/img/g-034-800.avif 800w, assets/img/g-034-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-034-800.webp" srcset="assets/img/g-034-800.webp 800w, assets/img/g-034-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Celular exibindo a identidade digital da marca"></picture>
+              <span class="gal__label">Digital</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--w fx" style="--d:0.15s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-038-1600.webp" data-caption="Ponto de venda" aria-label="Ampliar: Expositor com embalagens Família Nardi">
+              <picture><source type="image/avif" srcset="assets/img/g-038-800.avif 800w, assets/img/g-038-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-038-800.webp" srcset="assets/img/g-038-800.webp 800w, assets/img/g-038-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Expositor com embalagens Família Nardi"></picture>
+              <span class="gal__label">Ponto de venda</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.00s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-039-1600.webp" data-caption="Painel" aria-label="Ampliar: Painel vertical com a embalagem e a frase da marca">
+              <picture><source type="image/avif" srcset="assets/img/g-039-800.avif 800w, assets/img/g-039-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-039-800.webp" srcset="assets/img/g-039-800.webp 800w, assets/img/g-039-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Painel vertical com a embalagem e a frase da marca"></picture>
+              <span class="gal__label">Painel</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--w fx" style="--d:0.05s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-042-1600.webp" data-caption="Fachada" aria-label="Ampliar: Fachada com a assinatura Família Nardi">
+              <picture><source type="image/avif" srcset="assets/img/g-042-800.avif 800w, assets/img/g-042-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-042-800.webp" srcset="assets/img/g-042-800.webp 800w, assets/img/g-042-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Fachada com a assinatura Família Nardi"></picture>
+              <span class="gal__label">Fachada</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.10s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-027-1600.webp" data-caption="Fotografia" aria-label="Ampliar: Bastidores de uma sessão de fotos da embalagem">
+              <picture><source type="image/avif" srcset="assets/img/g-027-800.avif 800w, assets/img/g-027-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-027-800.webp" srcset="assets/img/g-027-800.webp 800w, assets/img/g-027-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Bastidores de uma sessão de fotos da embalagem"></picture>
+              <span class="gal__label">Fotografia</span>
+            </button>
+          </li>
+          <li class="gal__item gal__item--s fx" style="--d:0.15s">
+            <button type="button" class="gal__btn" data-full="assets/img/g-026-1600.webp" data-caption="Embalagem" aria-label="Ampliar: Embalagem sobre fundo cobre">
+              <picture><source type="image/avif" srcset="assets/img/g-026-800.avif 800w, assets/img/g-026-1600.avif 1600w" sizes="(max-width: 860px) 100vw, 50vw"><img src="assets/img/g-026-800.webp" srcset="assets/img/g-026-800.webp 800w, assets/img/g-026-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 50vw" width="800" height="450" loading="lazy" decoding="async" alt="Embalagem sobre fundo cobre"></picture>
+              <span class="gal__label">Embalagem</span>
+            </button>
+          </li>
+        </ul>
+        <p class="gallery__note">Aplicações conceituais da identidade visual Família Nardi.</p>
+      </div>
+    </section>
+
     <!-- A EXPERIÊNCIA -->
     <section class="experience on-dark" id="experiencia" aria-labelledby="experiencia-title">
       <div class="container">
@@ -477,9 +565,9 @@
             </div>
           </div>
           <picture class="contact__bag">
-            <source type="image/avif" srcset="assets/img/bag-front-420.avif 420w, assets/img/bag-front-554.avif 554w" sizes="(max-width: 860px) 180px, 24vw">
-            <img src="assets/img/bag-front-554.webp" srcset="assets/img/bag-front-420.webp 420w, assets/img/bag-front-554.webp 554w" sizes="(max-width: 860px) 180px, 24vw"
-                 width="554" height="993" loading="lazy" decoding="async" alt="Embalagem do Café Arábica Família Nardi">
+            <source type="image/avif" srcset="assets/img/pack-front-420.avif 420w, assets/img/pack-front-630.avif 630w" sizes="(max-width: 860px) 180px, 24vw">
+            <img src="assets/img/pack-front-630.webp" srcset="assets/img/pack-front-420.webp 420w, assets/img/pack-front-630.webp 630w" sizes="(max-width: 860px) 180px, 24vw"
+                 width="630" height="1041" loading="lazy" decoding="async" alt="Embalagem do Café Arábica Família Nardi em três quartos, com a lateral azul">
           </picture>
         </div>
       </div>
@@ -512,6 +600,7 @@
               <li><a href="#essencia">Nossa Essência</a></li>
               <li><a href="#nosso-cafe">Nosso Café</a></li>
               <li><a href="#embalagem-360">Embalagem 360°</a></li>
+              <li><a href="#aplicacoes">A marca em aplicações</a></li>
               <li><a href="politica-de-privacidade.html">Política de privacidade</a></li>
             </ul>
           </nav>
@@ -537,6 +626,16 @@
       </div>
     </div>
   </footer>
+
+  <dialog class="lightbox" aria-label="Imagem ampliada">
+    <figure class="lightbox__fig">
+      <img class="lightbox__img" src="" alt="">
+      <figcaption class="lightbox__cap"></figcaption>
+    </figure>
+    <button type="button" class="lightbox__nav lightbox__prev" data-lb="-1" aria-label="Imagem anterior">‹</button>
+    <button type="button" class="lightbox__nav lightbox__next" data-lb="1" aria-label="Próxima imagem">›</button>
+    <button type="button" class="lightbox__close" aria-label="Fechar">×</button>
+  </dialog>
 
   <a class="wa-float" href="https://wa.me/554284043000?text=Ol%C3%A1!%20Gostaria%20de%20conhecer%20o%20caf%C3%A9%20Fam%C3%ADlia%20Nardi%20e%20consultar%20as%20op%C3%A7%C3%B5es%20de%20encomenda." target="_blank" rel="noopener" aria-label="Solicitar uma encomenda pelo WhatsApp (abre em nova aba)">
     <span class="wa-float__icon"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
