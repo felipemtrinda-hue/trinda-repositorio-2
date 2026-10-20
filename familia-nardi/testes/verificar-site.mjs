@@ -16,6 +16,7 @@ await new Promise((r) => setTimeout(r, 800));
 
 const NUMBER = "554284043000";
 const MSG_ORDER = "Olá! Gostaria de conhecer o café Família Nardi e consultar as opções de encomenda.";
+const MSG_REVIEW = "Olá! Provei o café Família Nardi e quero deixar minha avaliação: ";
 const MSG_RESELL = "Olá! Tenho interesse em comercializar o café na minha loja e gostaria de conhecer as condições para me tornar revendedor.";
 const PAGES = ["index.html", "revendedor.html", "politica-de-privacidade.html", "404.html"];
 const WIDTHS = [320, 375, 390, 430, 768, 1024, 1280, 1440, 1920];
@@ -48,7 +49,7 @@ try {
     for (const l of links.filter((l) => l.href.includes("wa.me"))) {
       const u = new URL(l.href);
       const text = u.searchParams.get("text");
-      check(u.pathname === `/${NUMBER}` && (text === null || text === MSG_ORDER || text === MSG_RESELL), `${p}: WhatsApp válido (${text ? text.slice(0, 32) + "…" : "sem mensagem"})`);
+      check(u.pathname === `/${NUMBER}` && (text === null || [MSG_ORDER, MSG_RESELL, MSG_REVIEW].includes(text)), `${p}: WhatsApp válido (${text ? text.slice(0, 32) + "…" : "sem mensagem"})`);
       check(l.target !== "_blank" || /noopener/.test(l.rel), `${p}: link externo com rel=noopener`);
     }
     for (const l of links.filter((l) => /\.html/.test(l.href) && !l.href.startsWith("http"))) {
@@ -84,12 +85,8 @@ try {
   await d.goto(BASE, { waitUntil: "networkidle" });
   const cta = await d.$eval(".nav__actions .pill", (a) => a.textContent.trim());
   check(cta === "Solicitar encomenda", `CTA do topo: "${cta}"`);
-  await d.click(".gal__btn >> nth=0");
-  check(await d.$eval(".lightbox", (el) => el.open), "galeria abre a imagem ampliada");
-  await d.keyboard.press("ArrowRight");
-  check((await d.$eval(".lightbox__cap", (el) => el.textContent)).includes("2/"), "galeria avança com a seta");
-  await d.keyboard.press("Escape");
-  check(!(await d.$eval(".lightbox", (el) => el.open)), "galeria fecha com Esc");
+  check(await d.isVisible("#avaliacoes"), "seção de avaliações visível");
+  check(await d.$eval("#avaliacoes .reviews__list", (el) => el.hidden), "cartões de avaliação ocultos até haver depoimentos reais");
   await d.close();
 } finally {
   await browser.close();

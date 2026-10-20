@@ -114,3 +114,10 @@ Todas as imagens exibidas foram verificadas: arquivo real × tamanho renderizado
 | P3 | Confirmar 250 g, perfil sensorial e redes sociais | Blocos marcados com `EDITAR`. |
 | P3 | Arte do verso e da lateral para o 360° | O verso está liso e a lateral mostra só a frase. |
 | P3 | Decidir sobre fotos de banco (Adobe Stock) | Você pediu para voltar à versão sem banco; o briefing sugere usar. |
+
+## Atualização posterior (mesma data)
+- Seção da key visual reescrita como **"Para os momentos que ficam."**, com a frase da marca no texto corrido.
+- Seção **Avaliações** visível, com convite para enviar avaliação pelo WhatsApp. Os cartões com os 9 nomes seguem ocultos até haver depoimentos reais e autorizados.
+- Removida a seção "A marca em aplicações" e a imagem ampliada (a pedido).
+- "Do cafeeiro à xícara" agora usa fotos reais (quadros em 1080 px de vídeos do Adobe Stock licenciados; IDs no README).
+- Modelo 3D: a lateral passou a usar a arte real da embalagem (frase + bloco de texto), retificada do render oficial `4.webp`.

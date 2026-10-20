@@ -89,8 +89,10 @@ export async function mountViewer(root) {
   const front = await loader.loadAsync(root.dataset.front);
   front.colorSpace = THREE.SRGBColorSpace;
   front.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  const side = new THREE.CanvasTexture(sideTexture());
+  // lateral: arte real da embalagem (frase e texto), retificada a partir do render oficial
+  const side = root.dataset.side ? await loader.loadAsync(root.dataset.side) : new THREE.CanvasTexture(sideTexture());
   side.colorSpace = THREE.SRGBColorSpace;
+  side.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
   const foil = { roughness: 0.32, metalness: 0.15, clearcoat: 0.7, clearcoatRoughness: 0.22, envMapIntensity: 0.9 };
   const black = new THREE.MeshPhysicalMaterial({ color: "#0e0d0c", ...foil });
