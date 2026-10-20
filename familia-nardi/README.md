@@ -10,6 +10,26 @@ Para ver localmente: `python3 -m http.server` dentro desta pasta → http://loca
 - `assets/js/viewer360.js` — modelo 3D da embalagem (Three.js r170, em `assets/vendor/three`, licença MIT). Carregado só quando a seção se aproxima da tela.
 - `assets/brand/` — logo e símbolo oficiais vetorizados.
 
+## Vídeos (plantação, cafeeiro, fruto, grão, xícara)
+O site já tem cinco espaços para vídeo. Eles só carregam quando o arquivo existe e a seção se aproxima da tela; sem arquivo, aparece a imagem/gravura atual.
+
+| Nome | Onde aparece | Sugestão |
+|---|---|---|
+| `plantacao` | Faixa "Cada xícara começa no campo" (tela cheia) | plantação de café arábica, 8–12 s, horizontal |
+| `cafeeiro` | Card 01 | ramos e folhas do cafeeiro balançando |
+| `fruto` | Card 02 | frutos maduros (vermelhos) no pé ou na colheita |
+| `grao` | Card 03 | grãos torrados caindo ou sendo moídos |
+| `xicara` | Card 04 | café sendo servido, vapor na xícara |
+
+Para preparar cada vídeo (gera `.mp4` e `.webm` leves, sem áudio, em `assets/video/`):
+
+```bash
+ferramentas/preparar-video.sh ~/Downloads/fazenda.mp4 plantacao
+ferramentas/preparar-video.sh ~/Downloads/frutos.mp4 fruto 960 8
+```
+
+Prefira vídeos próprios da família/fazenda. Se usar banco de imagens (Pexels, Pixabay), confira a licença de uso comercial.
+
 ## Pendências (procure por `EDITAR` no HTML)
 - Domínio definitivo (canonical, Open Graph, sitemap.xml, robots.txt).
 - Arte do verso e texto completo da lateral da embalagem para o modelo 3D (hoje o verso é preto liso e a lateral mostra só a frase "Alguns cafés despertam, outros permanecem.").

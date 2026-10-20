@@ -9,6 +9,31 @@
 
   function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
 
+  /* Títulos: palavras em máscara --------------------------------------- */
+  if (!reduce) {
+    document.querySelectorAll(".headline.fx").forEach(function (h) {
+      var i = 0, frag = document.createDocumentFragment();
+      Array.prototype.slice.call(h.childNodes).forEach(function (node) {
+        var isEm = node.nodeType === 1 && node.tagName === "EM";
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+          var outer = document.createElement("span"), inner = document.createElement("span");
+          outer.className = "hw";
+          inner.style.setProperty("--i", i++);
+          if (isEm) { var em = document.createElement("em"); em.textContent = part; inner.appendChild(em); }
+          else inner.textContent = part;
+          outer.appendChild(inner);
+          frag.appendChild(outer);
+        });
+      });
+      h.setAttribute("aria-label", h.textContent);
+      h.textContent = "";
+      h.appendChild(frag);
+      h.classList.add("split");
+    });
+  }
+
   /* Entrada dos elementos ----------------------------------------------- */
   var fx = document.querySelectorAll(".fx");
   if ("IntersectionObserver" in window && !reduce) {
@@ -101,6 +126,25 @@
   }
 
   var progressEls = document.querySelectorAll("[data-progress]");
+
+  /* Jornada: altura da seção = distância horizontal a percorrer --------- */
+  var journey = document.querySelector(".journey");
+  var journeyTrack = journey && journey.querySelector(".journey__track");
+  var journeyBar = journey && journey.querySelector(".journey__bar");
+  var journeyDistance = 0, journeyActive = false;
+  var desktop = window.matchMedia("(min-width: 861px)");
+  function measureJourney() {
+    if (!journey) return;
+    journeyActive = desktop.matches && !reduce;
+    if (!journeyActive) { journey.style.height = ""; journeyTrack.style.removeProperty("--jx"); return; }
+    var pin = journey.querySelector(".journey__pin");
+    var trackRight = journeyTrack.offsetLeft + journeyTrack.scrollWidth;
+    journeyDistance = Math.max(0, trackRight - pin.clientWidth);
+    journey.style.height = (window.innerHeight + journeyDistance) + "px";
+  }
+  measureJourney();
+  window.addEventListener("resize", measureJourney);
+  window.addEventListener("load", measureJourney);
   var tiles = document.querySelectorAll("[data-glow]");
 
   /* Loop de rolagem ------------------------------------------------------ */
@@ -116,9 +160,12 @@
     progressEls.forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.bottom < -50 || r.top > vh + 50) return;
+      var mode = el.getAttribute("data-progress");
       var p = el.classList.contains("zoom")
         ? clamp((vh - r.top) / (vh * 0.85), 0, 1)
-        : clamp(-r.top / (r.height * 0.9) + 0.0, 0, 1);
+        : mode === "through"
+          ? clamp((vh - r.top) / (vh + r.height), 0, 1)
+          : clamp(-r.top / (r.height * 0.9), 0, 1);
       el.style.setProperty("--p", p.toFixed(4));
     });
 
@@ -129,6 +176,13 @@
       words.forEach(function (w, i) {
         w.style.setProperty("--o", (0.16 + 0.84 * clamp(wp * n * 1.15 - i, 0, 1)).toFixed(3));
       });
+    }
+
+    if (journey && journeyActive) {
+      var jr = journey.getBoundingClientRect();
+      var jp = clamp(-jr.top / (jr.height - vh), 0, 1);
+      journeyTrack.style.setProperty("--jx", (-jp * journeyDistance).toFixed(1) + "px");
+      journeyBar.style.setProperty("--jp", jp.toFixed(4));
     }
 
     if (story) {
@@ -177,6 +231,56 @@
     track.addEventListener("scroll", syncBtns, { passive: true });
     window.addEventListener("resize", syncBtns);
     syncBtns();
+  }
+
+  /* Vídeos: só carregam se o arquivo existir e quando a seção se aproxima */
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var videos = document.querySelectorAll("video[data-video]");
+  if (videos.length && "IntersectionObserver" in window && !reduce && !saveData) {
+    var vplay = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (!v.classList.contains("is-playing")) return;
+        if (e.isIntersecting) v.play().catch(function () {}); else v.pause();
+      });
+    }, { threshold: 0.15 });
+    var vload = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var v = e.target, base = v.getAttribute("data-video");
+        vload.unobserve(v);
+        fetch(base + ".mp4", { method: "HEAD" }).then(function (res) {
+          if (!res.ok) return;
+          var webm = document.createElement("source");
+          webm.src = base + ".webm"; webm.type = "video/webm";
+          var mp4 = document.createElement("source");
+          mp4.src = base + ".mp4"; mp4.type = "video/mp4";
+          v.append(webm, mp4);
+          v.addEventListener("canplay", function () {
+            v.classList.add("is-playing");
+            var host = v.closest(".cinema");
+            if (host) host.classList.add("has-video");
+            v.play().catch(function () {});
+            vplay.observe(v);
+          }, { once: true });
+          v.load();
+        }).catch(function () {});
+      });
+    }, { rootMargin: "400px 0px" });
+    videos.forEach(function (v) { vload.observe(v); });
+  }
+
+  /* Botões magnéticos (mouse) ------------------------------------------- */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduce) {
+    document.querySelectorAll(".pill:not(.pill--sm)").forEach(function (b) {
+      b.addEventListener("pointermove", function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) / r.width;
+        var y = (e.clientY - r.top - r.height / 2) / r.height;
+        b.style.translate = (x * 8).toFixed(1) + "px " + (y * 6).toFixed(1) + "px";
+      });
+      b.addEventListener("pointerleave", function () { b.style.translate = ""; });
+    });
   }
 
   /* Visualizador 360° (carregado sob demanda) ---------------------------- */

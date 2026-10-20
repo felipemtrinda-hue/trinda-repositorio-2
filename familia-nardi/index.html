@@ -76,6 +76,7 @@
           <li><a href="#inicio">Início</a></li>
           <li><a href="#essencia">Nossa Essência</a></li>
           <li><a href="#nosso-cafe">Nosso Café</a></li>
+          <li><a href="#origem">Origem</a></li>
           <li><a href="#embalagem-360">360°</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
@@ -94,6 +95,7 @@
         <li><a href="#inicio">Início</a></li>
         <li><a href="#essencia">Nossa Essência</a></li>
         <li><a href="#nosso-cafe">Nosso Café</a></li>
+        <li><a href="#origem">Origem</a></li>
         <li><a href="#embalagem-360">Embalagem 360°</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -108,6 +110,7 @@
 
     <!-- HERO -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <span class="aurora" aria-hidden="true"><i></i><i></i><i></i></span>
       <div class="container">
         <p class="kicker fx">Café arábica · 100% natural</p>
         <h1 class="headline hero__title fx" id="hero-title" style="--d:.08s">O extraordinário começa na <em>origem.</em></h1>
@@ -140,6 +143,70 @@
         <span>Sabor</span><span>Equilíbrio</span><span>Origem</span><span>Família Nardi</span><span>Café especial</span>
       </div>
     </div>
+
+    <!-- ORIGEM: faixa cinematográfica (vídeo da plantação) -->
+    <!-- VÍDEO: coloque assets/video/plantacao.mp4 e .webm (veja ferramentas/preparar-video.sh). Sem o arquivo, a faixa mostra a gravura animada. -->
+    <section class="cinema on-dark" id="origem" aria-labelledby="cinema-title" data-progress="through">
+      <video class="cinema__video" data-video="assets/video/plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <span class="cinema__branch" aria-hidden="true"></span>
+      <div class="container cinema__content">
+        <p class="kicker fx">Café arábica</p>
+        <h2 class="headline cinema__title fx" id="cinema-title" style="--d:.08s">Cada xícara começa <em>no campo.</em></h2>
+        <p class="sub fx" style="--d:.16s">Antes do aroma e do primeiro gole, existe o cafeeiro, o tempo e o cuidado de quem cultiva.</p>
+      </div>
+    </section>
+
+    <!-- DO CAFEEIRO À XÍCARA (rolagem horizontal no desktop) -->
+    <section class="journey" aria-labelledby="journey-title">
+      <div class="journey__pin">
+        <div class="journey__track">
+        <div class="journey__intro">
+          <p class="kicker">Do cafeeiro à xícara</p>
+          <h2 class="headline headline--md" id="journey-title">Quatro tempos de um <em>café arábica.</em></h2>
+          <p class="sub">Role ou deslize para acompanhar o caminho.</p>
+        </div>
+        <ol class="journey__cards">
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-cafeeiro-900.avif"><img src="assets/img/step-cafeeiro-900.webp" width="900" height="480" loading="lazy" decoding="async" alt="Gravura de um ramo de cafeeiro com frutos, em marfim sobre azul"></picture>
+              <video data-video="assets/video/cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">01</p>
+            <h3 class="jcard__title">O cafeeiro</h3>
+            <p class="jcard__text">A espécie <em>Coffea arabica</em>, base dos cafés especiais.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-fruto-660.avif"><img src="assets/img/step-fruto-660.webp" width="660" height="432" loading="lazy" decoding="async" alt="Folhas e frutos vermelhos de café ao lado de grãos torrados"></picture>
+              <video data-video="assets/video/fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">02</p>
+            <h3 class="jcard__title">O fruto</h3>
+            <p class="jcard__text">Frutos maduros guardam os grãos que darão origem ao café.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-grao-560.avif"><img src="assets/img/step-grao-560.webp" width="560" height="560" loading="lazy" decoding="async" alt="Grãos de café torrados suspensos no ar"></picture>
+              <video data-video="assets/video/grao" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">03</p>
+            <h3 class="jcard__title">O grão</h3>
+            <p class="jcard__text">Depois de seco e torrado, o grão revela o seu aroma.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-xicara-500.avif"><img src="assets/img/step-xicara-500.webp" width="500" height="500" loading="lazy" decoding="async" alt="Xícara de café vista de cima, cercada por folhas de cafeeiro"></picture>
+              <video data-video="assets/video/xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">04</p>
+            <h3 class="jcard__title">A xícara</h3>
+            <p class="jcard__text">O momento de apreciar tudo o que veio antes.</p>
+          </li>
+        </ol>
+        </div>
+        <div class="journey__bar" aria-hidden="true"><i></i></div>
+      </div>
+    </section>
 
     <!-- MANIFESTO -->
     <!-- EDITAR: texto conceitual proposto como ponto de partida; pode ser ajustado pela empresa. -->
