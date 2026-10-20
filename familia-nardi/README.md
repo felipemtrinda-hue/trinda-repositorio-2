@@ -4,6 +4,10 @@ Site estático (HTML + CSS + JS, sem build). Publique o conteúdo desta pasta em
 Para ver localmente: `python3 -m http.server` dentro desta pasta → http://localhost:8000 (o visualizador 3D precisa de servidor; não abre via `file://`).
 
 ## Estrutura
+- `revendedor.html` — página "Seja um revendedor" (WhatsApp com mensagem de revenda).
+- `404.html` — página de erro.
+- `testes/verificar-site.mjs` — verificação automatizada (links, WhatsApp, menu, galeria, larguras, cores). Rode com `node testes/verificar-site.mjs` (requer Playwright).
+- `AUDITORIA.md` — relatório da última auditoria.
 - `index.html` — barra de aviso, navegação, hero, manifesto, Sabor·Equilíbrio·Origem (rolagem fixada), Nosso Café (bento), Embalagem 360°, Essência e valores, Experiência, Contato, rodapé, WhatsApp flutuante.
 - `assets/css/styles.css` — paleta em variáveis no topo.
 - `assets/js/main.js` — navegação, animações de rolagem, carrossel.

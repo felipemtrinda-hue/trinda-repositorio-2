@@ -12,6 +12,7 @@
   /* Títulos: palavras em máscara --------------------------------------- */
   if (!reduce) {
     document.querySelectorAll(".headline.fx").forEach(function (h) {
+      if (h.closest(".hero")) return; // título inicial sem divisão: evita deslocamento de layout (CLS) no carregamento
       var i = 0, frag = document.createDocumentFragment();
       Array.prototype.slice.call(h.childNodes).forEach(function (node) {
         var isEm = node.nodeType === 1 && node.tagName === "EM";
@@ -71,7 +72,7 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && sheet.classList.contains("is-open")) { setMenu(false); btn.focus(); }
     });
-    window.matchMedia("(min-width: 861px)").addEventListener("change", function (m) { if (m.matches) setMenu(false); });
+    window.matchMedia("(min-width: 1181px)").addEventListener("change", function (m) { if (m.matches) setMenu(false); });
   }
 
   /* Link ativo ----------------------------------------------------------- */
@@ -116,7 +117,7 @@
   var steps = story ? story.querySelectorAll(".step") : [];
   var dots = story ? story.querySelectorAll(".story__dots i") : [];
   var storyBag = story && story.querySelector(".story__bag");
-  var palette = [[20, 17, 15], [23, 28, 107], [142, 34, 51]]; // preto café → azul → bordô
+  var palette = [[20, 17, 15], [23, 28, 107], [92, 59, 30]]; // preto café → azul → cobre escuro
   function mix(a, b, t) { return a.map(function (v, i) { return Math.round(v + (b[i] - v) * t); }); }
   function storyColor(p) {
     var seg = p * 3;
@@ -145,7 +146,6 @@
   measureJourney();
   window.addEventListener("resize", measureJourney);
   window.addEventListener("load", measureJourney);
-  var tiles = document.querySelectorAll("[data-glow]");
 
   /* Loop de rolagem ------------------------------------------------------ */
   var ticking = false;
@@ -205,15 +205,6 @@
   update();
   if (reduce) words.forEach(function (w) { w.style.setProperty("--o", 1); });
 
-  /* Luz que acompanha o cursor nos cards --------------------------------- */
-  tiles.forEach(function (t) {
-    t.addEventListener("pointermove", function (e) {
-      var r = t.getBoundingClientRect();
-      t.style.setProperty("--mx", (e.clientX - r.left) + "px");
-      t.style.setProperty("--my", (e.clientY - r.top) + "px");
-    });
-  });
-
   /* Carrossel de valores ------------------------------------------------- */
   var track = document.querySelector("[data-values-track]");
   var vBtns = document.querySelectorAll("[data-values]");
@@ -269,19 +260,6 @@
       });
     }, { rootMargin: "400px 0px" });
     videos.forEach(function (v) { vload.observe(v); });
-  }
-
-  /* Botões magnéticos (mouse) ------------------------------------------- */
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduce) {
-    document.querySelectorAll(".pill:not(.pill--sm)").forEach(function (b) {
-      b.addEventListener("pointermove", function (e) {
-        var r = b.getBoundingClientRect();
-        var x = (e.clientX - r.left - r.width / 2) / r.width;
-        var y = (e.clientY - r.top - r.height / 2) / r.height;
-        b.style.translate = (x * 8).toFixed(1) + "px " + (y * 6).toFixed(1) + "px";
-      });
-      b.addEventListener("pointerleave", function () { b.style.translate = ""; });
-    });
   }
 
   /* Visualizador 360° (carregado sob demanda) ---------------------------- */
