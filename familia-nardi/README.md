@@ -1,20 +1,17 @@
 # Família Nardi — Website institucional
 
-Site estático (HTML + CSS + JS puro, sem build). Para publicar, envie o conteúdo desta pasta para qualquer hospedagem estática (Netlify, Vercel, GitHub Pages, cPanel).
-
-Para visualizar localmente: `python3 -m http.server` dentro desta pasta e abrir http://localhost:8000.
+Site estático (HTML + CSS + JS, sem build). Publique o conteúdo desta pasta em qualquer hospedagem estática (Netlify, Vercel, GitHub Pages, cPanel).
+Para ver localmente: `python3 -m http.server` dentro desta pasta → http://localhost:8000 (o visualizador 3D precisa de servidor; não abre via `file://`).
 
 ## Estrutura
-- `index.html` — página única: header, hero, manifesto, nosso café, essência, experiência, contato, rodapé e botão flutuante do WhatsApp.
-- `politica-de-privacidade.html` — política (LGPD) básica; revisar com o jurídico.
-- `assets/css/styles.css` — paleta em variáveis no topo (`--coffee`, `--bordeaux`, `--ivory`, `--copper`).
-- `assets/js/main.js` — cabeçalho, menu mobile, revelações, parallax.
-- `assets/brand/` — logo oficial e símbolo vetorizados a partir dos arquivos da marca.
-- `assets/img/` — fotos do manual de marca em AVIF/WebP responsivos.
+- `index.html` — barra de aviso, navegação, hero, manifesto, Sabor·Equilíbrio·Origem (rolagem fixada), Nosso Café (bento), Embalagem 360°, Essência e valores, Experiência, Contato, rodapé, WhatsApp flutuante.
+- `assets/css/styles.css` — paleta em variáveis no topo.
+- `assets/js/main.js` — navegação, animações de rolagem, carrossel.
+- `assets/js/viewer360.js` — modelo 3D da embalagem (Three.js r170, em `assets/vendor/three`, licença MIT). Carregado só quando a seção se aproxima da tela.
+- `assets/brand/` — logo e símbolo oficiais vetorizados.
 
-## Pendências de conteúdo (procure por `EDITAR` no HTML)
+## Pendências (procure por `EDITAR` no HTML)
 - Domínio definitivo (canonical, Open Graph, sitemap.xml, robots.txt).
-- Confirmar a embalagem de 250 g como apresentação vigente.
-- Características sensoriais confirmadas (torra, perfil, moagem) — bloco comentado em "Nosso café".
-- História real da família e fotografia autêntica (família/produção/origem) em "Nossa essência".
-- Perfis oficiais nas redes sociais (coluna comentada no rodapé).
+- Arte do verso e texto completo da lateral da embalagem para o modelo 3D (hoje o verso é preto liso e a lateral mostra só a frase "Alguns cafés despertam, outros permanecem.").
+- Confirmar a embalagem de 250 g; características sensoriais confirmadas.
+- História real e foto autêntica da família; perfis de redes sociais.
