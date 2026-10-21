@@ -1064,6 +1064,65 @@ video[data-video].is-playing { opacity: 1; }
 @media (max-width: 1024px) { .where__grid { grid-template-columns: 1fr; } .where__map { order: -1; } }
 @media (prefers-reduced-motion: reduce) { .js .where__map.fx .pin { opacity: 1; translate: none; } }
 
+
+/* Chamadas do hero: sem caixa, tipográficas ------------------------------ */
+.hero__cta { gap: 1rem 2.5rem; margin-top: 2.5rem; }
+.cta-orb {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  height: 58px;
+  padding-right: 1.6rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  isolation: isolate;
+}
+.cta-orb::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: -1;
+  width: 58px;
+  border-radius: 999px;
+  background: var(--navy);
+  transition: width 0.5s cubic-bezier(0.65, 0, 0.25, 1);
+}
+.cta-orb__icon { display: grid; place-items: center; width: 58px; height: 58px; flex: none; color: var(--white); }
+.cta-orb__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s cubic-bezier(0.65, 0, 0.25, 1); }
+.cta-orb__text { transition: color 0.35s var(--ease) 0.05s; }
+.cta-orb:hover::before, .cta-orb:focus-visible::before { width: 100%; }
+.cta-orb:hover .cta-orb__text, .cta-orb:focus-visible .cta-orb__text { color: var(--white); }
+.cta-orb:hover .cta-orb__icon svg { transform: translateX(3px); }
+.cta-orb:active::before { transform: scale(0.98); }
+.cta-orb:focus-visible { outline-offset: 6px; border-radius: 999px; }
+
+.cta-line {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.375rem;
+  color: var(--ink);
+}
+.cta-line span { position: relative; }
+.cta-line span::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--copper);
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.25, 1);
+}
+.cta-line:hover span::after, .cta-line:focus-visible span::after { transform: scaleX(1); }
+@media (max-width: 560px) { .hero__cta { flex-direction: column; gap: 0.75rem; } }
+
 /* Responsivo ------------------------------------------------------------- */
 @media (max-width: 1180px) {
   .nav__links, .nav__actions .pill { display: none; }
