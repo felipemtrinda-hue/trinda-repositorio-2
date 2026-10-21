@@ -219,28 +219,31 @@
     </section>
 
     <!-- MOMENTOS: key visual + a frase da marca usada no texto -->
-    <section class="feature" aria-labelledby="feature-title" data-progress="through">
-      <div class="feature__panel on-dark">
-        <p class="kicker fx">Momentos à mesa</p>
-        <h2 class="feature__title headline fx" id="feature-title" style="--d:.08s">Para os momentos <em>que ficam.</em></h2>
-        <span class="feature__rule" aria-hidden="true"></span>
-        <p class="feature__text fx" style="--d:.16s">Alguns cafés despertam, outros permanecem. O Família Nardi é daqueles que ficam: na conversa sem pressa, na pausa que se estende, no encontro que vale a pena lembrar.</p>
-        <ul class="moments fx" style="--d:.24s">
-          <li>A primeira xícara da manhã</li>
-          <li>A conversa à mesa</li>
-          <li>O fim de tarde sem pressa</li>
-        </ul>
-        <a class="more feature__more fx" style="--d:.3s" href="#nosso-cafe">Conheça nosso café</a>
-      </div>
-      <div class="feature__media">
-        <picture>
-          <source media="(max-width: 860px)" type="image/avif" srcset="assets/img/feature-m-600.avif 600w, assets/img/feature-m-980.avif 980w" sizes="100vw">
-          <source media="(max-width: 860px)" type="image/webp" srcset="assets/img/feature-m-600.webp 600w, assets/img/feature-m-980.webp 980w" sizes="100vw">
-          <source type="image/avif" srcset="assets/img/feature-960.avif 960w, assets/img/feature-1440.avif 1440w, assets/img/feature-1920.avif 1920w" sizes="62vw">
-          <img src="assets/img/feature-1440.webp" srcset="assets/img/feature-960.webp 960w, assets/img/feature-1440.webp 1440w, assets/img/feature-1920.webp 1920w" sizes="62vw"
-               width="1920" height="1080" loading="lazy" decoding="async"
-               alt="Embalagem do café Família Nardi entre grãos de café torrados em movimento, sob luz quente">
-        </picture>
+    <section class="feature on-dark" aria-labelledby="feature-title" data-progress="through">
+      <div class="container container--wide feature__grid">
+        <figure class="feature__media fx">
+          <div class="feature__frame">
+            <picture>
+              <source type="image/avif" srcset="assets/img/feature-960.avif 960w, assets/img/feature-1440.avif 1440w, assets/img/feature-1920.avif 1920w" sizes="(max-width: 1024px) 100vw, 64vw">
+              <img src="assets/img/feature-1440.webp" srcset="assets/img/feature-960.webp 960w, assets/img/feature-1440.webp 1440w, assets/img/feature-1920.webp 1920w" sizes="(max-width: 1024px) 100vw, 64vw"
+                   width="1920" height="1080" loading="lazy" decoding="async"
+                   alt="Embalagem do café Família Nardi entre grãos de café torrados em movimento, sob luz quente">
+            </picture>
+          </div>
+          <figcaption class="feature__caption"><span>Café arábica · 100% natural</span><span>250 g</span></figcaption>
+        </figure>
+        <div class="feature__panel">
+          <p class="kicker fx">Momentos à mesa</p>
+          <h2 class="feature__title headline fx" id="feature-title" style="--d:.08s">Para os momentos <em>que ficam.</em></h2>
+          <span class="feature__rule" aria-hidden="true"></span>
+          <p class="feature__text fx" style="--d:.16s">Alguns cafés despertam, outros permanecem. O Família Nardi é daqueles que ficam: na conversa sem pressa, na pausa que se estende, no encontro que vale a pena lembrar.</p>
+          <ul class="moments fx" style="--d:.24s">
+            <li>A primeira xícara da manhã</li>
+            <li>A conversa à mesa</li>
+            <li>O fim de tarde sem pressa</li>
+          </ul>
+          <a class="more feature__more fx" style="--d:.3s" href="#nosso-cafe">Conheça nosso café</a>
+        </div>
       </div>
     </section>
 
