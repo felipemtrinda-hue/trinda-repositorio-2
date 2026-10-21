@@ -44,6 +44,9 @@ Prefira vídeos próprios da família/fazenda. Se usar banco de imagens (Pexels,
 | `step-grao` | 472143423 |
 | `step-xicara` | 525370684 |
 
+## Mapa "Onde estamos"
+Contorno dos estados do pacote `@svg-maps/brazil` 2.0.0 (licença CC BY 4.0; crédito exibido abaixo do mapa). Estados e pins ficam direto no SVG do `index.html` (`data-uf="mg|sp|pr|sc"`); o pin de Minas está em Araguari.
+
 ## Pendências (procure por `EDITAR` no HTML)
 - Domínio definitivo (canonical, Open Graph, sitemap.xml, robots.txt).
 - Arte do verso e texto completo da lateral da embalagem para o modelo 3D (hoje o verso é preto liso e a lateral mostra só a frase "Alguns cafés despertam, outros permanecem.").

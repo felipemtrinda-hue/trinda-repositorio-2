@@ -275,6 +275,19 @@
     vio.observe(viewer);
   }
 
+  /* Mapa: destaca o estado ao passar pela lista ou pelo mapa ------------- */
+  var where = document.querySelector(".where");
+  if (where) {
+    var hot = function (uf, on) {
+      where.querySelectorAll('[data-uf="' + uf + '"]').forEach(function (el) { el.classList.toggle("is-hot", on); });
+    };
+    where.querySelectorAll("[data-uf]").forEach(function (el) {
+      var uf = el.getAttribute("data-uf");
+      ["mouseenter", "focus"].forEach(function (ev) { el.addEventListener(ev, function () { hot(uf, true); }); });
+      ["mouseleave", "blur"].forEach(function (ev) { el.addEventListener(ev, function () { hot(uf, false); }); });
+    });
+  }
+
   /* WhatsApp flutuante e ano --------------------------------------------- */
   var wa = document.querySelector(".wa-float");
   if (wa) setTimeout(function () { wa.classList.add("is-in"); }, reduce ? 0 : 1400);
