@@ -143,146 +143,10 @@
       <li class="perk fx" style="--d:.18s"><svg class="perk__icon" aria-hidden="true"><use href="#ic-chat"/></svg><p class="perk__title">Atendimento direto</p><p class="perk__text">Fale com a família pelo WhatsApp.</p></li>
     </ul>
 
-    <!-- ORIGEM: faixa cinematográfica (vídeo da plantação) -->
-    <!-- VÍDEO: coloque assets/video/plantacao.mp4 e .webm (veja ferramentas/preparar-video.sh). Sem o arquivo, a faixa mostra a gravura animada. -->
-    <section class="cinema on-dark" id="origem" aria-labelledby="cinema-title" data-progress="through">
-      <video class="cinema__video" data-video="" data-video-name="plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
-      <span class="cinema__branch" aria-hidden="true"></span>
-      <div class="container cinema__content">
-        <p class="kicker fx">Origem da produção</p>
-        <h2 class="headline cinema__title fx" id="cinema-title" style="--d:.08s">A origem do nosso café está em <em>Araguari, Minas Gerais.</em></h2>
-        <!-- EDITAR: texto validado pelo briefing; ajustar se houver mais dados confirmados (propriedade, altitude, história). -->
-        <p class="sub fx" style="--d:.16s">Uma região que faz parte da identidade cafeeira brasileira e de cada xícara Família Nardi.</p>
-      </div>
-    </section>
-
-    <!-- DO CAFEEIRO À XÍCARA (rolagem horizontal no desktop) -->
-    <section class="journey" aria-labelledby="journey-title">
-      <div class="journey__pin">
-        <div class="journey__track">
-        <div class="journey__intro">
-          <p class="kicker">Do cafeeiro à xícara</p>
-          <h2 class="headline headline--md" id="journey-title">Quatro tempos de um <em>café arábica.</em></h2>
-          <p class="sub">Role ou deslize para acompanhar o caminho.</p>
-        </div>
-        <ol class="journey__cards">
-          <li class="jcard">
-            <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-cafeeiro.avif"><img src="assets/img/step-cafeeiro.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Frutos de café arábica amadurecendo no pé, entre folhas, com luz natural"></picture>
-              <video data-video="" data-video-name="cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
-            </div>
-            <p class="jcard__num">01</p>
-            <h3 class="jcard__title">O cafeeiro</h3>
-            <p class="jcard__text">A espécie <em>Coffea arabica</em>, base dos cafés especiais.</p>
-          </li>
-          <li class="jcard">
-            <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-fruto.avif"><img src="assets/img/step-fruto.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Ramo de cafeeiro com frutos verdes e vermelhos"></picture>
-              <video data-video="" data-video-name="fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
-            </div>
-            <p class="jcard__num">02</p>
-            <h3 class="jcard__title">O fruto</h3>
-            <p class="jcard__text">Frutos maduros guardam os grãos que darão origem ao café.</p>
-          </li>
-          <li class="jcard">
-            <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-grao.avif"><img src="assets/img/step-grao.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Grãos de café torrados caindo sobre fundo escuro"></picture>
-              <video data-video="" data-video-name="grao" muted loop playsinline preload="none" aria-hidden="true"></video>
-            </div>
-            <p class="jcard__num">03</p>
-            <h3 class="jcard__title">O grão</h3>
-            <p class="jcard__text">Depois de seco e torrado, o grão revela o seu aroma.</p>
-          </li>
-          <li class="jcard">
-            <div class="jcard__media">
-              <picture><source type="image/avif" srcset="assets/img/step-xicara.avif"><img src="assets/img/step-xicara.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Café sendo servido em xícara de vidro, com vapor"></picture>
-              <video data-video="" data-video-name="xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
-            </div>
-            <p class="jcard__num">04</p>
-            <h3 class="jcard__title">A xícara</h3>
-            <p class="jcard__text">O momento de apreciar tudo o que veio antes.</p>
-          </li>
-        </ol>
-        </div>
-        <div class="journey__bar" aria-hidden="true"><i></i></div>
-      </div>
-    </section>
-
-    <!-- MANIFESTO -->
-    <!-- EDITAR: texto conceitual proposto como ponto de partida; pode ser ajustado pela empresa. -->
-    <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
-      <div class="container">
-        <h2 class="kicker" id="manifesto-title">Mais do que café. Uma experiência para apreciar.</h2>
-        <p class="manifesto__text" data-words>Existem momentos que merecem mais atenção. O aroma que preenche o ambiente, o primeiro gole, a pausa necessária no meio do dia. A Família Nardi acredita no valor desses pequenos <em>rituais</em> e na experiência que um bom café pode proporcionar.</p>
-        <p class="manifesto__sign">Família Nardi</p>
-      </div>
-    </section>
-
-    <!-- MOMENTOS: key visual + a frase da marca usada no texto -->
-    <section class="feature on-dark" aria-labelledby="feature-title" data-progress="through">
-      <div class="container container--wide feature__grid">
-        <figure class="feature__media fx">
-          <div class="feature__frame">
-            <picture>
-              <source type="image/avif" srcset="assets/img/feature-960.avif 960w, assets/img/feature-1440.avif 1440w, assets/img/feature-1920.avif 1920w" sizes="(max-width: 1024px) 100vw, 64vw">
-              <img src="assets/img/feature-1440.webp" srcset="assets/img/feature-960.webp 960w, assets/img/feature-1440.webp 1440w, assets/img/feature-1920.webp 1920w" sizes="(max-width: 1024px) 100vw, 64vw"
-                   width="1920" height="1080" loading="lazy" decoding="async"
-                   alt="Embalagem do café Família Nardi entre grãos de café torrados em movimento, sob luz quente">
-            </picture>
-          </div>
-        </figure>
-        <div class="feature__panel">
-          <p class="kicker fx">Momentos à mesa</p>
-          <h2 class="feature__title headline fx" id="feature-title" style="--d:.08s">Para os momentos <em>que ficam.</em></h2>
-          <span class="feature__rule" aria-hidden="true"></span>
-          <p class="feature__text fx" style="--d:.16s">Alguns cafés despertam, outros permanecem. O Família Nardi é daqueles que ficam: na conversa sem pressa, na pausa que se estende, no encontro que vale a pena lembrar.</p>
-          <ul class="moments fx" style="--d:.24s">
-            <li>A primeira xícara da manhã</li>
-            <li>A conversa à mesa</li>
-            <li>O fim de tarde sem pressa</li>
-          </ul>
-          <a class="more feature__more fx" style="--d:.3s" href="#nosso-cafe">Conheça nosso café</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- SABOR · EQUILÍBRIO · ORIGEM (rolagem fixada; o fundo percorre a paleta) -->
-    <section class="story on-dark" aria-label="Sabor, equilíbrio e origem">
-      <div class="story__sticky">
-        <span class="story__pattern" aria-hidden="true"></span>
-        <div class="container story__grid">
-          <div class="story__steps">
-            <div class="step is-active">
-              <p class="step__num">01 — Sabor</p>
-              <p class="step__word">Sabor.</p>
-              <p class="step__text">Para ser apreciado gole a gole, sem pressa.</p>
-            </div>
-            <div class="step">
-              <p class="step__num">02 — Equilíbrio</p>
-              <p class="step__word">Equilíbrio.</p>
-              <p class="step__text">Tradição e requinte em uma linguagem contemporânea.</p>
-            </div>
-            <div class="step">
-              <p class="step__num">03 — Origem</p>
-              <p class="step__word">Origem.</p>
-              <p class="step__text">Tudo começa no campo, muito antes da xícara.</p>
-            </div>
-          </div>
-          <picture class="story__bag">
-            <source type="image/avif" srcset="assets/img/pack-tilt-480.avif 480w, assets/img/pack-tilt-760.avif 760w" sizes="(max-width: 860px) 40vw, 26vw">
-            <img src="assets/img/pack-tilt-760.webp" srcset="assets/img/pack-tilt-480.webp 480w, assets/img/pack-tilt-760.webp 760w" sizes="(max-width: 860px) 40vw, 26vw"
-                 width="760" height="879" loading="lazy" decoding="async" alt="Embalagem Família Nardi em perspectiva">
-          </picture>
-        </div>
-        <div class="story__dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></div>
-      </div>
-    </section>
-
     <!-- NOSSO CAFÉ (bento) -->
     <section class="product" id="nosso-cafe" aria-labelledby="produto-title">
       <div class="container">
         <header class="product__head">
-          <p class="kicker fx">Nosso café</p>
           <h2 class="headline headline--md fx" id="produto-title" style="--d:.08s">Café arábica <em>Família Nardi.</em></h2>
           <!-- EDITAR: descrição do produto. Mantida sem afirmações técnicas não confirmadas. -->
           <p class="sub fx" style="--d:.16s">Apresentado com o cuidado que leva o nome da família.</p>
@@ -354,7 +218,6 @@
     <!-- 360° -->
     <section class="v360" id="embalagem-360" aria-labelledby="v360-title">
       <div class="container">
-        <p class="kicker fx">Embalagem 360°</p>
         <h2 class="headline headline--md fx" id="v360-title" style="--d:.08s">Veja de <em>todos os ângulos.</em></h2>
         <p class="sub fx" style="--d:.16s">Arraste para girar a embalagem e conhecer cada detalhe do café Família Nardi.</p>
 
@@ -376,6 +239,106 @@
         </div>
         <!-- EDITAR: o verso segue liso até recebermos a arte final da embalagem. -->
         <p class="viewer__note">Representação ilustrativa da embalagem.</p>
+      </div>
+    </section>
+
+    <!-- VÍDEO: coloque assets/video/plantacao.mp4 e .webm (veja ferramentas/preparar-video.sh). Sem o arquivo, a faixa mostra a gravura animada. -->
+    <section class="cinema on-dark" id="origem" aria-labelledby="cinema-title" data-progress="through">
+      <video class="cinema__video" data-video="" data-video-name="plantacao" muted loop playsinline preload="none" aria-hidden="true"></video>
+      <span class="cinema__branch" aria-hidden="true"></span>
+      <div class="container cinema__content">
+        <p class="kicker fx">Origem da produção</p>
+        <h2 class="headline cinema__title fx" id="cinema-title" style="--d:.08s">A origem do nosso café está em <em>Araguari, Minas Gerais.</em></h2>
+        <!-- EDITAR: texto validado pelo briefing; ajustar se houver mais dados confirmados (propriedade, altitude, história). -->
+        <p class="sub fx" style="--d:.16s">Uma região que faz parte da identidade cafeeira brasileira e de cada xícara Família Nardi.</p>
+      </div>
+    </section>
+
+    <!-- DO CAFEEIRO À XÍCARA (rolagem horizontal no desktop) -->
+    <section class="journey" aria-labelledby="journey-title">
+      <div class="journey__pin">
+        <div class="journey__track">
+        <div class="journey__intro">
+          <p class="kicker">Do cafeeiro à xícara</p>
+          <h2 class="headline headline--md" id="journey-title">Quatro tempos de um <em>café arábica.</em></h2>
+          <p class="sub">Role ou deslize para acompanhar o caminho.</p>
+        </div>
+        <ol class="journey__cards">
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-cafeeiro.avif"><img src="assets/img/step-cafeeiro.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Frutos de café arábica amadurecendo no pé, entre folhas, com luz natural"></picture>
+              <video data-video="" data-video-name="cafeeiro" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">01</p>
+            <h3 class="jcard__title">O cafeeiro</h3>
+            <p class="jcard__text">A espécie <em>Coffea arabica</em>, base dos cafés especiais.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-fruto.avif"><img src="assets/img/step-fruto.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Ramo de cafeeiro com frutos verdes e vermelhos"></picture>
+              <video data-video="" data-video-name="fruto" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">02</p>
+            <h3 class="jcard__title">O fruto</h3>
+            <p class="jcard__text">Frutos maduros guardam os grãos que darão origem ao café.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-grao.avif"><img src="assets/img/step-grao.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Grãos de café torrados caindo sobre fundo escuro"></picture>
+              <video data-video="" data-video-name="grao" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">03</p>
+            <h3 class="jcard__title">O grão</h3>
+            <p class="jcard__text">Depois de seco e torrado, o grão revela o seu aroma.</p>
+          </li>
+          <li class="jcard">
+            <div class="jcard__media">
+              <picture><source type="image/avif" srcset="assets/img/step-xicara.avif"><img src="assets/img/step-xicara.webp" width="864" height="1080" loading="lazy" decoding="async" alt="Café sendo servido em xícara de vidro, com vapor"></picture>
+              <video data-video="" data-video-name="xicara" muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <p class="jcard__num">04</p>
+            <h3 class="jcard__title">A xícara</h3>
+            <p class="jcard__text">O momento de apreciar tudo o que veio antes.</p>
+          </li>
+        </ol>
+        </div>
+        <div class="journey__bar" aria-hidden="true"><i></i></div>
+      </div>
+    </section>
+
+    <!-- EDITAR: texto conceitual proposto como ponto de partida; pode ser ajustado pela empresa. -->
+    <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
+      <div class="container">
+        <h2 class="kicker" id="manifesto-title">Mais do que café. Uma experiência para apreciar.</h2>
+        <p class="manifesto__text" data-words>Existem momentos que merecem mais atenção. O aroma que preenche o ambiente, o primeiro gole, a pausa necessária no meio do dia. A Família Nardi acredita no valor desses pequenos <em>rituais</em> e na experiência que um bom café pode proporcionar.</p>
+        <p class="manifesto__sign">Família Nardi · Sabor, equilíbrio e origem</p>
+      </div>
+    </section>
+
+    <!-- MOMENTOS: key visual + a frase da marca usada no texto -->
+    <section class="feature on-dark" aria-labelledby="feature-title" data-progress="through">
+      <div class="container container--wide feature__grid">
+        <figure class="feature__media fx">
+          <div class="feature__frame">
+            <picture>
+              <source type="image/avif" srcset="assets/img/feature-960.avif 960w, assets/img/feature-1440.avif 1440w, assets/img/feature-1920.avif 1920w" sizes="(max-width: 1024px) 100vw, 64vw">
+              <img src="assets/img/feature-1440.webp" srcset="assets/img/feature-960.webp 960w, assets/img/feature-1440.webp 1440w, assets/img/feature-1920.webp 1920w" sizes="(max-width: 1024px) 100vw, 64vw"
+                   width="1920" height="1080" loading="lazy" decoding="async"
+                   alt="Embalagem do café Família Nardi entre grãos de café torrados em movimento, sob luz quente">
+            </picture>
+          </div>
+        </figure>
+        <div class="feature__panel">
+          <h2 class="feature__title headline fx" id="feature-title" style="--d:.08s">Para os momentos <em>que ficam.</em></h2>
+          <span class="feature__rule" aria-hidden="true"></span>
+          <p class="feature__text fx" style="--d:.16s">Alguns cafés despertam, outros permanecem. O Família Nardi é daqueles que ficam: na conversa sem pressa, na pausa que se estende, no encontro que vale a pena lembrar.</p>
+          <ul class="moments fx" style="--d:.24s">
+            <li>A primeira xícara da manhã</li>
+            <li>A conversa à mesa</li>
+            <li>O fim de tarde sem pressa</li>
+          </ul>
+          <a class="more feature__more fx" style="--d:.3s" href="#nosso-cafe">Conheça nosso café</a>
+        </div>
       </div>
     </section>
 
@@ -408,7 +371,6 @@
 
         <div class="values-head">
           <div>
-            <p class="kicker">Nossos valores</p>
             <h3 class="headline headline--md" style="margin-top:.75rem">Cada cor, um <em>significado.</em></h3>
           </div>
           <div class="values-nav">
@@ -441,20 +403,9 @@
     <section class="experience on-dark" id="experiencia" aria-labelledby="experiencia-title">
       <div class="container">
         <header class="experience__head">
-          <p class="kicker fx">A experiência</p>
           <h2 class="headline headline--md fx" id="experiencia-title" style="--d:.08s">Um ritual para <em>os sentidos.</em></h2>
           <p class="sub fx" style="--d:.16s">Aroma, textura, paladar e pausa: quatro sensações que fazem de um café um momento.</p>
         </header>
-      </div>
-
-      <div class="zoom" data-progress>
-        <div class="zoom__frame">
-          <picture>
-            <source type="image/avif" srcset="assets/img/detail-960.avif 960w, assets/img/detail-1600.avif 1600w, assets/img/detail-1920.avif 1920w" sizes="100vw">
-            <img src="assets/img/detail-1600.webp" srcset="assets/img/detail-960.webp 960w, assets/img/detail-1600.webp 1600w, assets/img/detail-1920.webp 1920w" sizes="100vw"
-                 width="1920" height="1080" loading="lazy" decoding="async" alt="Detalhe da embalagem Família Nardi: logotipo, a inscrição Café Arábica 100% natural e a gravura do ramo de café">
-          </picture>
-        </div>
       </div>
 
       <div class="container">
@@ -484,7 +435,6 @@
     <section class="where" id="onde-estamos" aria-labelledby="where-title">
       <div class="container container--wide where__grid">
         <div class="where__text">
-          <p class="kicker fx">Onde estamos</p>
           <h2 class="headline headline--md fx" id="where-title" style="--d:.08s">Do Triângulo Mineiro <em>ao Sul do Brasil.</em></h2>
           <p class="sub fx" style="--d:.16s">Hoje, o café Família Nardi está presente em quatro estados.</p>
           <ul class="where__list fx" style="--d:.24s">
@@ -517,7 +467,6 @@
       <div class="container">
         <div class="reviews__intro">
           <div>
-            <p class="kicker fx">Avaliações</p>
             <h2 class="headline headline--md fx" id="reviews-title" style="--d:.08s">Conte como foi <em>a sua xícara.</em></h2>
           </div>
           <div class="fx" style="--d:.16s">

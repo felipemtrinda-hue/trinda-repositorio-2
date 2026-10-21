@@ -1238,3 +1238,88 @@ video[data-video].is-playing { opacity: 1; }
   .step { position: static; opacity: 1; transform: none; }
   .story__bag { display: none; }
 }
+
+/* ==========================================================================
+   Sistema de design v2 — revisão com a skill apple-design
+   Tokens únicos de raio, espaço, movimento e um só estilo de botão.
+   ========================================================================== */
+:root {
+  --r-sm: 14px;          /* cards pequenos, controles */
+  --r-md: 24px;          /* cards e imagens */
+  --r-lg: 36px;          /* seções escuras e painéis grandes */
+  --r-pill: 999px;       /* botões */
+  --radius: var(--r-md);
+  --radius-sm: var(--r-sm);
+  --space-section: clamp(5rem, 9vw, 8rem);
+  --t-fast: 200ms;       /* microinterações */
+  --t-base: 450ms;       /* entradas de conteúdo */
+  --shadow-soft: 0 30px 60px -36px rgba(20, 17, 15, 0.45);
+}
+
+/* Ritmo tipográfico: destaque só nos momentos principais */
+.headline--md { font-size: clamp(2rem, 3.4vw, 3.1rem); line-height: 1.08; }
+.v360 .headline, .product__head .headline, .experience__head .headline { font-size: clamp(2.1rem, 3.6vw, 3.3rem); line-height: 1.06; }
+.hero__title { font-size: clamp(2.8rem, 6vw, 5.4rem); line-height: 1; letter-spacing: -0.02em; }
+.sub { font-size: clamp(1.0625rem, 1.3vw, 1.1875rem); }
+
+/* Botões: um só sistema */
+.pill {
+  border-radius: var(--r-pill);
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.pill:hover { background: var(--navy-deep); border-color: var(--navy-deep); transform: none; box-shadow: none; }
+.pill:active { transform: scale(0.97); }
+.pill--sm { min-height: 40px; padding: 0.5rem 1.15rem; font-size: 0.875rem; }
+.pill--light { background: var(--white); border-color: var(--white); color: var(--navy); }
+.pill--light:hover { background: var(--ivory); border-color: var(--ivory); color: var(--navy); }
+.pill--outline { background: transparent; border-color: rgba(20, 17, 15, 0.25); color: var(--ink); }
+.pill--outline:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
+
+/* Navegação leve: caixa normal, sem tracking */
+.ribbon { font-size: 0.8125rem; letter-spacing: 0; text-transform: none; padding-block: 0.15rem; }
+.ribbon a { display: inline-flex; align-items: center; min-height: 36px; }
+.nav__links a { font-size: 0.875rem; letter-spacing: 0; text-transform: none; color: var(--ink-2); }
+.nav__links a[aria-current="true"] { color: var(--ink); font-weight: 500; }
+
+/* Raios coerentes */
+.cinema { border-radius: 0 0 var(--r-lg) var(--r-lg); }
+.experience { border-radius: var(--r-lg); }
+.contact__card { border-radius: var(--r-lg); }
+.jcard__media, .feature__frame, .essence__img, .where__frame, .viewer, .tile, .value, .rv-hero__visual, .rv-aud__img { border-radius: var(--r-md); }
+.card, .review, .rv-steps li { border-radius: var(--r-sm); }
+.feature__frame::after { border-radius: calc(var(--r-md) - 10px); }
+.feature__frame, .contact__card { box-shadow: var(--shadow-soft); }
+
+/* Espaçamento de seções uniforme */
+.manifesto, .product, .v360, .essence, .experience, .where, .reviews, .contact, .feature { padding-block: var(--space-section); }
+
+/* Abertura: título, ação e produto cabem na primeira tela */
+.hero { padding-top: clamp(2.5rem, 5vw, 4rem); }
+.hero__stage { height: clamp(360px, 42vw, 580px); }
+.hero__bag { width: clamp(200px, 20vw, 300px); }
+
+/* Nosso café: menos blocos de cor competindo */
+.tile--copper { background: var(--cream-1); color: var(--ink); --tl: var(--copper-ink); }
+.tile--copper .tile__text { color: var(--ink-2) !important; }
+
+/* Áreas de toque de 44 px no celular (accessibility.md › Mobility) */
+@media (max-width: 860px) {
+  .footer__list li a, .footer__bottom a, .contact__phone a, .where .more, .more { display: inline-flex; align-items: center; min-height: 44px; }
+  .viewer__controls button { min-height: 44px; }
+  .ribbon a { min-height: 44px; }
+  .hero__stage { height: clamp(320px, 88vw, 460px); }
+}
+
+/* Movimento: durações do sistema */
+.js .fx { transition-duration: var(--t-base), calc(var(--t-base) + 100ms); }
+.footer__list li a { min-width: 44px; }
+.experience .cards { margin-top: clamp(2.5rem, 5vw, 4rem); }
