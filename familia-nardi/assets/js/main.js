@@ -212,6 +212,7 @@
     var syncBtns = function () {
       vBtns[0].disabled = track.scrollLeft < 4;
       vBtns[1].disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+      vBtns[0].parentElement.hidden = vBtns[0].disabled && vBtns[1].disabled;
     };
     vBtns.forEach(function (b) {
       b.addEventListener("click", function () {
