@@ -9,4 +9,4 @@ Site institucional estático (HTML + CSS + JS, sem build). Para publicar na Verc
 - [ ] Telefone fixo (42) 3224-0322 aparece na fachada: confirmar se entra no site
 - [ ] Trocar a fachada (visualização 3D) e os recortes de produtos por fotos reais
 - [ ] Confirmar as categorias e os produtos de cada uma
-- [ ] Instagram: os cards do carrossel usam imagens do site como prévia. Trocar pelas imagens/legendas dos posts reais ou conectar um widget de feed (ex.: Behold, LightWidget) com a conta
+- [ ] Instagram: o carrossel usa 5 posts adicionados manualmente. Para atualizar sozinho, conectar um widget de feed (ex.: Behold, LightWidget) com a conta

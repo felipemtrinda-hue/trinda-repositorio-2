@@ -263,11 +263,12 @@ mark { background: none; color: inherit; box-shadow: inset 0 -0.32em 0 var(--yel
 .insta__rail.is-looping { animation: insta-scroll 60s linear infinite; }
 .insta__track:hover .insta__rail, .insta__track:focus-within .insta__rail { animation-play-state: paused; }
 @keyframes insta-scroll { to { transform: translateX(calc(-50% - 8px)); } }
-.post { position: relative; display: block; width: clamp(220px, 24vw, 300px); aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; background: var(--white); text-decoration: none; }
-.post img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
-.post__cap { position: absolute; inset: auto 0 0 0; display: flex; align-items: flex-end; gap: 10px; padding: 48px 18px 18px; color: var(--white); font-size: 15px; font-weight: 600; line-height: 1.3; background: linear-gradient(transparent, rgba(0, 0, 0, .78)); }
-.post__cap svg { width: 20px; height: 20px; flex: none; }
-.post:hover img { transform: scale(1.06); }
+.post { position: relative; display: block; height: clamp(300px, 30vw, 400px); border-radius: var(--radius); overflow: hidden; background: var(--white); text-decoration: none; box-shadow: 0 16px 32px -16px rgba(0, 0, 0, .35); }
+.post img { width: auto; max-width: none; height: 100%; transition: transform .5s var(--ease); }
+.post__badge { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--black); color: var(--yellow); opacity: 0; transform: translateY(-4px); transition: opacity .25s, transform .25s var(--ease); }
+.post__badge svg { width: 22px; height: 22px; }
+.post:hover img { transform: scale(1.04); }
+.post:hover .post__badge, .post:focus-visible .post__badge { opacity: 1; transform: none; }
 .post:focus-visible { outline-offset: -4px; outline-color: var(--white); }
 @media (max-width: 640px) {
   .insta__head { flex-wrap: wrap; }
