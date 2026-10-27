@@ -42,6 +42,7 @@ mark { background: none; color: inherit; box-shadow: inset 0 -0.32em 0 var(--yel
 :focus-visible { outline: 3px solid var(--black); outline-offset: 3px; border-radius: 6px; }
 .footer :focus-visible, .cta :focus-visible, .cat--dark:focus-visible, .map :focus-visible, .fab:focus-visible { outline-color: var(--yellow); }
 .fab:focus-visible { outline-offset: 4px; }
+[tabindex="-1"]:focus { outline: none; }
 
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 

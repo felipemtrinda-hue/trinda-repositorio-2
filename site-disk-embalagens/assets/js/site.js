@@ -6,6 +6,25 @@
     a.href = WA + encodeURIComponent(a.getAttribute("data-wa"));
   });
 
+  // Links internos: rolam até a seção sem colocar "#secao" no endereço,
+  // para um link copiado ou compartilhado sempre abrir no topo do site
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var id = a.getAttribute("href").slice(1);
+    var target = id === "topo" ? null : document.getElementById(id);
+    if (id !== "topo" && !target) return;
+    e.preventDefault();
+    if (target) {
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      if (!target.hasAttribute("tabindex") && !target.matches("a, button")) target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+  });
+
   // Header compacto ao rolar
   var header = document.querySelector(".header");
   var onScroll = function () { header.classList.toggle("is-scrolled", window.scrollY > 8); };
