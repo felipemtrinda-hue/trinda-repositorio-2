@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="preload" as="image" href="assets/img/produtos.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/fachada.webp" imagesrcset="assets/img/fachada-sm.webp 800w, assets/img/fachada.webp 1600w" imagesizes="(min-width: 860px) 50vw, 100vw" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <script type="application/ld+json">
@@ -103,8 +103,8 @@
           </div>
           <p class="hero__badge"><strong>+20</strong><span>anos de experiência<br>no mercado</span></p>
         </div>
-        <figure class="hero__media">
-          <img src="assets/img/produtos.webp" width="980" height="541" alt="Variedade de embalagens: bandejas de alumínio, filmes, sacolas coloridas, caixa térmica, pote plástico, fitas adesivas, copos descartáveis, plástico bolha e papelão ondulado">
+        <figure class="hero__media hero__media--photo">
+          <img src="assets/img/fachada.webp" srcset="assets/img/fachada-sm.webp 800w, assets/img/fachada.webp 1600w" sizes="(min-width: 860px) 50vw, 100vw" width="1600" height="953" fetchpriority="high" alt="Fachada amarela e preta da Disk Embalagens no Centro de Ponta Grossa, com letreiro iluminado e acesso ao estacionamento">
           <figcaption class="tag tag--float">Tudo o que você precisa em um só lugar</figcaption>
         </figure>
       </div>
@@ -239,24 +239,61 @@
           <p class="about__slogan">Sua embalagem, nosso compromisso.</p>
         </div>
         <div class="about__media">
-          <!-- Imagem da fachada é uma visualização. Trocar por foto real antes da publicação. -->
-          <img class="about__facade" src="assets/img/fachada-sm.webp" srcset="assets/img/fachada-sm.webp 800w, assets/img/fachada.webp 1600w" sizes="(min-width: 960px) 560px, 100vw" width="800" height="477" loading="lazy" alt="Fachada da Disk Embalagens no Centro de Ponta Grossa">
+          <div class="about__products"><img src="assets/img/produtos.webp" width="980" height="541" loading="lazy" alt="Variedade de embalagens: bandejas de alumínio, filmes, sacolas coloridas, caixa térmica, pote plástico, fitas adesivas, copos descartáveis, plástico bolha e papelão ondulado"></div>
           <img class="about__team" src="assets/img/equipe.webp" width="900" height="900" loading="lazy" alt="Mascote da Disk Embalagens segurando uma caixa">
         </div>
       </div>
     </section>
 
     <!-- INSTAGRAM -->
-    <section class="insta" aria-labelledby="insta-title">
-      <a class="wrap insta__inner" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
-        <span class="insta__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
-        <span class="insta__text">
+    <!-- Os cards abaixo usam imagens do site como prévia. Troque cada <li> pela imagem e legenda de um post real
+         (ou conecte um widget de feed como Behold/LightWidget com a conta do Instagram). -->
+    <section class="insta" id="instagram" aria-labelledby="insta-title">
+      <div class="wrap insta__head">
+        <a class="insta__icon" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener" aria-label="Abrir o Instagram @embalagens.disk"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <div class="insta__text">
           <span class="eyebrow">Siga no Instagram</span>
-          <span class="insta__handle" id="insta-title">@embalagens.disk</span>
+          <h2 class="insta__handle" id="insta-title">@embalagens.disk</h2>
           <span>Novidades, produtos e dicas para o seu negócio.</span>
-        </span>
-        <span class="btn btn--dark insta__btn">Seguir <span aria-hidden="true">→</span></span>
-      </a>
+        </div>
+        <a class="btn btn--dark insta__btn" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">Seguir no Instagram <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="insta__track">
+        <ul class="insta__rail">
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/fachada-sm.webp" width="800" height="477" loading="lazy" alt="Fachada da Disk Embalagens">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Tudo o que você precisa em um só lugar</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/cat-sacolas.webp" width="300" height="310" loading="lazy" alt="Sacolas coloridas">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Sacolas para todos os tipos de comércio</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/estacionamento.webp" width="480" height="510" loading="lazy" alt="Estacionamento da loja">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Estacionamento exclusivo para clientes</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/cat-descartaveis.webp" width="380" height="241" loading="lazy" alt="Copos e potes descartáveis">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Copos, potes e descartáveis</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/equipe.webp" width="900" height="900" loading="lazy" alt="Mascote da Disk Embalagens">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Sua embalagem, nosso compromisso</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/cat-plasticos.webp" width="440" height="300" loading="lazy" alt="Bobinas de filme">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Bobinas e filmes para acondicionar</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/cat-fitas.webp" width="340" height="161" loading="lazy" alt="Fitas adesivas">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Fitas para fechar qualquer pedido</span></span>
+          </a></li>
+          <li><a class="post" href="https://www.instagram.com/embalagens.disk/" target="_blank" rel="noopener">
+            <img src="assets/img/cat-papel.webp" width="330" height="371" loading="lazy" alt="Papelão ondulado e plástico bolha">
+            <span class="post__cap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Proteção para envio e transporte</span></span>
+          </a></li>
+        </ul>
+      </div>
     </section>
 
     <!-- CTA WHATSAPP -->
@@ -306,7 +343,37 @@
           </div>
         </div>
         <div class="contact__map">
-          <iframe title="Mapa: Disk Embalagens, Rua Benjamin Constant, 235, Centro, Ponta Grossa" src="https://www.google.com/maps?q=Rua+Benjamin+Constant,+235+-+Centro,+Ponta+Grossa+-+PR,+84010-380&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="map" id="mapa">
+            <svg class="map__art" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="640" height="440" class="map__ground"/>
+              <g class="map__blocks">
+                <rect x="20" y="20" width="150" height="110" rx="10"/><rect x="200" y="20" width="170" height="110" rx="10"/><rect x="400" y="20" width="220" height="110" rx="10"/>
+                <rect x="20" y="230" width="150" height="90" rx="10"/><rect x="200" y="230" width="90" height="90" rx="10"/><rect x="420" y="230" width="200" height="90" rx="10"/>
+                <rect x="20" y="350" width="150" height="80" rx="10"/><rect x="200" y="350" width="200" height="80" rx="10"/><rect x="430" y="350" width="190" height="80" rx="10"/>
+              </g>
+              <rect x="460" y="40" width="120" height="70" rx="12" class="map__park"/>
+              <g class="map__streets">
+                <path d="M0 175H640"/><path d="M185 0V440"/><path d="M390 130V440M390 0V130"/><path d="M0 335H640"/><path d="M300 440 660 210"/>
+              </g>
+              <path class="map__main" d="M0 175H640"/>
+              <text class="map__label" x="90" y="179">RUA BENJAMIN CONSTANT</text>
+              <text class="map__label map__label--sm" x="196" y="300" transform="rotate(-90 196 300)">CENTRO</text>
+              <circle class="map__pulse" cx="318" cy="175" r="22"/>
+            </svg>
+            <div class="map__pin" aria-hidden="true">
+              <img src="assets/img/logo-96.png" width="56" height="56" alt="">
+            </div>
+            <span class="map__chip"><b>P</b> Estacionamento exclusivo</span>
+            <div class="map__card">
+              <p class="map__title">Disk Embalagens</p>
+              <p class="map__addr">Rua Benjamin Constant, 235 — Centro<br>Ponta Grossa — PR · 84010-380</p>
+              <div class="map__actions">
+                <a class="btn btn--yellow btn--sm" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Benjamin+Constant%2C+235+-+Centro%2C+Ponta+Grossa+-+PR%2C+84010-380" target="_blank" rel="noopener">Google Maps</a>
+                <a class="btn btn--ghost btn--sm" href="https://waze.com/ul?q=Rua%20Benjamin%20Constant%2C%20235%2C%20Ponta%20Grossa&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+                <button class="map__live js-map-live" type="button">Ver mapa interativo</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

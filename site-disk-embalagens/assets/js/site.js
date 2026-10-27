@@ -26,6 +26,31 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
   }
 
+  // Mapa interativo carregado só quando pedido
+  document.querySelectorAll(".js-map-live").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var map = btn.closest(".map");
+      var f = document.createElement("iframe");
+      f.title = "Mapa: Disk Embalagens, Rua Benjamin Constant, 235, Centro, Ponta Grossa";
+      f.src = "https://www.google.com/maps?q=Rua+Benjamin+Constant,+235+-+Centro,+Ponta+Grossa+-+PR,+84010-380&output=embed";
+      f.referrerPolicy = "no-referrer-when-downgrade";
+      map.appendChild(f);
+      map.classList.add("is-live");
+    });
+  });
+
+  // Carrossel do Instagram: duplica os posts para o loop contínuo
+  document.querySelectorAll(".insta__rail").forEach(function (rail) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    Array.prototype.slice.call(rail.children).forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute("aria-hidden", "true");
+      c.querySelectorAll("a").forEach(function (a) { a.tabIndex = -1; });
+      rail.appendChild(c);
+    });
+    rail.classList.add("is-looping");
+  });
+
   // Ano no rodapé
   document.querySelectorAll(".js-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
