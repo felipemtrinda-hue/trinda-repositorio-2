@@ -23,7 +23,12 @@
     };
     burger.addEventListener("click", function () { setOpen(burger.getAttribute("aria-expanded") !== "true"); });
     nav.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") { setOpen(false); burger.focus(); }
+    });
+    document.addEventListener("click", function (e) {
+      if (burger.getAttribute("aria-expanded") === "true" && !e.target.closest(".header")) setOpen(false);
+    });
   }
 
   // Mapa interativo carregado só quando pedido
@@ -39,9 +44,12 @@
     });
   });
 
-  // Carrossel do Instagram: duplica os posts para o loop contínuo
-  document.querySelectorAll(".insta__rail").forEach(function (rail) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Carrossel do Instagram: duplica os posts para o loop contínuo,
+  // com botão de pausa e pausa automática fora da tela
+  document.querySelectorAll(".insta").forEach(function (section) {
+    var rail = section.querySelector(".insta__rail");
+    var toggle = section.querySelector(".insta__toggle");
+    if (!rail || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     Array.prototype.slice.call(rail.children).forEach(function (li) {
       var c = li.cloneNode(true);
       c.setAttribute("aria-hidden", "true");
@@ -49,6 +57,23 @@
       rail.appendChild(c);
     });
     rail.classList.add("is-looping");
+
+    var userPaused = false, offscreen = false;
+    var sync = function () { rail.classList.toggle("is-paused", userPaused || offscreen); };
+    if (toggle) {
+      toggle.hidden = false;
+      toggle.addEventListener("click", function () {
+        userPaused = !userPaused;
+        toggle.setAttribute("aria-pressed", String(userPaused));
+        toggle.querySelector("span").textContent = userPaused ? "Retomar posts" : "Pausar posts";
+        sync();
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        offscreen = !entries[0].isIntersecting; sync();
+      }).observe(section);
+    }
   });
 
   // Ano no rodapé
@@ -62,6 +87,13 @@
         if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
       });
     }, { rootMargin: "0px 0px -8% 0px" });
-    items.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+    items.forEach(function (el) {
+      el.classList.add("reveal");
+      var li = el.closest("li");
+      if (li && li.parentElement.matches(".cats, .segs")) {
+        el.style.setProperty("--i", Array.prototype.indexOf.call(li.parentElement.children, li) % 4);
+      }
+      io.observe(el);
+    });
   }
 })();

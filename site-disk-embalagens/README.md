@@ -10,3 +10,10 @@ Site institucional estático (HTML + CSS + JS, sem build). Para publicar na Verc
 - [ ] Trocar a fachada (visualização 3D) e os recortes de produtos por fotos reais
 - [ ] Confirmar as categorias e os produtos de cada uma
 - [ ] Instagram: o carrossel usa 5 posts adicionados manualmente. Para atualizar sozinho, conectar um widget de feed (ex.: Behold, LightWidget) com a conta
+
+## Auditoria (out/2026)
+Medido com Lighthouse 12.2.1 em servidor local (laboratório, não dados de campo):
+- Celular: performance 85 → 97, LCP 3,5 s → 2,6 s, FCP 2,6 s → 1,0 s, CLS 0
+- Desktop: performance 98 → 100, CLS 0,09 → 0
+- Acessibilidade, boas práticas e SEO: 100 nas duas medições; axe-core sem violações nas 3 páginas
+- Após publicar na Vercel, conferir os Core Web Vitals reais no PageSpeed Insights / Search Console
