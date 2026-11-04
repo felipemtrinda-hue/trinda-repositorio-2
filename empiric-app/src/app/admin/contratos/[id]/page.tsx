@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle2, PenLine, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, FilePlus2, PenLine, Wallet, XCircle } from "lucide-react";
+import { DocActions } from "@/components/documents/doc-actions";
+import { ButtonLink } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { setLeaseStatus } from "@/lib/actions/leases";
 import { PageHeader } from "@/components/ui/page-header";
@@ -20,9 +22,10 @@ export default async function LeasePage({ params, searchParams }: { params: Prom
   const supabase = await createClient();
   const { data: l } = await supabase.from("leases").select("*, property:properties(title), tenant:profiles(full_name)").eq("id", id).maybeSingle();
   if (!l) notFound();
-  const [opts, { data: events }] = await Promise.all([
+  const [opts, { data: events }, { data: docs }] = await Promise.all([
     leaseOptions(),
     supabase.from("calendar_events").select("id, title, kind, starts_at").eq("lease_id", id).order("starts_at"),
+    supabase.from("documents").select("id, title, kind, published_at").eq("lease_id", id).in("kind", ["contract", "inspection", "other"]).order("created_at"),
   ]);
   const one = <T,>(v: T | T[]) => (Array.isArray(v) ? v[0] : v);
   const [label, tone] = leaseStatus[l.status];
@@ -57,6 +60,22 @@ export default async function LeasePage({ params, searchParams }: { params: Prom
               </div>
             </FormSection>
           )}
+          <FormSection title="Documentos do contrato">
+            <ul className="mb-3 space-y-2">
+              {docs?.map((d) => (
+                <li key={d.id} className="flex items-center justify-between gap-2 rounded-[16px] bg-mist px-3 py-2.5 text-sm">
+                  <span className="min-w-0 truncate"><span className="font-semibold">{d.title}</span>{!d.published_at && <span className="text-warning"> · rascunho</span>}</span>
+                  <DocActions id={d.id} compact />
+                </li>
+              ))}
+              {!docs?.length && <li className="text-sm text-stone">Nenhum documento anexado.</li>}
+            </ul>
+            <div className="grid gap-2">
+              <ButtonLink href={`/admin/documentos/novo?contrato=${l.id}&tipo=contract`} variant="secondary" size="sm"><FilePlus2 className="size-4" /> Anexar contrato assinado</ButtonLink>
+              <ButtonLink href={`/admin/documentos/novo?contrato=${l.id}&tipo=inspection`} variant="secondary" size="sm"><FilePlus2 className="size-4" /> Anexar laudo de vistoria</ButtonLink>
+              {l.status === "active" && <ButtonLink href={`/admin/financeiro/novo?contrato=${l.id}`} variant="secondary" size="sm"><Wallet className="size-4" /> Lançar boleto</ButtonLink>}
+            </div>
+          </FormSection>
           <FormSection title="Na agenda">
             <ul className="space-y-2 text-sm">
               {events?.map((e) => (

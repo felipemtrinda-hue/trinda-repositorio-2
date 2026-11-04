@@ -12,7 +12,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ i
   return (
     <>
       <Link href="/admin/contratos" className="mb-4 inline-flex items-center gap-2 text-sm text-stone hover:text-charcoal"><ArrowLeft className="size-4" /> Contratos</Link>
-      <PageHeader eyebrow="Locação" title="Novo" accent="contrato" description="O contrato assinado e o laudo de vistoria são anexados na Etapa 3 (documentos)." />
+      <PageHeader eyebrow="Locação" title="Novo" accent="contrato" description="Depois de salvar, anexe o contrato assinado e o laudo de vistoria." />
       <div className="max-w-3xl"><LeaseForm {...opts} initial={{ property_id: imovel, tenant_id: inquilino }} /></div>
     </>
   );

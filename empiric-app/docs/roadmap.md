@@ -8,7 +8,7 @@ Legenda: ✅ pronto · 🟡 parcial · ⬜ a fazer
 - ✅ Schema completo: perfis, imóveis, fotos, vínculos, contratos, documentos, boletos, itens, pagamentos,
   chamados + linha do tempo + anexos, comunicados, notificações + fila de entrega, Indique e Ganhe, agenda,
   configurações, integrações, auditoria
-- ✅ RLS em todas as tabelas e no storage — **40+ testes** de permissão (`npm run db:test`)
+- ✅ RLS em todas as tabelas e no storage — **47 testes** de permissão (`npm run db:test`)
 - ✅ Login, recuperação de senha, primeiro acesso com consentimento LGPD, bloqueio de conta
 - ✅ Redirecionamento por perfil; layouts admin/proprietário/inquilino; menu recolhível; navegação mobile
 - ✅ Dashboards com dados reais (admin via `admin_dashboard_summary`, proprietário, inquilino)
@@ -33,15 +33,22 @@ Legenda: ✅ pronto · 🟡 parcial · ⬜ a fazer
 Manifesto, ícones, service worker seguro (sem dados pessoais em cache), página offline,
 convite de instalação para Android e iPhone, áreas seguras do iPhone. Lojas: avaliar Expo depois.
 
-## Etapa 3 — Documentos e financeiro ⬜
-Upload com pré-visualização, progresso e validação (tipo/tamanho já limitados no bucket); visualizador PDF/imagem;
-URLs assinadas de curta duração; boletos com itens; registro de pagamento; recibos e IR por ano-base.
+## Etapa 3 — Documentos e financeiro ✅
+- ✅ Envio de documentos direto ao storage privado, com pré-visualização, validação de tipo/tamanho no navegador e conferência no servidor
+- ✅ Tipos: contrato, laudo de vistoria, recibo, demonstrativo, Imposto de Renda (ano-base), documento pessoal, outro
+- ✅ Destino por imóvel, contrato ou pessoa; rascunho ou publicação imediata (com aviso automático)
+- ✅ Visualizador de PDF/imagem dentro do app e download por link assinado de 2 minutos; cada acesso entra no histórico
+- ✅ Boletos: competência, vencimento pelo contrato, itens (aluguel, condomínio, IPTU, desconto), linha digitável, Pix copia-e-cola, PDF
+- ✅ Pagamentos manuais (parciais ou totais) com baixa automática e estorno; boleto pago não pode ter valor alterado
+- ✅ Inquilino: faturas em aberto e histórico, detalhamento, copiar Pix/linha digitável, PDF; contrato e vistoria
+- ✅ Proprietário: recibos por ano, situação dos aluguéis, biblioteca com o informe de IR
+- ⬜ Baixa automática por webhook do banco/gateway → depende do fornecedor (Etapa 6)
 
 ## Etapa 4 — Portal do inquilino 🟡
-Dashboard pronto. Falta: faturas com download, abrir chamado com anexos, timeline, contrato/vistoria, Indique e Ganhe.
+Dashboard, faturas e documentos prontos. Falta: abrir chamado com anexos, timeline, avisos, Indique e Ganhe.
 
 ## Etapa 5 — Portal do proprietário 🟡
-Dashboard pronto. Falta: ficha e galeria do imóvel, recibos por competência, biblioteca de documentos, linha do tempo.
+Dashboard, recibos e biblioteca de documentos prontos. Falta: ficha e galeria do imóvel, linha do tempo, avisos.
 
 ## Etapa 6 — Comunicação ⬜
 Fila e deduplicação prontas. Falta plugar provedores e a tela de Configurações → Integrações.

@@ -1,5 +1,5 @@
 import {
-  Plus, Search, Building2, CalendarDays, ChartColumn, FileText, Gift, Home, KeyRound, LayoutDashboard, Megaphone,
+  FolderOpen, Plus, Search, Building2, CalendarDays, ChartColumn, FileText, Gift, Home, KeyRound, LayoutDashboard, Megaphone,
   Receipt, Settings, UserRound, Users, Wallet, Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -14,7 +14,8 @@ export const NAV: Record<Role, NavItem[]> = {
     { href: "/admin/proprietarios", label: "Proprietários", icon: KeyRound },
     { href: "/admin/inquilinos", label: "Inquilinos", icon: Users },
     { href: "/admin/contratos", label: "Contratos", icon: FileText },
-    { href: "/admin/financeiro", label: "Financeiro", icon: Wallet },
+    { href: "/admin/financeiro", label: "Boletos", icon: Wallet },
+    { href: "/admin/documentos", label: "Documentos", icon: FolderOpen },
     { href: "/admin/chamados", label: "Chamados", icon: Wrench },
     { href: "/admin/agenda", label: "Agenda", icon: CalendarDays },
     { href: "/admin/comunicados", label: "Comunicados", icon: Megaphone },

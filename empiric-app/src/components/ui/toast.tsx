@@ -18,6 +18,15 @@ export const TOASTS: Record<string, string> = {
   vinculo_removido: "Vínculo removido.",
   fotos_salvas: "Fotos adicionadas.",
   foto_removida: "Foto removida.",
+  doc_enviado: "Documento enviado.",
+  doc_publicado: "Documento publicado e destinatários avisados.",
+  doc_oculto: "Documento ocultado dos clientes.",
+  doc_removido: "Documento excluído.",
+  boleto_salvo: "Boleto salvo.",
+  boleto_publicado: "Boleto publicado. O inquilino foi avisado.",
+  boleto_cancelado: "Boleto cancelado.",
+  pagamento_registrado: "Pagamento registrado.",
+  pagamento_estornado: "Pagamento estornado.",
 };
 
 /** Mostra a confirmação vinda de ?ok=<chave> e limpa a URL. */

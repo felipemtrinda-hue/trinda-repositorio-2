@@ -200,4 +200,30 @@ do $$ begin
   end;
 end $$;
 
+
+-- ---------- Etapa 3: financeiro ----------
+insert into public.payments (invoice_id, amount, paid_at, method)
+select id, 1000, now(), 'pix' from public.invoices
+ where lease_id = '20000000-0000-0000-0000-000000000002' and status = 'pending' limit 1;
+select pg_temp.check((select status from public.invoices where lease_id = '20000000-0000-0000-0000-000000000002' and competence = date_trunc('month', current_date)) = 'pending',
+  'pagamento parcial mantém o boleto em aberto');
+insert into public.payments (invoice_id, amount, paid_at, method)
+select id, 1500, now(), 'pix' from public.invoices
+ where lease_id = '20000000-0000-0000-0000-000000000002' and competence = date_trunc('month', current_date);
+select pg_temp.check((select status from public.invoices where lease_id = '20000000-0000-0000-0000-000000000002' and competence = date_trunc('month', current_date)) = 'paid',
+  'pagamento completo dá baixa automática no boleto');
+select pg_temp.check((select count(*) from public.notifications where type = 'payment_confirmed'
+  and user_id = '00000000-0000-0000-0000-0000000000c2') = 1, 'inquilino é avisado do pagamento confirmado');
+begin;
+select pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+select pg_temp.check((select count(*) from public.payments) = 0, 'inquilino não vê pagamentos de outro contrato');
+commit;
+do $$ begin
+  begin
+    update public.invoices set amount = 1 where status = 'paid';
+    raise exception 'FALHOU: alterou valor de boleto pago';
+  exception when check_violation then raise notice 'ok  valor de boleto pago não pode ser alterado';
+  end;
+end $$;
+
 \echo '>>> Todos os testes de permissão passaram.'
