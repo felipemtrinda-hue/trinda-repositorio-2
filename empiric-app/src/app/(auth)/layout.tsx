@@ -17,7 +17,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             Boletos, contratos, recibos e manutenção em um só lugar — para proprietários, inquilinos e equipe Empiric.
           </p>
         </div>
-        <p className="relative text-xs text-white/50">Acesso restrito a clientes e colaboradores da Empiric.</p>
+        <p className="relative text-xs leading-relaxed text-white/55">Empiric Negócios Imobiliários Ltda. · CRECI 9497-J<br />Rua Visconde do Rio Branco, 759 · Oficinas · Ponta Grossa/PR</p>
       </aside>
       <main className="flex items-center justify-center px-5 py-12">
         <div className="w-full max-w-[400px] animate-[var(--animate-rise)]">
