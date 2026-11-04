@@ -29,6 +29,10 @@ Legenda: ✅ pronto · 🟡 parcial · ⬜ a fazer
 - ✅ Agenda: visões mês/semana/dia, filtros por tipo e imóvel, vencimentos de boletos, eventos manuais com visibilidade para proprietário/inquilino
 - ⬜ Upload do contrato assinado e laudo de vistoria → Etapa 3 (módulo de documentos)
 
+## App no celular (PWA) ✅
+Manifesto, ícones, service worker seguro (sem dados pessoais em cache), página offline,
+convite de instalação para Android e iPhone, áreas seguras do iPhone. Lojas: avaliar Expo depois.
+
 ## Etapa 3 — Documentos e financeiro ⬜
 Upload com pré-visualização, progresso e validação (tipo/tamanho já limitados no bucket); visualizador PDF/imagem;
 URLs assinadas de curta duração; boletos com itens; registro de pagamento; recibos e IR por ano-base.

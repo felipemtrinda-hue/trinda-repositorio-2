@@ -6,6 +6,7 @@ import { useState, useSyncExternalStore } from "react";
 import { Bell, ChevronsLeft, LayoutGrid, LogOut, X } from "lucide-react";
 import type { Role } from "@/lib/auth";
 import { NAV, PRIMARY_ACTION, ROLE_LABEL } from "./nav";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 type Props = { role: Role; userName: string; unread: number; children: React.ReactNode };
 
@@ -106,7 +107,7 @@ export function AppShell({ role, userName, unread, children }: Props) {
 
       {/* ---------- Conteúdo ---------- */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="glass sticky top-0 z-30 flex h-16 items-center justify-between gap-4 px-4 md:px-8 lg:h-20">
+        <header className="glass sticky top-0 z-30 flex h-[calc(4rem+env(safe-area-inset-top))] items-center justify-between gap-4 px-[max(1rem,env(safe-area-inset-left))] pt-[env(safe-area-inset-top)] md:px-8 lg:h-20 lg:pt-0">
           <div className="flex items-center gap-3 lg:hidden">
             <span className="grid size-10 place-items-center rounded-full bg-vinho-gradient text-sm font-semibold text-white" aria-hidden>{initials}</span>
             <span className="text-sm leading-tight"><span className="block text-stone">Olá,</span><span className="block font-semibold">{firstName}</span></span>
@@ -128,12 +129,12 @@ export function AppShell({ role, userName, unread, children }: Props) {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 pb-32 pt-6 md:px-8 lg:pb-16 lg:pt-8">{children}</main>
+        <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 pb-[calc(8rem+env(safe-area-inset-bottom))] pt-6 md:px-8 lg:pb-16 lg:pt-8"><InstallPrompt />{children}</main>
       </div>
 
       {/* ---------- Barra inferior flutuante (celular/tablet) ---------- */}
       <nav
-        className="glass fixed inset-x-4 bottom-4 z-40 flex h-[68px] items-center justify-around rounded-[28px] px-2 shadow-[var(--shadow-float)] ring-1 ring-black/[0.04] lg:hidden"
+        className="glass fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex h-[68px] items-center justify-around rounded-[28px] px-2 shadow-[var(--shadow-float)] ring-1 ring-black/[0.04] lg:hidden"
         aria-label="Navegação"
       >
         {left.map((it) => <TabIcon key={it.href} item={it} active={isActive(path, it.href, root)} />)}
@@ -151,7 +152,7 @@ export function AppShell({ role, userName, unread, children }: Props) {
       {sheetOpen && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
           <button className="absolute inset-0 bg-black/25 backdrop-blur-[2px] animate-[var(--animate-fade)]" onClick={() => setSheetOpen(false)} aria-label="Fechar menu" />
-          <div className="absolute inset-x-0 bottom-0 rounded-t-[32px] bg-paper p-5 pb-10 shadow-[var(--shadow-float)] animate-[var(--animate-rise)]">
+          <div className="absolute inset-x-0 bottom-0 rounded-t-[32px] bg-paper p-5 pb-[calc(2.5rem+env(safe-area-inset-bottom))] shadow-[var(--shadow-float)] animate-[var(--animate-rise)]">
             <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-smoke" aria-hidden />
             <div className="mb-4 flex items-center justify-between px-1">
               <p className="heading text-lg font-bold">{ROLE_LABEL[role]}</p>

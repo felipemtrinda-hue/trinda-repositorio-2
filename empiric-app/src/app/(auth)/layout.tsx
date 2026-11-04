@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,6 +23,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="w-full max-w-[400px] animate-[var(--animate-rise)]">
           <Image src="/brand/empiric-horizontal.png" alt="Empiric Negócios Imobiliários" width={175} height={100} priority className="mb-10 h-16 w-auto lg:hidden" />
           {children}
+          <div className="mt-10"><InstallPrompt /></div>
         </div>
       </main>
     </div>

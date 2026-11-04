@@ -88,6 +88,21 @@ supabase/
   tests/             testes de permissão em Postgres real
 ```
 
+## App no celular (PWA)
+
+O portal é instalável como aplicativo em iPhone e Android, sem loja:
+
+- **Android (Chrome):** aparece o convite "Instale o app Empiric" com botão **Instalar**.
+- **iPhone (Safari):** o convite explica: Compartilhar → **Adicionar à Tela de Início**.
+- Abre em tela cheia, com ícone próprio, respeitando o notch e a barra inferior do iPhone.
+- Sem internet, mostra uma tela de aviso. Por segurança, **nenhum dado pessoal fica salvo no aparelho**:
+  o service worker (`public/sw.js`) guarda só arquivos estáticos (código, logo, ícones).
+- Atalhos no ícone (Android): "Minhas faturas" e "Abrir chamado".
+- Requer HTTPS (a Vercel já fornece). O service worker só é ativado no build de produção.
+
+Ao alterar `public/sw.js`, troque a constante `VERSION` para os aparelhos baixarem a versão nova.
+Publicar nas lojas (App Store/Google Play) fica para depois, se necessário, empacotando este mesmo app com Expo.
+
 ## Deploy (Vercel)
 
 Importe o repositório com **Root Directory = `empiric-app`**, configure as variáveis do `.env.example`
