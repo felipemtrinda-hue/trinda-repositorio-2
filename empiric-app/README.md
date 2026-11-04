@@ -25,6 +25,7 @@ Sem as variáveis do Supabase o app abre normalmente e a tela de login mostra "C
    - `supabase/migrations/20261104000001_schema.sql` — tabelas
    - `supabase/migrations/20261104000002_rls.sql` — permissões e buckets privados
    - `supabase/migrations/20261104000003_automation.sql` — notificações, rotina diária, auditoria
+   - `supabase/migrations/20261105000001_admin_rules.sql` — regras de contratos, agenda e vínculos
 3. **Authentication → Providers → Email:** desative "Allow new users to sign up" (só a imobiliária cria contas).
 4. **Authentication → Email Templates** — troque os links para o fluxo do servidor:
    - Invite: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/redefinir-senha`
@@ -37,7 +38,10 @@ Sem as variáveis do Supabase o app abre normalmente e a tela de login mostra "C
    ```
    Os demais usuários serão convidados pelo próprio painel (Etapa 2). O papel fica em `app_metadata`,
    que o usuário não consegue alterar.
-7. **Configurações iniciais** (até a tela existir): `update public.settings set value = jsonb_set(value, '{number}', '"5542XXXXXXXXX"') where key = 'whatsapp';`
+7. **E-mail de convite:** o SMTP padrão do Supabase envia poucos e-mails por hora. Para produção configure um SMTP
+   próprio em Authentication → SMTP Settings (ex.: Resend). Enquanto isso, o admin pode usar
+   **"Gerar link de acesso"** na ficha da pessoa e enviar o link pelo WhatsApp.
+8. **Configurações iniciais** (até a tela existir): `update public.settings set value = jsonb_set(value, '{number}', '"5542XXXXXXXXX"') where key = 'whatsapp';`
 
 ### Testes de permissão
 

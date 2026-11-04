@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Building2, Search } from "lucide-react";
+import Link from "next/link";
+import { Building2, Plus, Search } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +30,7 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
   return (
     <>
       <PageHeader eyebrow="Carteira" title="Imóveis" accent="administrados"
-        description="Cadastro completo com fotos, proprietários e contrato vigente entra na Etapa 2." />
+        actions={<ButtonLink href="/admin/imoveis/novo"><Plus className="size-4" /> Novo imóvel</ButtonLink>} />
 
       <form className="mb-4 flex flex-col gap-3 md:flex-row md:items-center" role="search">
         <label className="relative flex-1">
@@ -50,7 +52,8 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
       <Card className="overflow-hidden">
         {!rows?.length ? (
           <EmptyState icon={Building2} title={q || status ? "Nenhum imóvel encontrado" : "Nenhum imóvel cadastrado"}
-            description={q || status ? "Ajuste a busca ou os filtros." : "Os imóveis cadastrados pela equipe aparecerão aqui."} />
+            description={q || status ? "Ajuste a busca ou os filtros." : "Cadastre o primeiro imóvel da carteira."}
+            action={!q && !status ? <ButtonLink href="/admin/imoveis/novo"><Plus className="size-4" /> Novo imóvel</ButtonLink> : undefined} />
         ) : (
           <table className="w-full text-sm">
             <thead className="hidden bg-mist/70 text-left text-xs uppercase tracking-wider text-stone md:table-header-group">
@@ -61,8 +64,8 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
               {rows.map((p) => {
                 const [label, tone] = propertyStatus[p.status] ?? [p.status, "neutral"];
                 return (
-                  <tr key={p.id} className="flex flex-col gap-1 px-6 py-4 hover:bg-mist md:table-row md:p-0">
-                    <td className="md:px-6 md:py-4"><p className="font-medium">{p.title}</p>{p.code && <p className="text-xs text-stone">#{p.code}</p>}</td>
+                  <tr key={p.id} className="relative flex flex-col gap-1 px-6 py-4 hover:bg-mist md:table-row md:p-0">
+                    <td className="md:px-6 md:py-4"><Link href={`/admin/imoveis/${p.id}`} className="font-semibold hover:text-bordo after:absolute after:inset-0 md:after:content-none">{p.title}</Link>{p.code && <p className="text-xs text-stone">#{p.code}</p>}</td>
                     <td className="text-stone md:px-6 md:py-4">{[p.street, p.number].filter(Boolean).join(", ")} · {p.district ? `${p.district}, ` : ""}{p.city}/{p.state}</td>
                     <td className="md:px-6 md:py-4">{p.rent_amount ? money(p.rent_amount) : "—"}</td>
                     <td className="md:px-6 md:py-4"><Badge tone={tone}>{label}</Badge></td>

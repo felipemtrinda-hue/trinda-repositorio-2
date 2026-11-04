@@ -2,6 +2,8 @@ import { getProfile, requireRole, type Role } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { AppShell } from "./app-shell";
 import { WhatsAppButton } from "./whatsapp-button";
+import { Suspense } from "react";
+import { Toast } from "@/components/ui/toast";
 
 export async function RoleLayout({ role, children }: { role: Role; children: React.ReactNode }) {
   await requireRole(role);
@@ -19,6 +21,7 @@ export async function RoleLayout({ role, children }: { role: Role; children: Rea
   return (
     <AppShell role={role} userName={profile.full_name} unread={count ?? 0}>
       {children}
+      <Suspense><Toast /></Suspense>
       {role === "tenant" && <WhatsAppButton number={whatsapp?.number ?? null} message={whatsapp?.default_message} />}
     </AppShell>
   );

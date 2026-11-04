@@ -8,7 +8,7 @@ Legenda: ✅ pronto · 🟡 parcial · ⬜ a fazer
 - ✅ Schema completo: perfis, imóveis, fotos, vínculos, contratos, documentos, boletos, itens, pagamentos,
   chamados + linha do tempo + anexos, comunicados, notificações + fila de entrega, Indique e Ganhe, agenda,
   configurações, integrações, auditoria
-- ✅ RLS em todas as tabelas e no storage — **29+ testes** de permissão (`npm run db:test`)
+- ✅ RLS em todas as tabelas e no storage — **40+ testes** de permissão (`npm run db:test`)
 - ✅ Login, recuperação de senha, primeiro acesso com consentimento LGPD, bloqueio de conta
 - ✅ Redirecionamento por perfil; layouts admin/proprietário/inquilino; menu recolhível; navegação mobile
 - ✅ Dashboards com dados reais (admin via `admin_dashboard_summary`, proprietário, inquilino)
@@ -17,9 +17,17 @@ Legenda: ✅ pronto · 🟡 parcial · ⬜ a fazer
 - ✅ Gatilhos de notificação: boleto publicado, pagamento confirmado, documento publicado, status de chamado
 - ✅ Estados vazios, skeleton, erro, 404, aviso offline, WhatsApp flutuante
 
-## Etapa 2 — Administração ⬜
-Formulários (criar/editar/arquivar) de imóveis com galeria, proprietários, inquilinos e contratos;
-convite de usuários (`auth.admin.inviteUserByEmail` com `app_metadata.role`); agenda mensal/semanal/diária.
+## Etapa 2 — Administração ✅
+- ✅ Imóveis: cadastro/edição com busca de CEP (ViaCEP), características, valores, diferenciais; arquivamento com confirmação
+- ✅ Fotos: envio direto ao storage privado, validação de tipo/tamanho, URLs assinadas, remoção
+- ✅ Vínculo de proprietários com % de participação (soma limitada a 100% no banco)
+- ✅ Proprietários e inquilinos: lista com busca, cadastro com validação de CPF/CNPJ e telefone
+- ✅ Convite por e-mail com papel em `app_metadata`; link de acesso de uso único para enviar por WhatsApp
+- ✅ Bloqueio/desbloqueio (perfil + Auth) com confirmação
+- ✅ Contratos: cadastro, vigência, vencimento, reajuste, alerta de renovação; fluxo rascunho → assinatura → ativo → encerrado
+- ✅ Regras no banco: contrato ativo marca imóvel como alugado; encerrado devolve para disponível; datas e renovação vão para a agenda
+- ✅ Agenda: visões mês/semana/dia, filtros por tipo e imóvel, vencimentos de boletos, eventos manuais com visibilidade para proprietário/inquilino
+- ⬜ Upload do contrato assinado e laudo de vistoria → Etapa 3 (módulo de documentos)
 
 ## Etapa 3 — Documentos e financeiro ⬜
 Upload com pré-visualização, progresso e validação (tipo/tamanho já limitados no bucket); visualizador PDF/imagem;

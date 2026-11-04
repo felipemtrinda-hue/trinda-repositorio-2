@@ -20,3 +20,15 @@ export const entityLabel: Record<string, string> = {
   payments: "pagamento", tickets: "chamado", ticket_attachments: "anexo", announcements: "comunicado",
   referrals: "indicação", settings: "configuração", integrations: "integração", property_owners: "vínculo", auth: "",
 };
+export const leaseStatus: Record<string, [string, BadgeTone]> = {
+  draft: ["Rascunho", "neutral"], awaiting_signature: ["Aguardando assinatura", "warning"],
+  active: ["Ativo", "success"], ended: ["Encerrado", "neutral"], cancelled: ["Cancelado", "danger"],
+};
+export const accountStatus: Record<string, [string, BadgeTone]> = {
+  invited: ["Convite enviado", "warning"], active: ["Ativo", "success"], blocked: ["Bloqueado", "danger"],
+};
+export const eventKind: Record<string, [string, string]> = {
+  invoice_due: ["Vencimento", "#2a5bd7"], lease_start: ["Início de contrato", "#1d7a4a"], lease_end: ["Fim de contrato", "#8c1c3e"],
+  inspection: ["Vistoria", "#9a5b00"], maintenance: ["Manutenção", "#c4271b"], payout: ["Repasse", "#5b3fd1"],
+  task: ["Tarefa", "#424245"], reminder: ["Lembrete", "#b8325a"],
+};

@@ -158,4 +158,46 @@ select pg_temp.check((select count(*) from public.notification_deliveries) =
   2 * (select count(*) from public.notifications), 'cada notificação gera fila de e-mail e WhatsApp');
 select pg_temp.check((select count(*) from public.activity_logs where action = 'upload') = 4, 'uploads registrados na auditoria');
 
+
+-- ---------- Etapa 2: regras de administração ----------
+select pg_temp.check((select count(*) from public.calendar_events
+  where lease_id = '20000000-0000-0000-0000-000000000001') = 3,
+  'contrato gera início, fim e lembrete de renovação na agenda');
+begin;
+select pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+select pg_temp.check((select count(*) from public.calendar_events) = 2,
+  'inquilino vê início/fim do próprio contrato, não o lembrete interno');
+commit;
+
+update auth.users set raw_app_meta_data = '{"role":"owner","full_name":"Novo Dono"}'
+ where email = 'hacker@teste.local';
+select pg_temp.check((select role from public.profiles where email = 'hacker@teste.local') = 'owner',
+  'papel definido pelo backend (app_metadata) sincroniza o perfil');
+
+update public.leases set status = 'ended' where id = '20000000-0000-0000-0000-000000000002';
+select pg_temp.check((select status from public.properties where id = '10000000-0000-0000-0000-000000000002') = 'available',
+  'contrato encerrado devolve o imóvel para disponível');
+update public.leases set status = 'active' where id = '20000000-0000-0000-0000-000000000002';
+select pg_temp.check((select status from public.properties where id = '10000000-0000-0000-0000-000000000002') = 'rented',
+  'contrato ativo marca o imóvel como alugado');
+
+do $$ begin
+  begin
+    insert into public.property_owners (property_id, owner_id)
+      values ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-0000000000c1');
+    raise exception 'FALHOU: inquilino vinculado como proprietário';
+  exception when check_violation then raise notice 'ok  só proprietários podem ser vinculados a imóveis';
+  end;
+end $$;
+
+do $$ begin
+  begin
+    insert into public.property_owners (property_id, owner_id, share_pct)
+      values ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-0000000000d1', 50);
+    set constraints all immediate;
+    raise exception 'FALHOU: participações somaram mais de 100%%';
+  exception when check_violation then raise notice 'ok  soma das participações limitada a 100%%';
+  end;
+end $$;
+
 \echo '>>> Todos os testes de permissão passaram.'
