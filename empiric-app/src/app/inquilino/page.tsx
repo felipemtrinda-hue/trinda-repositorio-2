@@ -100,7 +100,7 @@ export default async function TenantHome() {
           )}
         </Card>
         <Card>
-          <CardHeader title="Chamados em aberto" action={<Link href="/inquilino/chamados" className="text-sm font-medium text-bordo">Ver todos</Link>} />
+          <CardHeader title="Chamados em aberto" action={<Link href="/inquilino/chamados" className="inline-flex items-center text-sm font-medium text-bordo">Ver todos</Link>} />
           {!tickets?.length ? <EmptyState icon={Wrench} title="Nenhum chamado aberto" description="Algo precisa de reparo? Abra um chamado e acompanhe por aqui." /> : (
             <ul className="divide-y divide-cream px-6 pb-3">
               {tickets.map((t) => {

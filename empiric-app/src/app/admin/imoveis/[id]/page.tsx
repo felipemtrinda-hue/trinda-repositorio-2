@@ -13,7 +13,7 @@ import { ConfirmSubmit } from "@/components/ui/confirm-submit";
 import { PropertyForm } from "@/components/admin/property-form";
 import { PhotoUploader } from "@/components/admin/photo-uploader";
 import { LinkOwnerForm } from "@/components/admin/link-owner-form";
-import { date, money } from "@/lib/format";
+import { date, money, moneyInput } from "@/lib/format";
 import { leaseStatus, propertyStatus } from "@/lib/labels";
 
 export const metadata: Metadata = { title: "Imóvel" };
@@ -42,6 +42,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const [statusLabel, statusTone] = propertyStatus[p.status] ?? [p.status, "neutral"];
 
   const initial = Object.fromEntries(Object.entries(p).map(([k, v]) => [k, str(v)]));
+  for (const k of ["rent_amount", "condo_amount", "iptu_amount"] as const) initial[k] = moneyInput(p[k]);
+  if (p.area_m2 != null) initial.area_m2 = String(Number(p.area_m2)).replace(".", ",");
+  if (p.zip_code) initial.zip_code = String(p.zip_code).replace(/(\d{5})(\d{3})/, "$1-$2");
 
   return (
     <>

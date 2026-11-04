@@ -136,6 +136,14 @@ body {
   border-radius: 20px;
 }
 
+/* Toque confortável (≥ 44px) em celulares e tablets */
+@media (pointer: coarse) {
+  main button, main a.inline-flex, main a.flex, main [role="tab"], main select, main input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+  main summary, nav a, nav button { min-height: 44px; }
+  main a.inline-flex { align-items: center; }
+  main label:has(> input[type="checkbox"]) { min-height: 44px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
 }

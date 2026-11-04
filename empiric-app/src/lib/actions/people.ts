@@ -75,6 +75,9 @@ export async function setBlocked(form: FormData) {
   const id = String(form.get("id"));
   const block = form.get("block") === "1";
   if (id === me.id) redirect(`/admin/pessoas/${id}`);
+  const supabase0 = await createClient();
+  const { data: target } = await supabase0.from("profiles").select("role").eq("id", id).maybeSingle();
+  if (!target || target.role === "admin") redirect("/admin"); // contas da equipe não são bloqueadas por aqui
   const admin = createAdminClient();
   await admin.auth.admin.updateUserById(id, { ban_duration: block ? "876000h" : "none" });
   const supabase = await createClient();

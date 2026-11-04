@@ -30,7 +30,7 @@ export default async function TenantInvoices() {
     const left = daysUntil(i.due_date);
     return (
       <details open={expanded} className="group">
-        <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 md:px-6 [&::-webkit-details-marker]:hidden">
+        <summary className="flex cursor-pointer list-none flex-wrap items-center gap-x-3 gap-y-1 px-5 py-4 md:px-6 [&::-webkit-details-marker]:hidden">
           <span className="min-w-0 flex-1">
             <span className="block font-semibold">{monthYear(i.competence)}</span>
             <span className="block text-sm text-stone">

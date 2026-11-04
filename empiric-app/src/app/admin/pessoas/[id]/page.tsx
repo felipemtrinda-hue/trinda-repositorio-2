@@ -11,7 +11,7 @@ import { FormSection } from "@/components/ui/form";
 import { ConfirmSubmit } from "@/components/ui/confirm-submit";
 import { PersonForm } from "@/components/admin/person-form";
 import { AccessLink } from "@/components/admin/access-link";
-import { date, money } from "@/lib/format";
+import { date, docId, money, phone } from "@/lib/format";
 import { accountStatus, leaseStatus, propertyStatus } from "@/lib/labels";
 
 export const metadata = { title: "Cadastro" };
@@ -44,7 +44,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
 
       <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
         <div className="space-y-4">
-          <PersonForm role={p.role} initial={{ id: p.id, full_name: p.full_name, email: p.email, phone: p.phone ?? "", whatsapp: p.whatsapp ?? "", document_id: p.document_id ?? "", notes: p.notes ?? "" }} />
+          <PersonForm role={p.role} initial={{ id: p.id, full_name: p.full_name, email: p.email, phone: phone(p.phone), whatsapp: phone(p.whatsapp), document_id: docId(p.document_id), notes: p.notes ?? "" }} />
 
           {isOwner ? (
             <FormSection title="Imóveis vinculados" description="O vínculo é feito na página do imóvel.">
@@ -84,9 +84,9 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
         <aside className="space-y-4">
           <FormSection title="Contato">
             <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-3"><Mail className="size-4 text-stone" /><a href={`mailto:${p.email}`} className="hover:text-bordo">{p.email}</a></li>
-              {p.phone && <li className="flex items-center gap-3"><Phone className="size-4 text-stone" />{p.phone}</li>}
-              {p.whatsapp && <li className="flex items-center gap-3"><MessageCircle className="size-4 text-stone" /><a href={`https://wa.me/55${p.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:text-bordo">{p.whatsapp}</a></li>}
+              <li className="flex items-center gap-3"><Mail className="size-4 text-stone" /><a href={`mailto:${p.email}`} className="inline-flex items-center hover:text-bordo">{p.email}</a></li>
+              {p.phone && <li className="flex items-center gap-3"><Phone className="size-4 text-stone" />{phone(p.phone)}</li>}
+              {p.whatsapp && <li className="flex items-center gap-3"><MessageCircle className="size-4 text-stone" /><a href={`https://wa.me/55${p.whatsapp}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center hover:text-bordo">{phone(p.whatsapp)}</a></li>}
             </ul>
           </FormSection>
           <FormSection title="Acesso ao portal"

@@ -18,7 +18,7 @@ export function DocList({ docs }: { docs: DocRow[] }) {
             {d.mime_type === "application/pdf" ? <FileText className="size-5" aria-hidden /> : <ImageIcon className="size-5" aria-hidden />}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate font-semibold">{d.title}</span>
+            <span className="line-clamp-2 font-semibold leading-snug">{d.title}</span>
             <span className="block text-xs text-stone">
               {DOC_KIND_LABEL[d.kind]}
               {d.base_year ? ` · ano-base ${d.base_year}` : ""}

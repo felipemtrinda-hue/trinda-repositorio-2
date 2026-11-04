@@ -99,18 +99,18 @@ export default async function AgendaPage({ searchParams }: { searchParams: Promi
           <div className="flex rounded-full bg-mist p-1" role="tablist" aria-label="Visualização">
             {(["mes", "semana", "dia"] as View[]).map((vw) => (
               <Link key={vw} href={qs({ v: vw })} role="tab" aria-selected={view === vw}
-                className={`rounded-full px-4 py-1.5 text-sm font-medium ${view === vw ? "bg-paper shadow-[var(--shadow-card)]" : "text-stone"}`}>
+                className={`inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium ${view === vw ? "bg-paper shadow-[var(--shadow-card)]" : "text-stone"}`}>
                 {{ mes: "Mês", semana: "Semana", dia: "Dia" }[vw]}
               </Link>
             ))}
           </div>
-          <form className="flex gap-2">
+          <form className="flex w-full flex-wrap gap-2 sm:w-auto">
             <input type="hidden" name="v" value={view} /><input type="hidden" name="data" value={day} />
-            <select name="tipo" defaultValue={tipo} className="h-10 rounded-full bg-mist px-4 text-sm" aria-label="Filtrar por tipo">
+            <select name="tipo" defaultValue={tipo} className="h-10 min-w-0 flex-1 rounded-full bg-mist px-4 text-sm sm:flex-none" aria-label="Filtrar por tipo">
               <option value="">Todos os tipos</option>
               {Object.entries(eventKind).map(([k, [l]]) => <option key={k} value={k}>{l}</option>)}
             </select>
-            <select name="imovel" defaultValue={imovel} className="h-10 max-w-44 rounded-full bg-mist px-4 text-sm" aria-label="Filtrar por imóvel">
+            <select name="imovel" defaultValue={imovel} className="h-10 min-w-0 flex-1 rounded-full bg-mist px-4 text-sm sm:max-w-44 sm:flex-none" aria-label="Filtrar por imóvel">
               <option value="">Todos os imóveis</option>
               {propertyOpts.map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
             </select>
@@ -156,7 +156,7 @@ export default async function AgendaPage({ searchParams }: { searchParams: Promi
                   return (
                     <div key={cur} className={`border-b border-r border-cream p-1.5 ${view === "mes" ? "min-h-[112px]" : "min-h-[360px]"} ${outside ? "bg-mist/50" : ""} [&:nth-child(7n)]:border-r-0`}>
                       <Link href={qs({ v: "dia", data: cur })}
-                        className={`mb-1 inline-grid size-7 place-items-center rounded-full text-xs font-semibold ${cur === today ? "bg-bordo text-white" : outside ? "text-stone/60" : "hover:bg-mist"}`}>
+                        className={`mb-1 inline-grid size-7 place-items-center rounded-full text-xs font-semibold [@media(pointer:coarse)]:size-9 ${cur === today ? "bg-bordo text-white" : outside ? "text-stone/60" : "hover:bg-mist"}`}>
                         {Number(cur.slice(8))}
                       </Link>
                       {list.slice(0, max).map((e) => <Chip key={e.id} e={e} />)}

@@ -1,3 +1,21 @@
+/** (42) 99958-4779 · (42) 3222-0000 */
+export const phone = (v: string | null | undefined) => {
+  const d = (v ?? "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "");
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return v ?? "";
+};
+/** 529.982.247-25 · 12.345.678/0001-90 */
+export const docId = (v: string | null | undefined) => {
+  const d = (v ?? "").replace(/\D/g, "");
+  if (d.length === 11) return d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  if (d.length === 14) return d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+  return v ?? "";
+};
+/** 1850 → "1.850,00" para campos de valor */
+export const moneyInput = (v: string | number | null | undefined) =>
+  v == null || v === "" ? "" : new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Number(v));
+
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 export const money = (v: number | string | null | undefined) => brl.format(Number(v ?? 0));
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;

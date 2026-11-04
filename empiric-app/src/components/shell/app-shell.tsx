@@ -60,7 +60,7 @@ export function AppShell({ role, userName, unread, children }: Props) {
           </Link>
         </div>
         {!collapsed && <p className="eyebrow px-7 pb-2">{ROLE_LABEL[role]}</p>}
-        <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-2">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-2 [@media(max-height:820px)]:space-y-0.5">
           {items.map(({ href, label, icon: Icon }) => {
             const active = isActive(path, href, root);
             return (
@@ -83,7 +83,7 @@ export function AppShell({ role, userName, unread, children }: Props) {
         </nav>
         <div className="space-y-1 p-4">
           {!collapsed && (
-            <div className="mb-2 flex items-center gap-3 rounded-2xl bg-mist p-3">
+            <div className="mb-2 flex items-center gap-3 rounded-2xl bg-mist p-3 [@media(max-height:820px)]:hidden">
               <span className="grid size-9 shrink-0 place-items-center rounded-full bg-vinho-gradient text-xs font-semibold text-white">{initials}</span>
               <span className="min-w-0 text-sm"><span className="block truncate font-semibold">{userName}</span><span className="block truncate text-xs text-stone">{ROLE_LABEL[role]}</span></span>
             </div>

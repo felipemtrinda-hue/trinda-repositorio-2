@@ -71,7 +71,7 @@ export default async function OwnerHome() {
       </section>
 
       <Card className="mt-4">
-        <CardHeader title="Últimos documentos" action={<Link href="/proprietario/documentos" className="text-sm font-medium text-bordo">Biblioteca</Link>} />
+        <CardHeader title="Últimos documentos" action={<Link href="/proprietario/documentos" className="inline-flex items-center text-sm font-medium text-bordo">Biblioteca</Link>} />
         {!docs?.length ? <EmptyState icon={FileText} title="Nenhum documento publicado" description="Recibos mensais e o informe de IR ficarão disponíveis aqui." /> : (
           <ul className="divide-y divide-cream px-6 pb-3">
             {docs.map((d) => (

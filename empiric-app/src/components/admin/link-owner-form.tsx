@@ -13,10 +13,10 @@ export function LinkOwnerForm({ propertyId, owners, remaining }: { propertyId: s
     <form action={action} className="space-y-3">
       <input type="hidden" name="property_id" value={propertyId} />
       <FormMessage error={state.error} />
-      <div className="grid gap-3 sm:grid-cols-[1fr_120px_auto] sm:items-end">
+      <div className="grid gap-3">
         <Select id="owner_id" label="Proprietário" options={owners} placeholder="Selecione…" required />
         <Input id="share_pct" label="Participação %" inputMode="decimal" defaultValue={String(remaining || 100)} required />
-        <div className="sm:w-36"><SubmitButton pendingLabel="Vinculando…">Vincular</SubmitButton></div>
+        <SubmitButton pendingLabel="Vinculando…">Vincular proprietário</SubmitButton>
       </div>
     </form>
   );

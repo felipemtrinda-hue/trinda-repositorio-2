@@ -21,10 +21,10 @@ export function DocActions({ id, compact = false }: { id: string; compact?: bool
   return (
     <span className="flex shrink-0 items-center gap-1.5">
       <button type="button" onClick={open} className={`${btn} bg-mist text-charcoal hover:bg-[#ebebef]`} aria-label="Visualizar">
-        <Eye className="size-4" aria-hidden />{!compact && "Ver"}
+        <Eye className="size-4" aria-hidden />{!compact && <span className="hidden sm:inline">Ver</span>}
       </button>
       <a href={`/api/documentos/${id}?download=1`} className={`${btn} bg-rose-mist text-bordo hover:bg-rose-line`} aria-label="Baixar">
-        <Download className="size-4" aria-hidden />{!compact && "Baixar"}
+        <Download className="size-4" aria-hidden />{!compact && <span className="hidden sm:inline">Baixar</span>}
       </a>
       <dialog ref={ref} onClose={() => setState({})}
         className="m-auto h-[min(88dvh,900px)] w-[min(96vw,960px)] overflow-hidden rounded-[28px] bg-paper p-0 shadow-[var(--shadow-float)] backdrop:bg-black/40 backdrop:backdrop-blur-[2px]">

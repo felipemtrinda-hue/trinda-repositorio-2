@@ -12,7 +12,7 @@ import { FormMessage } from "@/components/ui/field";
 import { ConfirmSubmit } from "@/components/ui/confirm-submit";
 import { LeaseForm } from "@/components/admin/lease-form";
 import { leaseOptions } from "@/lib/lease-options";
-import { date } from "@/lib/format";
+import { date, moneyInput } from "@/lib/format";
 import { leaseStatus } from "@/lib/labels";
 
 export const metadata = { title: "Contrato" };
@@ -31,6 +31,7 @@ export default async function LeasePage({ params, searchParams }: { params: Prom
   const [label, tone] = leaseStatus[l.status];
   const initial = Object.fromEntries(Object.entries(l).filter(([, v]) => typeof v !== "object" || v === null).map(([k, v]) => [k, v == null ? "" : String(v)]));
 
+  initial.rent_amount = moneyInput(l.rent_amount);
   const transitions: { status: string; label: string; icon: typeof CheckCircle2; danger?: boolean; msg: string }[] = [];
   if (l.status === "draft") transitions.push({ status: "awaiting_signature", label: "Enviar para assinatura", icon: PenLine, msg: "O contrato fica aguardando assinatura. O inquilino já consegue ver o imóvel no portal." });
   if (l.status === "draft" || l.status === "awaiting_signature") transitions.push({ status: "active", label: "Ativar contrato", icon: CheckCircle2, msg: "O imóvel passa para “Alugado” e o inquilino recebe acesso completo." });

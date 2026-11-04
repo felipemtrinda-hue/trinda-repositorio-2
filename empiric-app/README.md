@@ -27,6 +27,9 @@ Sem as variáveis do Supabase o app abre normalmente e a tela de login mostra "C
    - `supabase/migrations/20261104000003_automation.sql` — notificações, rotina diária, auditoria
    - `supabase/migrations/20261105000001_admin_rules.sql` — regras de contratos, agenda e vínculos
    - `supabase/migrations/20261106000001_finance.sql` — baixa automática de pagamentos
+   - `supabase/migrations/20261107000001_portal.sql` — chamados, comunicados e Indique e Ganhe
+   - `supabase/migrations/20261107000002_company_data.sql` — dados oficiais da Empiric
+   - `supabase/migrations/20261108000001_audit_fixes.sql` — correções da auditoria
 3. **Authentication → Providers → Email:** desative "Allow new users to sign up" (só a imobiliária cria contas).
 4. **Authentication → Email Templates** — troque os links para o fluxo do servidor:
    - Invite: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/redefinir-senha`
@@ -71,6 +74,10 @@ Ambos exigem `Authorization: Bearer $CRON_SECRET`. O fuso e os dias de antecedê
 Nada é simulado. Sem credenciais, as entregas de e-mail/WhatsApp ficam registradas como
 `skipped_not_configured` e continuam visíveis na central de notificações do app. Fornecedores
 sugeridos e variáveis em [`docs/roadmap.md`](docs/roadmap.md#depende-de-contascredenciais-externas-precisa-ser-contratadoconfigurado).
+
+## Auditoria
+
+Relatório em [`docs/auditoria.md`](docs/auditoria.md). Ferramenta de auditoria visual em `tools/auditoria/`.
 
 ## Estrutura
 

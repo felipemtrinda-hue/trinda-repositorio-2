@@ -34,7 +34,7 @@ export async function NotificationsPage({ basePath }: { basePath: string }) {
         {!items?.length ? (
           <EmptyState icon={Bell} title="Nenhuma notificação por aqui" description="Avisos de boletos, documentos e chamados aparecerão nesta central." />
         ) : items.map((n) => (
-          <a key={n.id} href={n.link ?? "#"} className={`flex gap-4 px-6 py-4 transition-colors hover:bg-mist ${n.read_at ? "" : "bg-rose-mist/40"}`}>
+          <a key={n.id} href={`/api/notificacoes/${n.id}`} className={`flex gap-4 px-6 py-4 transition-colors hover:bg-mist ${n.read_at ? "" : "bg-rose-mist/40"}`}>
             <span className={`mt-2 size-2 shrink-0 rounded-full ${n.read_at ? "bg-transparent" : "bg-bordo"}`} aria-hidden />
             <div className="min-w-0 flex-1">
               <p className="font-medium">{n.title}</p>

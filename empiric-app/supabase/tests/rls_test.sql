@@ -282,4 +282,25 @@ end $$;
 update public.referrals set status = 'converted';
 select pg_temp.check((select count(*) from public.notifications where type = 'referral_update') = 1, 'inquilino é avisado da conversão');
 
+
+-- ---------- Auditoria ----------
+do $$ begin
+  perform pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+  begin
+    insert into public.ticket_attachments (ticket_id, storage_path, mime_type, size_bytes, uploaded_by)
+      select id, 'outro-chamado/foto.jpg', 'image/jpeg', 100, '00000000-0000-0000-0000-0000000000c1' from public.tickets limit 1;
+    raise exception 'FALHOU: anexo apontou para fora da pasta do chamado';
+  exception when insufficient_privilege then raise notice 'ok  anexo só na pasta do próprio chamado';
+  end;
+  perform public.log_activity('delete', 'documents', 'x', '{}');
+  perform set_config('role', 'postgres', true);
+end $$;
+reset role;
+select pg_temp.check((select count(*) from public.activity_logs where action = 'delete' and entity = 'documents' and entity_id = 'x') = 0,
+  'app não consegue forjar ações arbitrárias na auditoria');
+insert into public.documents (kind, title, storage_path, mime_type, size_bytes, property_id, base_year, published_at)
+  values ('income_tax', 'IR 2026 A', 'ir/a-2026.pdf', 'application/pdf', 1000, '10000000-0000-0000-0000-000000000001', 2026, now());
+select pg_temp.check((select link from public.notifications where title like 'Informe de Imposto%' order by created_at desc limit 1) = '/proprietario/documentos',
+  'aviso de IR leva o proprietário à biblioteca de documentos');
+
 \echo '>>> Todos os testes de permissão passaram.'

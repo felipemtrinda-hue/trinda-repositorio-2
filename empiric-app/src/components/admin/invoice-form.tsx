@@ -6,7 +6,7 @@ import { createInvoice } from "@/lib/actions/invoices";
 import { uploadDocument } from "@/lib/upload-client";
 import { DOC_TYPES, validateFile } from "@/lib/documents";
 import { parseMoney } from "@/lib/validation";
-import { money } from "@/lib/format";
+import { money, moneyInput } from "@/lib/format";
 import { FormMessage } from "@/components/ui/field";
 import { FormSection, Grid, Input, Select } from "@/components/ui/form";
 import { buttonClass } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export function InvoiceForm({ leases, initialLease }: { leases: Lease[]; initial
   const lease = active.find((l) => l.value === leaseId);
   const [competence, setCompetence] = useState(nextMonth());
   const [due, setDue] = useState(lease ? dueFor(nextMonth(), lease.due_day) : "");
-  const [items, setItems] = useState<Item[]>([{ label: "Aluguel", amount: lease ? lease.rent.toFixed(2).replace(".", ",") : "" }]);
+  const [items, setItems] = useState<Item[]>([{ label: "Aluguel", amount: lease ? moneyInput(lease.rent) : "" }]);
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -38,7 +38,7 @@ export function InvoiceForm({ leases, initialLease }: { leases: Lease[]; initial
   function chooseLease(id: string) {
     setLeaseId(id);
     const l = active.find((x) => x.value === id);
-    if (l) { setDue(dueFor(competence, l.due_day)); setItems((it) => [{ label: "Aluguel", amount: l.rent.toFixed(2).replace(".", ",") }, ...it.slice(1)]); }
+    if (l) { setDue(dueFor(competence, l.due_day)); setItems((it) => [{ label: "Aluguel", amount: moneyInput(l.rent) }, ...it.slice(1)]); }
   }
   function chooseCompetence(c: string) { setCompetence(c); if (lease && c) setDue(dueFor(c, lease.due_day)); }
 
@@ -75,11 +75,11 @@ export function InvoiceForm({ leases, initialLease }: { leases: Lease[]; initial
         aside={<p className="heading text-right text-2xl font-bold tabular-nums">{money(total)}</p>}>
         <ul className="space-y-2">
           {items.map((it, i) => (
-            <li key={i} className="grid grid-cols-[1fr_140px_40px] gap-2">
+            <li key={i} className="grid grid-cols-[minmax(0,1fr)_minmax(0,108px)_44px] gap-2 sm:grid-cols-[minmax(0,1fr)_140px_48px]">
               <input aria-label={`Descrição do item ${i + 1}`} value={it.label} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))}
-                className="h-12 rounded-[14px] bg-mist px-4 text-sm focus:bg-paper focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none" placeholder="Condomínio" />
+                className="h-12 min-w-0 rounded-[14px] bg-mist px-4 text-sm focus:bg-paper focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none" placeholder="Condomínio" />
               <input aria-label={`Valor do item ${i + 1}`} inputMode="decimal" value={it.amount} onChange={(e) => setItems(items.map((x, j) => (j === i ? { ...x, amount: e.target.value } : x)))}
-                className="h-12 rounded-[14px] bg-mist px-4 text-right text-sm tabular-nums focus:bg-paper focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none" placeholder="0,00" />
+                className="h-12 min-w-0 rounded-[14px] bg-mist px-3 text-right text-sm tabular-nums focus:bg-paper focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none" placeholder="0,00" />
               <button type="button" onClick={() => setItems(items.filter((_, j) => j !== i))} disabled={items.length === 1}
                 className="grid size-12 place-items-center rounded-full text-stone hover:bg-danger-bg hover:text-danger disabled:opacity-30" aria-label="Remover item"><Trash2 className="size-4" /></button>
             </li>
