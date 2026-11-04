@@ -1,64 +1,63 @@
-# Proposta de identidade visual — Portal Empiric Imob
+# Identidade visual — Portal Empiric Imob (v2 · "Clean")
 
-> **Fonte:** o site oficial (empiricimob.com.br) não pôde ser acessado do ambiente de desenvolvimento
-> (bloqueio de rede). A proposta parte da **logo oficial enviada** (versões vertical e horizontal)
-> e do guia editorial `DESIGN.md` de referência. **Validar com o site antes da Etapa 2**:
-> fontes institucionais, tom de voz, fotos e dados de contato.
+> **Decisão (04/11/2026):** o site atual da Empiric não serve de padrão visual. O portal segue uma
+> linguagem nova, **branca, limpa e moderna, no estilo dos produtos Apple**, a partir da estrutura do
+> `DESIGN.md` e da referência mobile (card escuro de destaque, cards suaves, barra inferior
+> flutuante com ação central). Da marca original ficam **a logo, sem alterações, e o bordô**.
+>
+> A v1 ("papel creme + serifa itálica") foi substituída.
 
-## Conceito
+## Princípios
 
-**"Papel creme e vinho."** Um portal com cara de publicação bem editada, não de sistema
-genérico: fundo creme quente, muito respiro, títulos serifados com uma palavra em itálico
-(a assinatura) e o bordô da Empiric carregando peso e ação. Transmite solidez (mercado
-imobiliário) sem frieza corporativa.
+1. **Branco predominante.** O fundo é branco puro. Os cards se separam por sombra difusa, sem bordas pesadas.
+2. **Uma só cor de marca.** O bordô aparece só onde importa: a ação principal, o item ativo e um card de destaque por tela.
+3. **Tipografia jovem e geométrica.** Títulos grandes e compactos, com a palavra de destaque em bordô.
+4. **Toque generoso.** Raios grandes (20–32px), botões em pílula e áreas de toque de 44px ou mais.
 
 ## Paleta
 
 | Token | Hex | Uso |
 |---|---|---|
-| `vinho` | `#580d26` | Cor da marca (amostrada da logo). Menu lateral, cards escuros, títulos de destaque |
-| `vinho-deep` | `#3d0919` | Hover sobre vinho |
-| `bordo` | `#8c1c3e` | **Ação**: botões, links ativos, foco. Contraste 8,6:1 com branco |
-| `rose-mist` | `#f6e9ec` | Badges, ícones em círculo, realces |
-| `canvas` | `#f9f8f6` | Fundo de página |
-| `paper` | `#ffffff` | Cards e campos |
-| `cream` | `#f0e9e1` | **Toda** linha divisória (nada de cinza frio) |
-| `charcoal` | `#171417` | Texto principal |
-| `stone` | `#6f6a6c` | Texto auxiliar (escurecido do guia para passar AA) |
+| `vinho` | `#580d26` | Cor da logo; base do gradiente dos cards de destaque e do item ativo |
+| gradiente vinho | `#74163a → #580d26 → #2e0616` | Card principal (próxima fatura, imóveis), painel do login |
+| `bordo` | `#8c1c3e` | **Ação**: botões, botão central do celular, links, foco. Contraste 8,6:1 com branco |
+| `rose-mist` | `#f8eef1` | Fundo de ícones e badges da marca |
+| `canvas` / `paper` | `#ffffff` | Fundo de página e cards |
+| `mist` | `#f5f5f7` | Campos, chips, trilhas de gráfico, blocos internos |
+| `cream` | `#ececf0` | Linhas divisórias |
+| `charcoal` | `#1d1d1f` | Texto principal |
+| `stone` | `#6e6e73` | Texto secundário (passa AA) |
 
-Semânticas (pago, vencido, pendente) usam verdes/âmbar/vermelho dessaturados para
-não competir com o vinho.
-
-**Adaptação do guia:** o `DESIGN.md` usa dois azuis (navy editorial + cobalto de ação).
-Mantivemos o *sistema de dois tons* trocando o par por **vinho (peso) + bordô (ação)**,
-preservando a identidade da Empiric.
+As cores semânticas (pago, vencido, em análise) usam verde, âmbar, vermelho e azul suaves sobre fundo claro.
 
 ## Tipografia
 
-| Papel | Fonte | Observação |
-|---|---|---|
-| Display (títulos de página) | **Instrument Serif** 400 + itálico | Substituta livre de GT Super/Tiempos. Uma expressão em itálico bordô por título |
-| Subtítulos / números | **Inter Tight** 500–600 | Tracking negativo em tamanhos grandes |
-| Texto, botões, formulários | **Inter** 400–500 | Linha 1.6 para leitura confortável |
+| Papel | Fonte | Peso | Observação |
+|---|---|---|---|
+| Títulos e números | **Plus Jakarta Sans** | 600–800 | Tracking −0,04em; destaque em gradiente bordô |
+| Texto, botões e formulários | **Inter** | 400–600 | Linha 1,55 |
 
-## Formas e componentes
+As duas fontes são gratuitas (Google Fonts) e carregadas pelo `next/font`, sem custo de licença.
 
-- Cards: raio 16px, borda creme 1px, sombra vinho a 6%.
-- Botões e chips: pílula (raio 100px), sem sombra — a cor é a elevação.
-- Três variações de card de destaque: **vinho** (principal), **papel** (neutro) e **borda bordô** (o diferencial).
-- Menu lateral vinho no desktop (recolhível); barra inferior flutuante + folha "Mais" no celular.
-- WhatsApp: botão verde fixo, só na área do inquilino, com número vindo das Configurações.
-- Movimento: entrada em cascata dos cards (≤ 200ms de atraso), fade entre páginas, skeleton com brilho;
-  tudo desligado em `prefers-reduced-motion`.
+## Componentes-chave
+
+- **Card de destaque**: gradiente vinho, brilho difuso e sombra bordô. É o único elemento escuro de cada tela.
+- **Card padrão**: branco, raio 24px, anel de 4% e sombra `0 8px 28px rgba(0,0,0,.06)`.
+- **Card de realce**: branco com anel bordô de 1,5px. Serve para o indicador que pede atenção (ex.: chamados abertos).
+- **Menu lateral (desktop)**: branco, com logo horizontal; o item ativo é uma pílula em gradiente vinho; o cartão do usuário fica no rodapé; pode ser recolhido.
+- **Barra inferior (celular)**: flutuante, em vidro fosco e só com ícones. O **botão central bordô** leva à ação principal do perfil:
+  - inquilino → abrir chamado;
+  - proprietário → recibos;
+  - admin → buscar imóvel.
+- **Campos**: fundo `mist` sem borda; ao focar, ficam brancos com halo rosé.
+- **Cabeçalho**: em vidro fosco (blur), com avatar, saudação e sino de notificações.
+- **Movimento**: cards entram em cascata (até 200ms) e as páginas trocam com fade; tudo isso é desligado em `prefers-reduced-motion`.
 
 ## Tom de voz
 
-Cordial e direto, em segunda pessoa ("Seu boleto vence em 10 dias"), sem jargão técnico —
-o público inclui pessoas pouco familiarizadas com tecnologia.
+Cordial e direto, em segunda pessoa ("Seu boleto vence em 10 dias"), sem jargão técnico.
 
-## Pendências para validar com o site oficial
+## Dados institucionais
 
-- [ ] Fonte institucional usada no site (se houver), para títulos
-- [ ] Fotografia: estilo das fotos de imóveis (luz, enquadramento)
-- [ ] CRECI, endereço, telefones, WhatsApp oficial, e-mail e redes → cadastrar em **Configurações** (nunca no código)
-- [ ] Slogan/posicionamento oficial para a tela de login
+CRECI, endereço, telefones, WhatsApp oficial, e-mail e redes ficam em **Configurações** (tabela
+`settings`), nunca fixos no código. Ainda precisam ser informados pela Empiric.

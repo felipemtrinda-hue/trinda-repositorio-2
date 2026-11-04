@@ -17,7 +17,7 @@ export function RevenueBars({ data }: { data: Row[] }) {
           const [, m] = d.month.split("-");
           return (
             <div key={d.month} className="group flex h-full flex-1 flex-col items-center justify-end gap-2">
-              <div className="relative flex w-full max-w-12 flex-1 flex-col justify-end overflow-hidden rounded-[12px] bg-canvas">
+              <div className="relative flex w-full max-w-12 flex-1 flex-col justify-end overflow-hidden rounded-[14px] bg-mist">
                 <div className="w-full bg-rose-line transition-[height] duration-700" style={{ height: `${o}%` }} />
                 <div className="w-full bg-vinho transition-[height] duration-700" style={{ height: `${r}%` }} />
                 <span className="pointer-events-none absolute inset-x-0 top-2 hidden text-center text-[10px] font-medium text-charcoal group-hover:block">
@@ -43,7 +43,7 @@ export function Segments({ items }: { items: { label: string; value: number; col
   const total = items.reduce((s, i) => s + i.value, 0);
   return (
     <div>
-      <div className="flex h-3 overflow-hidden rounded-full bg-canvas" role="img"
+      <div className="flex h-3 gap-0.5 overflow-hidden rounded-full bg-mist" role="img"
         aria-label={items.map((i) => `${i.label}: ${i.value}`).join(", ")}>
         {total > 0 && items.map((i) => (
           <div key={i.label} style={{ width: `${(i.value / total) * 100}%`, background: i.color }} />
@@ -53,7 +53,7 @@ export function Segments({ items }: { items: { label: string; value: number; col
         {items.map((i) => (
           <li key={i.label} className="flex items-center justify-between text-sm">
             <span className="flex items-center gap-2 text-graphite"><span className="size-2.5 rounded-full" style={{ background: i.color }} />{i.label}</span>
-            <span className="heading font-medium">{i.value}</span>
+            <span className="heading font-semibold">{i.value}</span>
           </li>
         ))}
       </ul>

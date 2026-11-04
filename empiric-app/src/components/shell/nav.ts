@@ -1,5 +1,5 @@
 import {
-  Building2, CalendarDays, ChartColumn, FileText, Gift, Home, KeyRound, LayoutDashboard, Megaphone,
+  Plus, Search, Building2, CalendarDays, ChartColumn, FileText, Gift, Home, KeyRound, LayoutDashboard, Megaphone,
   Receipt, Settings, UserRound, Users, Wallet, Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -45,3 +45,10 @@ export const ROLE_LABEL: Record<Role, string> = {
 };
 
 export const ACCOUNT_ITEM: NavItem = { href: "/conta", label: "Minha conta", icon: UserRound };
+
+/** Ação principal de cada perfil — botão central da barra inferior no celular. */
+export const PRIMARY_ACTION: Record<Role, NavItem> = {
+  admin: { href: "/admin/imoveis", label: "Buscar imóvel", icon: Search },
+  owner: { href: "/proprietario/financeiro", label: "Recibos", icon: Receipt },
+  tenant: { href: "/inquilino/chamados", label: "Abrir chamado", icon: Plus },
+};

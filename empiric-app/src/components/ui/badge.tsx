@@ -1,5 +1,5 @@
 const tones = {
-  neutral: "bg-canvas text-graphite border border-cream",
+  neutral: "bg-mist text-graphite",
   brand: "bg-rose-mist text-vinho",
   success: "bg-success-bg text-success",
   warning: "bg-warning-bg text-warning",

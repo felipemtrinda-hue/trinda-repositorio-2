@@ -12,7 +12,7 @@ export default async function ResetPage() {
   return (
     <>
       <p className="eyebrow mb-3">{firstAccess ? "Primeiro acesso" : "Segurança"}</p>
-      <h2 className="display mb-2 text-[44px]">
+      <h2 className="display mb-2 text-[38px]">
         {firstAccess ? <>Bem-vindo, <em>{profile.full_name.split(" ")[0]}</em></> : <>Nova <em>senha</em></>}
       </h2>
       <p className="mb-8 text-stone">{firstAccess ? "Crie sua senha para ativar o acesso ao portal." : "Defina uma nova senha para sua conta."}</p>

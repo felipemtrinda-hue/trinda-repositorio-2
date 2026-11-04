@@ -13,7 +13,7 @@ export default function RecoverPage() {
       <Link href="/login" className="mb-8 inline-flex items-center gap-2 text-sm text-stone hover:text-charcoal">
         <ArrowLeft className="size-4" /> Voltar ao login
       </Link>
-      <h2 className="display mb-2 text-[44px]">Recuperar <em>senha</em></h2>
+      <h2 className="display mb-2 text-[38px]">Recuperar <em>senha</em></h2>
       <p className="mb-8 text-stone">Enviaremos um link seguro para você criar uma nova senha.</p>
       <form action={action} className="space-y-5" noValidate>
         <FormMessage error={state.error} success={state.success} />

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Bell, Building2, FileText, Receipt } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { getProfile } from "@/lib/auth";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatCard } from "@/components/ui/stat-card";
@@ -16,7 +15,6 @@ export const metadata: Metadata = { title: "Início" };
 const DOC_KIND: Record<string, string> = { receipt: "Recibo", statement: "Demonstrativo", income_tax: "Imposto de Renda", contract: "Contrato", other: "Documento" };
 
 export default async function OwnerHome() {
-  const profile = (await getProfile())!;
   const supabase = await createClient();
   // A RLS já limita cada consulta aos imóveis deste proprietário.
   const [{ data: properties }, { data: docs }, { data: notes }] = await Promise.all([
@@ -29,7 +27,7 @@ export default async function OwnerHome() {
 
   return (
     <>
-      <PageHeader eyebrow="Área do proprietário" title={`Olá, ${profile.full_name.split(" ")[0]}.`} accent="Seus imóveis em dia." />
+      <PageHeader eyebrow="Área do proprietário" title="Seus imóveis," accent="em dia." />
 
       <section className="stagger grid gap-4 sm:grid-cols-3">
         <StatCard tone="vinho" icon={Building2} label="Imóveis" value={properties?.length ?? 0} hint={`${rented} alugados`} />
@@ -48,8 +46,8 @@ export default async function OwnerHome() {
               {properties.map((p) => {
                 const [label, tone] = propertyStatus[p.status] ?? [p.status, "neutral"];
                 return (
-                  <li key={p.id} className="rounded-2xl border border-cream p-4">
-                    <div className="mb-2 flex items-start justify-between gap-2"><p className="font-medium">{p.title}</p><Badge tone={tone}>{label}</Badge></div>
+                  <li key={p.id} className="rounded-[20px] bg-mist p-4">
+                    <div className="mb-2 flex items-start justify-between gap-2"><p className="font-semibold">{p.title}</p><Badge tone={tone}>{label}</Badge></div>
                     <p className="text-sm text-stone">{[p.street, p.number].filter(Boolean).join(", ")}{p.district ? ` · ${p.district}` : ""} · {p.city}</p>
                   </li>
                 );

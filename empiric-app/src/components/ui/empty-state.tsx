@@ -6,10 +6,10 @@ export function EmptyState({ icon: Icon, title, description, action }: {
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
-      <span className="mb-4 grid size-12 place-items-center rounded-full bg-rose-mist text-vinho">
+      <span className="mb-4 grid size-14 place-items-center rounded-[20px] bg-rose-mist text-bordo">
         <Icon className="size-5" aria-hidden />
       </span>
-      <p className="heading font-medium">{title}</p>
+      <p className="heading font-semibold">{title}</p>
       {description && <p className="mt-1 max-w-sm text-sm text-stone">{description}</p>}
       {action && <div className="mt-5">{action}</div>}
     </div>

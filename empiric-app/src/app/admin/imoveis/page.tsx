@@ -53,7 +53,7 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
             description={q || status ? "Ajuste a busca ou os filtros." : "Os imóveis cadastrados pela equipe aparecerão aqui."} />
         ) : (
           <table className="w-full text-sm">
-            <thead className="hidden bg-canvas text-left text-xs uppercase tracking-wider text-stone md:table-header-group">
+            <thead className="hidden bg-mist/70 text-left text-xs uppercase tracking-wider text-stone md:table-header-group">
               <tr><th className="px-6 py-3 font-medium">Imóvel</th><th className="px-6 py-3 font-medium">Endereço</th>
                 <th className="px-6 py-3 font-medium">Aluguel</th><th className="px-6 py-3 font-medium">Status</th></tr>
             </thead>
@@ -61,7 +61,7 @@ export default async function PropertiesPage({ searchParams }: { searchParams: P
               {rows.map((p) => {
                 const [label, tone] = propertyStatus[p.status] ?? [p.status, "neutral"];
                 return (
-                  <tr key={p.id} className="flex flex-col gap-1 px-6 py-4 hover:bg-canvas md:table-row md:p-0">
+                  <tr key={p.id} className="flex flex-col gap-1 px-6 py-4 hover:bg-mist md:table-row md:p-0">
                     <td className="md:px-6 md:py-4"><p className="font-medium">{p.title}</p>{p.code && <p className="text-xs text-stone">#{p.code}</p>}</td>
                     <td className="text-stone md:px-6 md:py-4">{[p.street, p.number].filter(Boolean).join(", ")} · {p.district ? `${p.district}, ` : ""}{p.city}/{p.state}</td>
                     <td className="md:px-6 md:py-4">{p.rent_amount ? money(p.rent_amount) : "—"}</td>

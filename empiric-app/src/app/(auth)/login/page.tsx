@@ -20,7 +20,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <>
       <p className="eyebrow mb-3">Bem-vindo de volta</p>
-      <h2 className="display mb-2 text-[44px]">Acesse sua <em>conta</em></h2>
+      <h2 className="display mb-2 text-[38px]">Acesse sua <em>conta</em></h2>
       <p className="mb-8 text-stone">Use o e-mail cadastrado na Empiric.</p>
       {!isSupabaseConfigured && <div className="mb-6"><SetupNotice /></div>}
       <LoginForm next={next} notice={erro ? NOTICES[erro] : undefined} />

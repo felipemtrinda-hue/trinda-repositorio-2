@@ -7,7 +7,7 @@ export function Field({ label, id, hint, ...props }: ComponentProps<"input"> & {
       <input
         id={id}
         name={id}
-        className="h-12 w-full rounded-[16px] border border-smoke bg-paper px-4 text-[15px] text-charcoal transition-[border,box-shadow] placeholder:text-stone/70 focus:border-bordo focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none"
+        className="h-[52px] w-full rounded-[16px] border border-transparent bg-mist px-4 text-[15px] text-charcoal transition-[border,box-shadow,background] placeholder:text-stone/70 focus:border-bordo/60 focus:bg-paper focus:shadow-[0_0_0_4px_var(--color-rose-mist)] focus:outline-none"
         aria-describedby={hint ? `${id}-hint` : undefined}
         {...props}
       />

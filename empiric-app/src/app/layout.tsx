@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Instrument_Serif } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { OfflineBanner } from "@/components/shell/offline-banner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const interTight = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight", weight: ["500", "600"], display: "swap" });
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"], variable: "--font-instrument-serif", weight: "400", style: ["normal", "italic"], display: "swap",
-});
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", weight: ["500", "600", "700", "800"], display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "Empiric Imob", template: "%s · Empiric Imob" },
@@ -20,7 +17,7 @@ export const viewport: Viewport = { themeColor: "#580d26", width: "device-width"
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${jakarta.variable}`}>
       <body className="min-h-dvh">
         <OfflineBanner />
         {children}
