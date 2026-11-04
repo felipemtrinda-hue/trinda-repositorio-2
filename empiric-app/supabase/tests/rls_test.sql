@@ -226,4 +226,60 @@ do $$ begin
   end;
 end $$;
 
+
+-- ---------- Etapa 4: chamados, comunicados, indicações ----------
+select pg_temp.check((select count(*) from public.notifications where type = 'ticket_new'
+  and user_id = '00000000-0000-0000-0000-0000000000a1') = 1, 'equipe é avisada de chamado novo');
+select pg_temp.check((select count(*) from public.ticket_events where to_status = 'new') = 1, 'abertura registrada na linha do tempo');
+begin;
+select pg_temp.as_user('00000000-0000-0000-0000-0000000000a1');
+update public.tickets set status = 'in_progress';
+insert into public.ticket_events (ticket_id, author_id, message, internal)
+  select id, '00000000-0000-0000-0000-0000000000a1', 'Orçamento do encanador: R$ 300', true from public.tickets;
+insert into public.ticket_events (ticket_id, author_id, message)
+  select id, '00000000-0000-0000-0000-0000000000a1', 'Encanador agendado para amanhã às 9h.' from public.tickets;
+commit;
+select pg_temp.check((select count(*) from public.ticket_events where from_status = 'new' and to_status = 'in_progress') = 1,
+  'mudança de status registrada na linha do tempo');
+begin;
+select pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+select pg_temp.check((select count(*) from public.ticket_events where internal) = 0, 'inquilino não vê notas internas');
+select pg_temp.check((select count(*) from public.notifications where type = 'ticket_message') = 1,
+  'inquilino é avisado só da resposta pública');
+insert into public.ticket_events (ticket_id, author_id, message)
+  select id, '00000000-0000-0000-0000-0000000000c1', 'Obrigado!' from public.tickets;
+commit;
+do $$ begin
+  perform pg_temp.as_user('00000000-0000-0000-0000-0000000000c1');
+  begin
+    update public.tickets set status = 'done';
+    if (select status from public.tickets limit 1) = 'done' then raise exception 'FALHOU: inquilino mudou status'; end if;
+    raise notice 'ok  inquilino não muda status do chamado';
+  end;
+  perform set_config('role', 'postgres', true);
+end $$;
+reset role;
+
+insert into public.announcements (title, body, audience, target_role, published_at)
+  values ('Feriado', 'Escritório fechado na sexta.', 'role', 'tenant', now());
+select pg_temp.check((select count(*) from public.notifications where type = 'announcement') =
+  (select count(*) from public.profiles where role = 'tenant' and status <> 'blocked'),
+  'comunicado publicado chega a todos os inquilinos ativos');
+insert into public.announcements (title, body, audience, scheduled_for)
+  values ('Agendado', 'Depois', 'all', now() + interval '3 days');
+begin;
+select pg_temp.as_user('00000000-0000-0000-0000-0000000000b1');
+select pg_temp.check((select count(*) from public.announcements) = 0, 'proprietário não vê comunicado de inquilinos nem agendado');
+commit;
+
+do $$ begin
+  begin
+    update public.referrals set status = 'reward_released', reward_validated_at = now() where status = 'received';
+    raise exception 'FALHOU: recompensa liberada sem conversão';
+  exception when check_violation then raise notice 'ok  recompensa só após conversão';
+  end;
+end $$;
+update public.referrals set status = 'converted';
+select pg_temp.check((select count(*) from public.notifications where type = 'referral_update') = 1, 'inquilino é avisado da conversão');
+
 \echo '>>> Todos os testes de permissão passaram.'
