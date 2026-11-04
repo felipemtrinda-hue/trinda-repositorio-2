@@ -30,6 +30,7 @@ Sem as variáveis do Supabase o app abre normalmente e a tela de login mostra "C
    - `supabase/migrations/20261107000001_portal.sql` — chamados, comunicados e Indique e Ganhe
    - `supabase/migrations/20261107000002_company_data.sql` — dados oficiais da Empiric
    - `supabase/migrations/20261108000001_audit_fixes.sql` — correções da auditoria
+   - `supabase/migrations/20261108000002_hardening.sql` — reforços do Security Advisor
 3. **Authentication → Providers → Email:** desative "Allow new users to sign up" (só a imobiliária cria contas).
 4. **Authentication → Email Templates** — troque os links para o fluxo do servidor:
    - Invite: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite&next=/redefinir-senha`
