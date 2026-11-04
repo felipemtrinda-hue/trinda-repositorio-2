@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   EMPIRIC IMOB — Design tokens
+   Base: sistema editorial "papel creme" (DESIGN.md) com o azul trocado pelo
+   bordô da marca Empiric (#580d26, amostrado da logo oficial).
+   ========================================================================== */
+:root {
+  /* Marca */
+  --color-vinho: #580d26;          /* Ink: títulos, cards escuros, menu lateral */
+  --color-vinho-deep: #3d0919;     /* hover/ativo sobre fundo vinho */
+  --color-bordo: #8c1c3e;          /* Ação: botões, links ativos (contraste 8.6:1 c/ branco) */
+  --color-bordo-hover: #741634;
+  --color-rose-mist: #f6e9ec;      /* badges, realces suaves */
+  --color-rose-line: #ead3da;
+
+  /* Neutros quentes */
+  --color-charcoal: #171417;
+  --color-graphite: #3a3538;
+  --color-stone: #6f6a6c;          /* texto auxiliar (AA sobre creme) */
+  --color-smoke: #cfc9c4;
+  --color-canvas: #f9f8f6;
+  --color-paper: #ffffff;
+  --color-cream: #f0e9e1;          /* toda linha divisória */
+
+  /* Semânticas */
+  --color-success: #1f7a4d;
+  --color-success-bg: #e6f4ec;
+  --color-warning: #9a5b00;
+  --color-warning-bg: #fdf1dc;
+  --color-danger: #b42318;
+  --color-danger-bg: #fdecea;
+  --color-info: #2b4c7e;
+  --color-info-bg: #e8eef8;
+
+  --shadow-card: 0 4px 24px rgba(88, 13, 38, 0.06);
+  --shadow-float: 0 8px 32px rgba(88, 13, 38, 0.14);
+}
+
+@theme inline {
+  --color-vinho: var(--color-vinho);
+  --color-vinho-deep: var(--color-vinho-deep);
+  --color-bordo: var(--color-bordo);
+  --color-bordo-hover: var(--color-bordo-hover);
+  --color-rose-mist: var(--color-rose-mist);
+  --color-rose-line: var(--color-rose-line);
+  --color-charcoal: var(--color-charcoal);
+  --color-graphite: var(--color-graphite);
+  --color-stone: var(--color-stone);
+  --color-smoke: var(--color-smoke);
+  --color-canvas: var(--color-canvas);
+  --color-paper: var(--color-paper);
+  --color-cream: var(--color-cream);
+  --color-success: var(--color-success);
+  --color-success-bg: var(--color-success-bg);
+  --color-warning: var(--color-warning);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-danger: var(--color-danger);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-info: var(--color-info);
+  --color-info-bg: var(--color-info-bg);
+
+  --font-display: var(--font-instrument-serif), "Times New Roman", serif;
+  --font-heading: var(--font-inter-tight), var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --radius-card: 16px;
+  --radius-image: 24px;
+  --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
+
+  --animate-rise: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 240ms ease-out both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--color-canvas);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Título editorial: serif + uma palavra em itálico (assinatura visual) */
+.display { font-family: var(--font-display); font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+.display em { font-style: italic; color: var(--color-bordo); }
+.heading { font-family: var(--font-heading); letter-spacing: -0.02em; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-stone); }
+
+:focus-visible { outline: 2px solid var(--color-bordo); outline-offset: 2px; border-radius: 8px; }
+
+/* Cascata suave na entrada dos cards */
+.stagger > * { animation: var(--animate-rise); }
+.stagger > *:nth-child(2) { animation-delay: 40ms; }
+.stagger > *:nth-child(3) { animation-delay: 80ms; }
+.stagger > *:nth-child(4) { animation-delay: 120ms; }
+.stagger > *:nth-child(5) { animation-delay: 160ms; }
+.stagger > *:nth-child(n+6) { animation-delay: 200ms; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-cream) 0, #f7f2ec 120px, var(--color-cream) 240px);
+  background-size: 800px 100%;
+  animation: var(--animate-shimmer);
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+}
