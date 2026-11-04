@@ -63,7 +63,7 @@ lembrete de 10 dias não duplica. Requer `postgresql` instalado localmente.
 | Endpoint | Função | Agenda (`vercel.json`) |
 |---|---|---|
 | `/api/cron/daily` | Marca vencidos, envia lembrete de vencimento (padrão 10 dias), publica comunicados agendados | 09:00 UTC (06:00 Brasília) |
-| `/api/cron/deliveries` | Processa a fila de e-mail/WhatsApp | a cada 30 min |
+| `/api/cron/deliveries` | Processa a fila de e-mail/WhatsApp | 09:30 UTC (plano gratuito: 1x/dia; no Pro, pode ser a cada 30 min) |
 
 Ambos exigem `Authorization: Bearer $CRON_SECRET`. O fuso e os dias de antecedência ficam em
 `settings.reminders`. No plano Hobby da Vercel só há crons diários — use o plano Pro ou agende via
