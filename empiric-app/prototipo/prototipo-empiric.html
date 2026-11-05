@@ -453,7 +453,7 @@ function seed() {
       { id: 2, by: 'T1', name: 'Paulo Ribeiro', contact: '(42) 99911-2233', status: 'contacting', at: br(addDays(t, -4)) },
       { id: 1, by: 'T1', name: 'Ana Castro', contact: 'ana@exemplo.com', status: 'converted', at: br(addDays(t, -30)) }
     ],
-    fin: { receivable: 57459 },
+    fin: { receivable: 126354, portfolio: 63, leases: 58 },
     program: { reward: 'R$ 300 de desconto no aluguel', rules: 'Vale quando a pessoa indicada assina contrato de locação ou administração com a Empiric. Recompensa liberada após o 1º pagamento.' },
     docs: [
       { id: 'D1', kind: 'Contrato', title: 'Contrato de locação assinado', for: 'L1', prop: 'P1', at: br(addMonths(m0, -10)) },
@@ -568,7 +568,8 @@ function goLocal(reason) {
   MODE = 'local';
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { S = null; }
   if (!S || !S.props) S = seed();
-  if (!S.fin) S.fin = { receivable: 57459 };
+  if (!S.fin) S.fin = {};
+  if (S.fin.v !== 2) Object.assign(S.fin, { receivable: 126354, portfolio: 63, leases: 58, v: 2 });
   if (S.people.O1 && S.people.O1.lastPayout == null) S.people.O1.lastPayout = 10761;
   showMode(); render(); if (reason) toast(reason);
 }
@@ -787,7 +788,7 @@ V['adm-inicio'] = function () {
   var received = S.inv.filter(function (i) { return i.status === 'paid'; }).reduce(function (s, i) { return s + i.amount; }, 0);
   var cnt = function (st) { return ps.filter(function (p) { return p.status === st; }).length; };
   return header('Painel administrativo', 'Tudo o que acontece,', 'em um só lugar.') +
-    '<div class="g4">' + stat('Imóveis na carteira', ps.length, rented + ' alugados · ' + cnt('available') + ' disponíve' + (cnt('available') === 1 ? 'l' : 'is'), 'bld', 'dark') + stat('Contratos ativos', S.leases.filter(function (l) { return l.status === 'active'; }).length, (function (n) { return n ? n + ' vence' + (n > 1 ? 'm' : '') + ' em até 60 dias' : 'Nenhum vencendo em breve'; })(S.leases.filter(function (l) { return l.status === 'active' && days(l.end) <= 60; }).length), 'file') + stat('A receber', money(S.fin && typeof S.fin.receivable === 'number' ? S.fin.receivable : receivable), (function (o, pnd) { return o + ' vencido' + (o === 1 ? '' : 's') + ' · ' + pnd + ' em aberto'; })(openInv.filter(function (i) { return i.status === 'overdue'; }).length, openInv.filter(function (i) { return i.status === 'pending'; }).length), 'wallet') + stat('Chamados abertos', openT.length, (function (n) { return n ? n + ' novo' + (n > 1 ? 's' : '') + ' aguardando triagem' : 'Nenhum aguardando triagem'; })(openT.filter(function (t) { return t.status === 'new'; }).length), 'wrench', 'acc') + '</div>' +
+    '<div class="g4">' + stat('Imóveis na carteira', S.fin && typeof S.fin.portfolio === 'number' ? S.fin.portfolio : ps.length, (function (fx) { var al = fx ? S.fin.leases : rented, dp = fx ? Math.max(0, S.fin.portfolio - S.fin.leases) : cnt('available'); return al + ' alugados · ' + dp + ' disponíve' + (dp === 1 ? 'l' : 'is'); })(S.fin && typeof S.fin.portfolio === 'number' && typeof S.fin.leases === 'number'), 'bld', 'dark') + stat('Contratos ativos', S.fin && typeof S.fin.leases === 'number' ? S.fin.leases : S.leases.filter(function (l) { return l.status === 'active'; }).length, (function (n) { return n ? n + ' vence' + (n > 1 ? 'm' : '') + ' em até 60 dias' : 'Nenhum vencendo em breve'; })(S.leases.filter(function (l) { return l.status === 'active' && days(l.end) <= 60; }).length), 'file') + stat('A receber', money(S.fin && typeof S.fin.receivable === 'number' ? S.fin.receivable : receivable), (function (o, pnd) { return o + ' vencido' + (o === 1 ? '' : 's') + ' · ' + pnd + ' em aberto'; })(openInv.filter(function (i) { return i.status === 'overdue'; }).length, openInv.filter(function (i) { return i.status === 'pending'; }).length), 'wallet') + stat('Chamados abertos', openT.length, (function (n) { return n ? n + ' novo' + (n > 1 ? 's' : '') + ' aguardando triagem' : 'Nenhum aguardando triagem'; })(openT.filter(function (t) { return t.status === 'new'; }).length), 'wrench', 'acc') + '</div>' +
     '<div class="g21" style="margin-top:14px"><div class="card"><div class="ch"><h2>Recebimentos</h2><span style="font-size:13px;color:var(--muted)">Últimos 6 meses</span></div><div style="padding:0 24px 22px"><p style="font:700 28px var(--fd);letter-spacing:-.04em;margin-bottom:18px" class="num">' + money(received) + ' <span style="font:400 13px var(--fb);color:var(--muted);letter-spacing:0">recebidos</span></p>' +
     '<div class="bars" role="img" aria-label="Recebido e em aberto por mês">' + data.map(function (d) { return '<div class="bar"><div class="tr"><div class="o" style="height:' + (d[2] / max * 100) + '%"></div><div class="r" style="height:' + (d[1] / max * 100) + '%"></div></div><span>' + MON[+d[0].slice(5, 7) - 1].toLowerCase() + '</span></div>'; }).join('') + '</div>' +
     '<div style="display:flex;gap:16px;margin-top:12px;font-size:12.5px;color:var(--muted)"><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--vinho);margin-right:6px"></i>Recebido</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--rose-l);margin-right:6px"></i>Em aberto</span></div></div></div>' +

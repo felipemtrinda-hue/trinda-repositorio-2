@@ -34,9 +34,12 @@ Foto de banco de imagens livre de direitos autorais, fornecida pelo Felipe. No H
 
 ## Valores fixados para a apresentação
 
-Dois números do painel foram definidos à mão (não saem da soma dos boletos):
+Alguns números do painel foram definidos à mão (não saem da soma dos boletos):
 
 - **Último repasse do Carlos:** R$ 10.761,00 — campo `lastPayout` em `people/O1`.
-- **A receber da imobiliária:** R$ 57.459,00 — documento `config/finance` (`receivable`).
+- **Painel da equipe** — documento `config/finance`:
+  - Imóveis na carteira: 63 (`portfolio`), com "58 alugados · 5 disponíveis" derivado dos dois números;
+  - Contratos ativos: 58 (`leases`);
+  - A receber: R$ 126.354,00 (`receivable`).
 
 Para voltar ao cálculo automático, apague esses campos no banco do artefato.

@@ -1155,7 +1155,10 @@
  {
   "path": "config/finance",
   "data": {
-   "receivable": 57459
+   "receivable": 126354,
+   "portfolio": 63,
+   "leases": 58,
+   "v": 2
   }
  }
 ]
