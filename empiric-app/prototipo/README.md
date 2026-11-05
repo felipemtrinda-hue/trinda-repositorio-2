@@ -21,3 +21,12 @@ Dados reais vão apenas para o sistema (`empiric-app`), que tem RLS e LGPD.
 Fotos de banco de imagens livres de direitos autorais, fornecidas pelo Felipe e recortadas em quadrado
 centrado no rosto. No HTML publicado elas entram embutidas (128×128, base64) pela função `avatar()`;
 as demais pessoas continuam com as iniciais. Use só nas contas de demonstração — nunca em cadastro real.
+
+## Fotos dos imóveis fictícios
+
+| Imóvel | Proprietário | Arquivo do protótipo | Cópia para o app (demo) |
+|---|---|---|---|
+| Apto 302 · Ed. Jardim das Flores (`P1`, alugado à Mariana) | Carlos Menezes | `prototipo/fotos/apto-302-jardim-das-flores.jpg` (900×580) | `public/demo/imoveis/apto-302-jardim-das-flores.jpg` |
+
+Foto de banco de imagens livre de direitos autorais, fornecida pelo Felipe. No HTML entra embutida como
+`A.p[0]` (base64); os demais imóveis seguem com ilustrações. A galeria dos outros imóveis não repete essa foto.
