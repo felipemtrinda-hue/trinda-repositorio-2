@@ -27,6 +27,16 @@ as demais pessoas continuam com as iniciais. Use só nas contas de demonstraçã
 | Imóvel | Proprietário | Arquivo do protótipo | Cópia para o app (demo) |
 |---|---|---|---|
 | Apto 302 · Ed. Jardim das Flores (`P1`, alugado à Mariana) | Carlos Menezes | `prototipo/fotos/apto-302-jardim-das-flores.jpg` (900×580) | `public/demo/imoveis/apto-302-jardim-das-flores.jpg` |
+| Casa Vila Estrela (`P2`, alugada ao Rafael) | Carlos Menezes | `prototipo/fotos/casa-vila-estrela.jpg` (1024×683) | `public/demo/imoveis/casa-vila-estrela.jpg` |
 
-Foto de banco de imagens livre de direitos autorais, fornecida pelo Felipe. No HTML entra embutida como
-`A.p[0]` (base64); os demais imóveis seguem com ilustrações. A galeria dos outros imóveis não repete essa foto.
+Foto de banco de imagens livre de direitos autorais, fornecida pelo Felipe. No HTML entram embutidas como
+`A.p[0]` e `A.p[1]` (base64); os demais imóveis seguem com ilustrações, e a galeria deles não repete essas fotos.
+
+## Valores fixados para a apresentação
+
+Dois números do painel foram definidos à mão (não saem da soma dos boletos):
+
+- **Último repasse do Carlos:** R$ 10.761,00 — campo `lastPayout` em `people/O1`.
+- **A receber da imobiliária:** R$ 57.459,00 — documento `config/finance` (`receivable`).
+
+Para voltar ao cálculo automático, apague esses campos no banco do artefato.
