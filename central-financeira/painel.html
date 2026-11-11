@@ -212,6 +212,9 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 .cc-item:last-child{border-bottom:0}
 .cc-item b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cc-item small{color:var(--muted);font-size:12px}
+.cc-modo{display:flex;flex-wrap:wrap;gap:8px}
+.cc-modo .tog{border:1px solid var(--line);border-radius:10px;padding:9px 14px;cursor:pointer}
+.cc-modo .tog:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
 .cc-tog{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:50;max-width:calc(100vw - 32px)}
 @media (prefers-reduced-motion:no-preference){.bar>span,.gauge-track>span{transition:width .4s ease}}
@@ -360,7 +363,14 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       <label class="f">Valor (R$)<input id="fValor" inputmode="decimal" placeholder="0,00"></label>
       <label class="f">Categoria<input id="fCat" list="catList" placeholder="Escolha ou digite"></label>
       <label class="tog full cc-tog" id="fCartaoWrap"><input type="checkbox" id="fCartao"> 💳 Pago no cartão de crédito (entra na fatura)</label>
-      <label class="tog full"><input type="checkbox" id="fRec"> Repete todo mês (salário, aluguel, assinatura)</label>
+      <div class="full cc-modo" id="fModoWrap" role="radiogroup" aria-label="Forma de pagamento no cartão">
+        <label class="tog"><input type="radio" name="fModo" id="fModoAvista" value="avista" checked> À vista</label>
+        <label class="tog"><input type="radio" name="fModo" id="fModoParc" value="parcelado"> Parcelado</label>
+      </div>
+      <label class="f" data-parc="1">Nº de parcelas<input id="fNParc" type="number" min="2" max="48" inputmode="numeric" placeholder="Ex.: 10"></label>
+      <label class="f" data-parc="1">1ª parcela na fatura de<input id="fInicioParc" type="month"></label>
+      <p class="hint full" id="fParcHint" data-parc="1"></p>
+      <label class="tog full" id="fRecWrap"><input type="checkbox" id="fRec"> Repete todo mês (salário, aluguel, assinatura)</label>
       <label class="f" data-rec="1">Dia do mês<input id="fDia" type="number" min="1" max="31" inputmode="numeric"></label>
       <label class="f" data-rec="1">Começa em<input id="fInicio" type="month"></label>
       <label class="f" data-rec="0">Data<input id="fData" type="date"></label>
@@ -502,11 +512,14 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
   function occRaw(M){
     const out=[], mi=ymIdx(M), dim=daysIn(M);
     for (const m of S.mov){
-      let data=null;
-      if (m.recorrente){
+      let data=null, parc=null;
+      if (m.parcelado){
+        const k = mi - ymIdx(m.inicio);
+        if (k>=0 && k<+m.parcelas){ data = M+'-'+pad(Math.min(+m.dia||1,dim)); parc=(k+1)+'/'+m.parcelas; }
+      } else if (m.recorrente){
         if (m.inicio && ymIdx(m.inicio)<=mi && (!m.fim || ymIdx(m.fim)>=mi)) data = M+'-'+pad(Math.min(+m.dia||1,dim));
       } else if (m.data && m.data.slice(0,7)===M) data = m.data;
-      if (data) out.push({src:'movimentos', id:m.id, tipo:m.tipo, desc:m.desc, cat:m.categoria||'Outros', valor:+m.valor||0, data, pago:!!(m.pagos&&m.pagos[M]), rec:!!m.recorrente, ex:!!m.exemplo, cartao:m.tipo==='saida'&&!!m.cartao});
+      if (data) out.push({src:'movimentos', id:m.id, tipo:m.tipo, desc:m.desc, cat:m.categoria||'Outros', valor:+m.valor||0, data, pago:!!(m.pagos&&m.pagos[M]), rec:!!m.recorrente, ex:!!m.exemplo, cartao:m.tipo==='saida'&&!!m.cartao, parc});
     }
     for (const d of S.div){
       const k = mi - ymIdx(d.inicio);
@@ -667,7 +680,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
         '<td><span class="chip debt">💳 Fatura</span></td><td class="v out">'+money(o.valor)+'</td>'+
         '<td><span class="chip '+cls+'">'+txt+'</span></td>'+
         '<td><div class="acts"><button class="check" aria-pressed="'+o.pago+'" data-toggle-fatura="1">'+(o.pago?'✓ Paga':'Paguei a fatura')+'</button></div></td></tr>';
-      const tipo = (o.cartao?'<span class="chip debt">💳 Cartão</span> ':'') + (o.src==='dividas' ? '<span class="chip debt">Parcela '+o.parc+'</span>' : ent ? '<span class="chip in">Entrada</span>' : o.cartao ? '' : '<span class="chip neutral">Saída</span>');
+      const tipo = (o.cartao?'<span class="chip debt">💳 Cartão</span> ':'') + (o.parc ? '<span class="chip debt">Parcela '+o.parc+'</span>' : ent ? '<span class="chip in">Entrada</span>' : o.cartao ? '' : '<span class="chip neutral">Saída</span>');
       const toggle = o.cartao ? '' : '<button class="check" aria-pressed="'+o.pago+'" data-toggle="'+esc(o.id)+'" data-src="'+o.src+'">'+(o.pago?'✓ ':'')+(ent?(o.pago?'Recebido':'Recebi'):(o.pago?'Pago':'Paguei'))+'</button>';
       return '<tr class="'+(o.pago?'paid':'')+'">'+day+
         '<td class="desc"><b>'+esc(o.desc)+'</b><small>'+esc(o.cat)+(o.rec?' · mensal':'')+(o.credor?' · '+esc(o.credor):'')+'</small></td>'+
@@ -680,6 +693,13 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
     $('ledgerFoot').innerHTML = '<span>Falta receber <b>'+money(sum(pend.filter(o=>o.tipo==='entrada')))+'</b></span><span>Falta pagar <b>'+money(sum(pend.filter(o=>o.tipo==='saida')))+'</b></span>';
   }
 
+  function parcFuturas(M){
+    const mi=ymIdx(M); let t=0;
+    const add=(inicio,n,v)=>{ const s=ymIdx(inicio), last=s+(+n)-1, from=Math.max(mi+1,s); if(last>=from) t+=(last-from+1)*(+v||0); };
+    S.mov.filter(m=>m.cartao&&m.parcelado).forEach(m=>add(m.inicio,m.parcelas,m.valor));
+    S.div.filter(d=>d.cartao).forEach(d=>add(d.inicio,d.parcelas,d.parcela));
+    return t;
+  }
   function renderCard(){
     const M=S.month, f=fatura(M), c=card(), nx=fatura(ymOf(ymIdx(M)+1));
     const [txt,cls] = f.valor>0 ? status(f.asOcc()) : ['Sem compras','neutral'];
@@ -688,7 +708,8 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       '<div><div class="eyebrow">Fatura de '+labelM(M).toLowerCase()+'</div><div class="pv">'+money(f.valor)+'</div></div>'+
       '<div class="row"><span>Vence dia '+f.data.slice(8)+'/'+f.data.slice(5,7)+(c?'':' (padrão, configure o seu)')+'</span>'+
       (f.valor>0?'<button class="btn small" data-toggle-fatura="1">'+(f.pago?'Desmarcar pagamento':'Paguei a fatura')+'</button>':'')+'</div>'+lim+'</div>'+
-      '<div class="cc-next"><span>Próxima fatura ('+shortM(nx.data.slice(0,7))+')</span><b>'+money(nx.valor)+'</b></div>';
+      '<div class="cc-next"><span>Próxima fatura ('+shortM(nx.data.slice(0,7))+')</span><b>'+money(nx.valor)+'</b></div>'+
+      '<div class="cc-next" style="margin-top:4px"><span>Parcelas que ainda vão cair depois de '+shortM(M)+'</span><b>'+money(parcFuturas(M))+'</b></div>';
     $('ccList').innerHTML = f.itens.length ? f.itens.map(o=>'<div class="cc-item"><div style="min-width:0"><b>'+esc(o.desc)+(o.parc?' <span class="muted">'+o.parc+'</span>':'')+'</b><small>'+esc(o.cat)+(o.rec?' · todo mês':'')+'</small></div><b class="num">'+money(o.valor)+'</b><button class="icon-btn" aria-label="Editar" data-edit="'+esc(o.id)+'" data-src="'+o.src+'">✎</button></div>').join('')
       : '<div class="empty-row">Nenhuma conta no cartão em '+labelM(M).toLowerCase()+'. Use “+ Conta no cartão” para lançar assinaturas, compras e parcelas que caem na fatura.</div>';
   }
@@ -754,19 +775,35 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
   }
   function syncCartao(){
     const on = F.type==='saida' && $('fCartao').checked;
+    const parc = on && $('fModoParc').checked;
     $('fCartaoWrap').hidden = F.type!=='saida';
-    $('fPagoWrap').hidden = on; $('fCartaoHint').hidden = !on;
+    $('fModoWrap').hidden = !on;
+    document.querySelectorAll('[data-parc]').forEach(el=>el.hidden=!parc);
+    $('fRecWrap').hidden = parc;
+    if (parc){ document.querySelectorAll('[data-rec]').forEach(el=>el.hidden = el.dataset.rec==='1'); $('stopBtn').hidden=true; }
+    $('fData').parentNode.firstChild.textContent = parc ? 'Data da compra' : 'Data';
+    $('fValor').parentNode.firstChild.textContent = parc ? 'Valor total da compra (R$)' : 'Valor (R$)';
+    $('fPagoWrap').hidden = on; $('fCartaoHint').hidden = !on || parc;
+    updateParcHint();
   }
+  function updateParcHint(){
+    const n=parseInt($('fNParc').value,10), v=parseNum($('fValor').value), ini=$('fInicioParc').value;
+    $('fParcHint').textContent = (n>=2 && v>0 && validYM(ini))
+      ? n+'x de '+money(v/n)+' na fatura, de '+labelM(ini).toLowerCase()+' até '+labelM(ymOf(ymIdx(ini)+n-1)).toLowerCase()+'.'
+      : 'Informe o valor total e em quantas vezes foi parcelado.';
+  }
+  document.querySelectorAll('input[name="fModo"]').forEach(r=>r.addEventListener('change', syncCartao));
+  ['fNParc','fValor','fInicioParc'].forEach(id=>$(id).addEventListener('input', updateParcHint));
   $('fCartao').addEventListener('change', syncCartao);
   function syncRec(){ const r=$('fRec').checked; document.querySelectorAll('[data-rec]').forEach(el=>el.hidden = (el.dataset.rec==='1')!==r); $('stopBtn').hidden = !(F.id && F.src==='movimentos' && r); }
-  $('fRec').addEventListener('change', syncRec);
+  $('fRec').addEventListener('change', ()=>{ syncRec(); syncCartao(); });
   document.querySelectorAll('#typeSeg button').forEach(b=>b.addEventListener('click',()=>{ if(!F.id || F.src==='movimentos' && b.dataset.t!=='divida') setType(b.dataset.t); }));
 
   function openForm(type, src, id, opts){
     F={type:type||'entrada', src:src||null, id:id||null};
     $('formErr').hidden=true; $('form').reset();
     const dflDay = S.month===THIS_M ? today.getDate() : 5;
-    $('fInicio').value=S.month; $('fDia').value=dflDay; $('fData').value=S.month+'-'+pad(Math.min(dflDay,daysIn(S.month)));
+    $('fInicio').value=S.month; $('fInicioParc').value=S.month; $('fDia').value=dflDay; $('fData').value=S.month+'-'+pad(Math.min(dflDay,daysIn(S.month)));
     $('dInicio').value=S.month; $('dDia').value=dflDay; $('dPagas').value=0;
     const resetDel=$('delBtn'); resetDel.dataset.armed=''; resetDel.textContent='Excluir';
     if (id && src==='movimentos'){
@@ -774,6 +811,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       $('fDesc').value=m.desc||''; $('fValor').value=String(m.valor).replace('.',','); $('fCat').value=m.categoria||'';
       $('fRec').checked=!!m.recorrente; $('fDia').value=m.dia||dflDay; $('fInicio').value=m.inicio||S.month; if(m.data) $('fData').value=m.data;
       $('fPago').checked=!!(m.pagos&&m.pagos[S.month]); $('fCartao').checked=!!m.cartao;
+      if (m.parcelado){ $('fModoParc').checked=true; $('fNParc').value=m.parcelas; $('fInicioParc').value=m.inicio; $('fValor').value=String(m.valorTotal||m.valor*m.parcelas).replace('.',','); }
     } else if (id && src==='dividas'){
       const d=S.div.find(x=>x.id===id); F.type='divida';
       $('dDesc').value=d.desc||''; $('dCredor').value=d.credor||''; $('dParcela').value=String(d.parcela).replace('.',',');
@@ -811,7 +849,15 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       if(!(valor>0)) return fail('Informe um valor maior que zero.');
       const prev = F.id ? S.mov.find(x=>x.id===F.id) : null;
       const obj={id:F.id||uid('m'), tipo:F.type, desc, valor, categoria:$('fCat').value.trim()||'Outros', recorrente:rec, pagos: Object.assign({}, prev&&prev.pagos)};
-      if (rec){ const dia=parseInt($('fDia').value,10), inicio=$('fInicio').value; if(!(dia>=1&&dia<=31)) return fail('Dia do mês entre 1 e 31.'); if(!validYM(inicio)) return fail('Informe o mês de início (AAAA-MM).'); obj.dia=dia; obj.inicio=inicio; if(prev&&prev.fim) obj.fim=prev.fim; }
+      const parc = F.type==='saida' && $('fCartao').checked && $('fModoParc').checked;
+      if (parc){
+        const n=parseInt($('fNParc').value,10), ini=$('fInicioParc').value, dt=$('fData').value;
+        if(!(n>=2&&n<=48)) return fail('Número de parcelas entre 2 e 48.');
+        if(!validYM(ini)) return fail('Informe a fatura da 1ª parcela (AAAA-MM).');
+        Object.assign(obj, {parcelado:true, parcelas:n, inicio:ini, valorTotal:valor, valor:Math.round(valor/n*100)/100, recorrente:false, dia: /^\d{4}-\d{2}-\d{2}$/.test(dt) ? +dt.slice(8) : 1});
+        if (dt) obj.data=dt;
+      }
+      else if (rec){ const dia=parseInt($('fDia').value,10), inicio=$('fInicio').value; if(!(dia>=1&&dia<=31)) return fail('Dia do mês entre 1 e 31.'); if(!validYM(inicio)) return fail('Informe o mês de início (AAAA-MM).'); obj.dia=dia; obj.inicio=inicio; if(prev&&prev.fim) obj.fim=prev.fim; }
       else { const data=$('fData').value; if(!/^\d{4}-\d{2}-\d{2}$/.test(data)) return fail('Informe a data.'); obj.data=data; }
       obj.cartao = F.type==='saida' && $('fCartao').checked;
       if ($('fPago').checked && !obj.cartao) obj.pagos[S.month]=true; else delete obj.pagos[S.month];
