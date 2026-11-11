@@ -195,6 +195,24 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 .hint{font-size:12px;color:var(--muted);margin:0}
 .err{color:var(--out);font-size:12.5px;margin:0}
 
+/* Cartão */
+.cc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;align-items:start}
+@media (max-width:820px){.cc-grid{grid-template-columns:minmax(0,1fr)}}
+.plate{background:var(--fg);color:var(--bg);border-radius:16px;padding:18px 20px;display:grid;gap:12px;position:relative;overflow:hidden}
+.plate::after{content:"";position:absolute;right:-40px;top:-60px;width:180px;height:180px;border-radius:50%;background:color-mix(in srgb,var(--accent) 35%,transparent)}
+.plate>*{position:relative;z-index:1}
+.plate .eyebrow{color:color-mix(in srgb,var(--bg) 70%,var(--fg))}
+.plate .pv{font-family:var(--font-display);font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.plate .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px}
+.plate .bar{background:color-mix(in srgb,var(--bg) 18%,var(--fg));border-color:transparent}
+.plate .btn{background:var(--bg);color:var(--fg);border-color:transparent}
+.cc-next{margin-top:10px;font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.cc-next b{color:var(--fg);font-variant-numeric:tabular-nums}
+.cc-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.cc-item:last-child{border-bottom:0}
+.cc-item b{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-item small{color:var(--muted);font-size:12px}
+.cc-tog{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:500;z-index:50;max-width:calc(100vw - 32px)}
 @media (prefers-reduced-motion:no-preference){.bar>span,.gauge-track>span{transition:width .4s ease}}
 </style>
@@ -296,6 +314,17 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       </article>
     </section>
 
+    <section class="card" id="ccSec">
+      <div class="card-head">
+        <div><h2>Cartão de crédito</h2><span class="muted">Contas que caem na fatura · cada compra fica no mês em que é cobrada</span></div>
+        <div class="controls"><button class="btn small" id="ccConfig">Configurar cartão</button><button class="btn small primary" id="ccAdd">+ Conta no cartão</button></div>
+      </div>
+      <div class="cc-grid">
+        <div id="ccSum"></div>
+        <div id="ccList"></div>
+      </div>
+    </section>
+
     <section class="card">
       <div class="card-head">
         <div><h2 id="ledgerTitle">Lançamentos do mês</h2><span class="muted">Marque o que já foi pago ou recebido</span></div>
@@ -330,11 +359,13 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       <label class="f full">Descrição<input id="fDesc" required placeholder="Ex.: Cliente mensal, Aluguel, Adobe CC"></label>
       <label class="f">Valor (R$)<input id="fValor" inputmode="decimal" placeholder="0,00"></label>
       <label class="f">Categoria<input id="fCat" list="catList" placeholder="Escolha ou digite"></label>
+      <label class="tog full cc-tog" id="fCartaoWrap"><input type="checkbox" id="fCartao"> 💳 Pago no cartão de crédito (entra na fatura)</label>
       <label class="tog full"><input type="checkbox" id="fRec"> Repete todo mês (salário, aluguel, assinatura)</label>
       <label class="f" data-rec="1">Dia do mês<input id="fDia" type="number" min="1" max="31" inputmode="numeric"></label>
       <label class="f" data-rec="1">Começa em<input id="fInicio" type="month"></label>
       <label class="f" data-rec="0">Data<input id="fData" type="date"></label>
-      <label class="tog full"><input type="checkbox" id="fPago"> <span id="fPagoLbl">Já recebi neste mês</span></label>
+      <label class="tog full" id="fPagoWrap"><input type="checkbox" id="fPago"> <span id="fPagoLbl">Já recebi neste mês</span></label>
+      <p class="hint full" id="fCartaoHint" hidden>Lance no mês da fatura em que a compra vai ser cobrada. Ela é dada como paga quando você marcar a fatura como paga.</p>
     </div>
 
     <div class="fields" id="divFields" hidden>
@@ -346,6 +377,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       <label class="f">1ª parcela em<input id="dInicio" type="month"></label>
       <label class="f">Dia de vencimento<input id="dDia" type="number" min="1" max="31" inputmode="numeric"></label>
       <label class="f full">Juros ao mês (%) — opcional<input id="dJuros" inputmode="decimal" placeholder="Ex.: 2,9"></label>
+      <label class="tog full cc-tog"><input type="checkbox" id="dCartao"> 💳 Parcelado no cartão de crédito (parcelas entram na fatura)</label>
     </div>
 
     <p class="err" id="formErr" hidden></p>
@@ -359,6 +391,18 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
         <button type="submit" class="btn primary" id="saveBtn">Salvar</button>
       </div>
     </div>
+  </form>
+</dialog>
+<dialog id="ccDlg">
+  <form class="dlg" id="ccForm" novalidate>
+    <div class="dlg-head"><h2>Seu cartão de crédito</h2><button type="button" class="icon-btn" id="ccClose" aria-label="Fechar">✕</button></div>
+    <div class="fields">
+      <label class="f full">Nome do cartão<input id="ccNome" placeholder="Ex.: Nubank, Inter, Itaú"></label>
+      <label class="f">Dia de vencimento da fatura<input id="ccDia" type="number" min="1" max="31" inputmode="numeric"></label>
+      <label class="f">Limite (R$) — opcional<input id="ccLimite" inputmode="decimal" placeholder="0,00"></label>
+    </div>
+    <p class="err" id="ccErr" hidden></p>
+    <div class="dlg-foot"><div class="right"><button type="button" class="btn" id="ccCancel">Cancelar</button><button type="submit" class="btn primary">Salvar</button></div></div>
   </form>
 </dialog>
 <datalist id="catList"></datalist>
@@ -391,7 +435,10 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
   const TODAY = isoD(today), THIS_M = ym(today);
   const dayDiff = iso => { const [y,m,d]=iso.split('-').map(Number); return Math.round((new Date(y,m-1,d)-today)/86400000); };
 
-  const S = { mov:[], div:[], month:THIS_M, filter:'todos', ready:{mov:false,div:false} };
+  const S = { mov:[], div:[], cfg:[], month:THIS_M, filter:'todos', ready:{mov:false,div:false,cfg:false} };
+  const KEY = { movimentos:'mov', dividas:'div', config:'cfg' };
+  const allReady = () => S.ready.mov && S.ready.div && S.ready.cfg;
+  const card = () => S.cfg.find(x=>x.id==='cartao') || null;
 
   /* ---------- Armazenamento: banco do artifact, ou navegador como reserva ---------- */
   const LS_KEY = 'central-financeira-v1';
@@ -405,24 +452,24 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       if (db) {
         this.mode='db'; this.db=db;
         $('modeNote').textContent='Salvo na sua conta · sincroniza entre aparelhos';
-        const timer = setTimeout(()=>{ if(!(S.ready.mov&&S.ready.div)) $('loadingMsg').textContent='Seus dados ainda não chegaram. Verifique a conexão; o painel continua tentando.'; },10000);
+        const timer = setTimeout(()=>{ if(!allReady()) $('loadingMsg').textContent='Seus dados ainda não chegaram. Verifique a conexão; o painel continua tentando.'; },10000);
         const sub = (col) => db.collection(col).onSnapshot(snap => {
-          S[col==='movimentos'?'mov':'div'] = snap.docs.map(d=>Object.assign({id:d.id},d.data()));
-          S.ready[col==='movimentos'?'mov':'div'] = true;
-          if (S.ready.mov && S.ready.div) clearTimeout(timer);
+          S[KEY[col]] = snap.docs.map(d=>Object.assign({id:d.id},d.data()));
+          S.ready[KEY[col]] = true;
+          if (allReady()) clearTimeout(timer);
           render();
         }, err => { clearTimeout(timer); $('loadingMsg').textContent='Não foi possível abrir seus dados ('+err.code+'). Recarregue a página para tentar de novo.'; });
-        sub('movimentos'); sub('dividas');
+        sub('movimentos'); sub('dividas'); sub('config');
       } else {
         this.mode='local';
         $('modeNote').textContent='Salvo neste navegador';
-        try { const raw = localStorage.getItem(LS_KEY); if(raw){ const j=JSON.parse(raw); S.mov=j.mov||[]; S.div=j.div||[]; } } catch(e){}
-        S.ready.mov = S.ready.div = true; render();
+        try { const raw = localStorage.getItem(LS_KEY); if(raw){ const j=JSON.parse(raw); S.mov=j.mov||[]; S.div=j.div||[]; S.cfg=j.cfg||[]; } } catch(e){}
+        S.ready.mov = S.ready.div = S.ready.cfg = true; render();
       }
     },
-    persist(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({mov:S.mov,div:S.div})); }catch(e){} },
+    persist(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({mov:S.mov,div:S.div,cfg:S.cfg})); }catch(e){} },
     async save(col, obj){
-      const key = col==='movimentos'?'mov':'div';
+      const key = KEY[col];
       const {id, ...data} = obj;
       if (this.mode==='db') {
         try { await this.db.collection(col).doc(id).set(JSON.parse(JSON.stringify(data))); }
@@ -434,7 +481,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       }
     },
     async remove(col, id){
-      const key = col==='movimentos'?'mov':'div';
+      const key = KEY[col];
       if (this.mode==='db') { try { await this.db.collection(col).doc(id).delete(); } catch(e){ toast('Não foi possível excluir.'); throw e; } }
       else { S[key]=S[key].filter(x=>x.id!==id); this.persist(); render(); }
     }
@@ -442,27 +489,40 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 
   /* ---------- Regras de negócio ---------- */
   function occ(M){
+    const out=occRaw(M), fp=faturaPaga(M);
+    out.forEach(o=>{ if(o.cartao) o.pago=fp; });
+    return out;
+  }
+  function faturaPaga(M){ const c=card(); return !!(c && c.pagos && c.pagos[M]); }
+  function fatura(M){
+    const c=card(), itens=occ(M).filter(o=>o.cartao), dia=Math.min(+(c&&c.dia)||10, daysIn(M));
+    return { itens, valor:sum(itens), data:M+'-'+pad(dia), pago:faturaPaga(M), nome:(c&&c.nome)||'Cartão de crédito', limite:c&&+c.limite||0,
+      asOcc(){ return {fatura:true, tipo:'saida', desc:'Fatura '+this.nome, cat:'Cartão de crédito', valor:this.valor, data:this.data, pago:this.pago, M}; } };
+  }
+  function occRaw(M){
     const out=[], mi=ymIdx(M), dim=daysIn(M);
     for (const m of S.mov){
       let data=null;
       if (m.recorrente){
         if (m.inicio && ymIdx(m.inicio)<=mi && (!m.fim || ymIdx(m.fim)>=mi)) data = M+'-'+pad(Math.min(+m.dia||1,dim));
       } else if (m.data && m.data.slice(0,7)===M) data = m.data;
-      if (data) out.push({src:'movimentos', id:m.id, tipo:m.tipo, desc:m.desc, cat:m.categoria||'Outros', valor:+m.valor||0, data, pago:!!(m.pagos&&m.pagos[M]), rec:!!m.recorrente, ex:!!m.exemplo});
+      if (data) out.push({src:'movimentos', id:m.id, tipo:m.tipo, desc:m.desc, cat:m.categoria||'Outros', valor:+m.valor||0, data, pago:!!(m.pagos&&m.pagos[M]), rec:!!m.recorrente, ex:!!m.exemplo, cartao:m.tipo==='saida'&&!!m.cartao});
     }
     for (const d of S.div){
       const k = mi - ymIdx(d.inicio);
-      if (k>=0 && k<+d.parcelas) out.push({src:'dividas', id:d.id, tipo:'saida', desc:d.desc, parc:(k+1)+'/'+d.parcelas, credor:d.credor, cat:'Dívidas', valor:+d.parcela||0, data:M+'-'+pad(Math.min(+d.dia||1,dim)), pago:!!(d.pagos&&d.pagos[M]), ex:!!d.exemplo});
+      if (k>=0 && k<+d.parcelas) out.push({src:'dividas', id:d.id, tipo:'saida', desc:d.desc, parc:(k+1)+'/'+d.parcelas, credor:d.credor, cat:'Dívidas', valor:+d.parcela||0, data:M+'-'+pad(Math.min(+d.dia||1,dim)), pago:!!(d.pagos&&d.pagos[M]), ex:!!d.exemplo, cartao:!!d.cartao});
     }
     return out.sort((a,b)=>a.data.localeCompare(b.data) || (a.tipo===b.tipo?0:a.tipo==='entrada'?-1:1));
   }
   function debtInfo(d){
     const start=ymIdx(d.inicio), total=+d.parcelas||0;
-    let pagas=0; for(let k=0;k<total;k++) if(d.pagos && d.pagos[ymOf(start+k)]) pagas++;
+    let pagas=0; for(let k=0;k<total;k++){ const Mk=ymOf(start+k); if((d.pagos && d.pagos[Mk]) || (d.cartao && faturaPaga(Mk))) pagas++; }
     const rest=total-pagas;
     return { pagas, rest, total, saldo:rest*(+d.parcela||0), valorTotal:total*(+d.parcela||0), fim:ymOf(start+total-1), pct: total? pagas/total : 0 };
   }
   function status(o){
+    if (o.cartao) return o.pago ? ['Pago na fatura','in'] : ['Na fatura','debt'];
+    if (o.fatura && o.pago) return ['Fatura paga','in'];
     if (o.pago) return o.tipo==='entrada' ? ['Recebido','in'] : ['Pago','in'];
     const dd = dayDiff(o.data);
     if (dd<0) return ['Atrasado '+(-dd)+'d','out'];
@@ -476,7 +536,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 
   /* ---------- Render ---------- */
   function render(){
-    if (!(S.ready.mov && S.ready.div)) return;
+    if (!allReady()) return;
     $('loading').hidden = true;
     const has = S.mov.length + S.div.length > 0;
     $('empty').hidden = has; $('dash').hidden = !has;
@@ -493,7 +553,8 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
     $('kInSub').innerHTML = '<span><b>'+money(rin)+'</b> recebido</span><span><b>'+money(tin-rin)+'</b> a receber</span>';
     $('kOut').textContent = money(tout);
     $('kOutBar').style.width = (tout? pout/tout*100:0)+'%';
-    $('kOutSub').innerHTML = '<span><b>'+money(pout)+'</b> pago</span><span><b>'+money(tout-pout)+'</b> a pagar</span>';
+    const tcard = sum(outs.filter(o=>o.cartao));
+    $('kOutSub').innerHTML = '<span><b>'+money(pout)+'</b> pago</span><span><b>'+money(tout-pout)+'</b> a pagar</span>'+(tcard?'<span><b>'+money(tcard)+'</b> no cartão</span>':'');
     const net = tin-tout;
     $('kNet').textContent = (net<0?'− ':'')+money(Math.abs(net));
     const caixa = rin-pout;
@@ -507,12 +568,19 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
     const fimGeral = ativas.length ? ativas.map(x=>x.i.fim).sort().pop() : null;
     $('kDebtSub').innerHTML = '<span><b>'+ativas.length+'</b> '+(ativas.length===1?'dívida ativa':'dívidas ativas')+'</span><span><b>'+money(parcMes)+'</b> em parcelas neste mês</span>'+(fimGeral?'<span>Livre de dívidas em <b>'+labelM(fimGeral).toLowerCase()+'</b></span>':'');
 
-    renderLate(); renderChart(); renderAgenda(); renderDebts(infos); renderCats(outs, tout, parcMes, tin); renderLedger(oc);
+    renderLate(); renderChart(); renderAgenda(); renderDebts(infos); renderCats(outs, tout, parcMes, tin); renderCard(); renderLedger(oc);
+  }
+
+  /* Contas a pagar de um mês: o que não está no cartão, mais a fatura como uma conta só */
+  function payables(M){
+    const list = occ(M).filter(o=>o.tipo==='saida' && !o.cartao);
+    const f = fatura(M); if (f.valor>0) list.push(f.asOcc());
+    return list;
   }
 
   function renderLate(){
     const late=[];
-    for (let k=-3;k<=0;k++){ occ(ymOf(ymIdx(THIS_M)+k)).forEach(o=>{ if(o.tipo==='saida' && !o.pago && o.data<TODAY) late.push(o); }); }
+    for (let k=-3;k<=0;k++){ payables(ymOf(ymIdx(THIS_M)+k)).forEach(o=>{ if(!o.pago && o.data<TODAY) late.push(o); }); }
     const b=$('lateBanner');
     if (!late.length){ b.hidden=true; return; }
     b.hidden=false;
@@ -545,7 +613,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 
   function renderAgenda(){
     const items=[]; const lim=isoD(new Date(today.getTime()+30*86400000));
-    for (let k=-3;k<=1;k++) occ(ymOf(ymIdx(THIS_M)+k)).forEach(o=>{ if(o.tipo==='saida' && !o.pago && o.data<=lim) items.push(o); });
+    for (let k=-3;k<=1;k++) payables(ymOf(ymIdx(THIS_M)+k)).forEach(o=>{ if(!o.pago && o.data<=lim) items.push(o); });
     items.sort((a,b)=>a.data.localeCompare(b.data));
     $('agTotal').textContent = money(sum(items));
     if (!items.length){ $('agenda').innerHTML='<div class="empty-row">Nada a pagar nos próximos 30 dias.</div>'; return; }
@@ -584,26 +652,73 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
 
   function renderLedger(oc){
     $('ledgerTitle').textContent = 'Lançamentos de '+labelM(S.month).toLowerCase();
-    let rows = oc;
-    if (S.filter==='entrada'||S.filter==='saida') rows = oc.filter(o=>o.tipo===S.filter);
-    if (S.filter==='pendente') rows = oc.filter(o=>!o.pago);
+    const f = fatura(S.month);
+    const all = f.valor>0 ? oc.concat([f.asOcc()]).sort((a,b)=>a.data.localeCompare(b.data) || (a.fatura?-1:b.fatura?1:0)) : oc;
+    let rows = all;
+    if (S.filter==='entrada'||S.filter==='saida') rows = all.filter(o=>o.tipo===S.filter);
+    if (S.filter==='pendente') rows = all.filter(o=>!o.pago);
     document.querySelectorAll('.seg [data-f]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.f===S.filter));
     if (!rows.length){ $('ledger').innerHTML='<tr><td colspan="6" class="empty-row">Nenhum lançamento neste filtro.</td></tr>'; }
     else $('ledger').innerHTML = rows.map(o=>{
       const [txt,cls]=status(o); const ent=o.tipo==='entrada';
-      const tipo = o.src==='dividas' ? '<span class="chip debt">Parcela '+o.parc+'</span>' : ent ? '<span class="chip in">Entrada</span>' : '<span class="chip neutral">Saída</span>';
-      return '<tr class="'+(o.pago?'paid':'')+'"><td class="num">'+o.data.slice(8)+'/'+o.data.slice(5,7)+'</td>'+
+      const day = '<td class="num">'+o.data.slice(8)+'/'+o.data.slice(5,7)+'</td>';
+      if (o.fatura) return '<tr class="'+(o.pago?'paid':'')+'">'+day+
+        '<td class="desc"><b>'+esc(o.desc)+'</b><small>Soma das '+f.itens.length+' contas no cartão (não entra de novo no total)</small></td>'+
+        '<td><span class="chip debt">💳 Fatura</span></td><td class="v out">'+money(o.valor)+'</td>'+
+        '<td><span class="chip '+cls+'">'+txt+'</span></td>'+
+        '<td><div class="acts"><button class="check" aria-pressed="'+o.pago+'" data-toggle-fatura="1">'+(o.pago?'✓ Paga':'Paguei a fatura')+'</button></div></td></tr>';
+      const tipo = (o.cartao?'<span class="chip debt">💳 Cartão</span> ':'') + (o.src==='dividas' ? '<span class="chip debt">Parcela '+o.parc+'</span>' : ent ? '<span class="chip in">Entrada</span>' : o.cartao ? '' : '<span class="chip neutral">Saída</span>');
+      const toggle = o.cartao ? '' : '<button class="check" aria-pressed="'+o.pago+'" data-toggle="'+esc(o.id)+'" data-src="'+o.src+'">'+(o.pago?'✓ ':'')+(ent?(o.pago?'Recebido':'Recebi'):(o.pago?'Pago':'Paguei'))+'</button>';
+      return '<tr class="'+(o.pago?'paid':'')+'">'+day+
         '<td class="desc"><b>'+esc(o.desc)+'</b><small>'+esc(o.cat)+(o.rec?' · mensal':'')+(o.credor?' · '+esc(o.credor):'')+'</small></td>'+
         '<td>'+tipo+'</td><td class="v '+(ent?'in':'out')+'">'+(ent?'+ ':'− ')+money(o.valor)+'</td>'+
         '<td><span class="chip '+cls+'">'+txt+'</span></td>'+
-        '<td><div class="acts"><button class="check" aria-pressed="'+o.pago+'" data-toggle="'+esc(o.id)+'" data-src="'+o.src+'">'+(o.pago?'✓ ':'')+(ent?(o.pago?'Recebido':'Recebi'):(o.pago?'Pago':'Paguei'))+'</button>'+
+        '<td><div class="acts">'+toggle+
         '<button class="icon-btn" aria-label="Editar" data-edit="'+esc(o.id)+'" data-src="'+o.src+'">✎</button></div></td></tr>';
     }).join('');
     const pend = oc.filter(o=>!o.pago);
     $('ledgerFoot').innerHTML = '<span>Falta receber <b>'+money(sum(pend.filter(o=>o.tipo==='entrada')))+'</b></span><span>Falta pagar <b>'+money(sum(pend.filter(o=>o.tipo==='saida')))+'</b></span>';
   }
 
+  function renderCard(){
+    const M=S.month, f=fatura(M), c=card(), nx=fatura(ymOf(ymIdx(M)+1));
+    const [txt,cls] = f.valor>0 ? status(f.asOcc()) : ['Sem compras','neutral'];
+    const lim = f.limite ? '<div style="display:grid;gap:6px"><div class="row"><span>Limite usado nesta fatura</span><span class="num">'+Math.round(f.valor/f.limite*100)+'% de '+money(f.limite)+'</span></div><div class="bar"><span style="width:'+Math.min(100,f.valor/f.limite*100)+'%;background:'+(f.valor/f.limite>0.8?'var(--out)':'var(--accent)')+'"></span></div></div>' : '';
+    $('ccSum').innerHTML = '<div class="plate"><div class="row"><span class="eyebrow">'+esc(f.nome)+'</span><span class="chip '+cls+'">'+txt+'</span></div>'+
+      '<div><div class="eyebrow">Fatura de '+labelM(M).toLowerCase()+'</div><div class="pv">'+money(f.valor)+'</div></div>'+
+      '<div class="row"><span>Vence dia '+f.data.slice(8)+'/'+f.data.slice(5,7)+(c?'':' (padrão, configure o seu)')+'</span>'+
+      (f.valor>0?'<button class="btn small" data-toggle-fatura="1">'+(f.pago?'Desmarcar pagamento':'Paguei a fatura')+'</button>':'')+'</div>'+lim+'</div>'+
+      '<div class="cc-next"><span>Próxima fatura ('+shortM(nx.data.slice(0,7))+')</span><b>'+money(nx.valor)+'</b></div>';
+    $('ccList').innerHTML = f.itens.length ? f.itens.map(o=>'<div class="cc-item"><div style="min-width:0"><b>'+esc(o.desc)+(o.parc?' <span class="muted">'+o.parc+'</span>':'')+'</b><small>'+esc(o.cat)+(o.rec?' · todo mês':'')+'</small></div><b class="num">'+money(o.valor)+'</b><button class="icon-btn" aria-label="Editar" data-edit="'+esc(o.id)+'" data-src="'+o.src+'">✎</button></div>').join('')
+      : '<div class="empty-row">Nenhuma conta no cartão em '+labelM(M).toLowerCase()+'. Use “+ Conta no cartão” para lançar assinaturas, compras e parcelas que caem na fatura.</div>';
+  }
+
   /* ---------- Ações ---------- */
+  async function toggleFatura(){
+    if (busy) return; busy=true;
+    const c = card();
+    const obj = c ? JSON.parse(JSON.stringify(c)) : {id:'cartao', nome:'Cartão de crédito', dia:10};
+    obj.pagos = obj.pagos||{};
+    if (obj.pagos[S.month]) delete obj.pagos[S.month]; else obj.pagos[S.month]=true;
+    try { await Store.save('config', obj); } catch(e){} finally { busy=false; }
+  }
+  $('ccSec').addEventListener('click', e=>{
+    if (e.target.closest('[data-toggle-fatura]')) return toggleFatura();
+    const ed=e.target.closest('[data-edit]'); if(ed) openForm(ed.dataset.src==='dividas'?'divida':null, ed.dataset.src, ed.dataset.edit);
+  });
+  $('ccAdd').onclick=()=>openForm('saida', null, null, {cartao:true});
+  const ccDlg=$('ccDlg');
+  $('ccConfig').onclick=()=>{ const c=card()||{}; $('ccNome').value=c.nome||''; $('ccDia').value=c.dia||10; $('ccLimite').value=c.limite?String(c.limite).replace('.',','):''; $('ccErr').hidden=true; ccDlg.showModal(); };
+  $('ccClose').onclick=$('ccCancel').onclick=()=>ccDlg.close();
+  $('ccForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const dia=parseInt($('ccDia').value,10), limite=parseNum($('ccLimite').value);
+    if(!(dia>=1&&dia<=31)){ $('ccErr').textContent='Dia de vencimento entre 1 e 31.'; $('ccErr').hidden=false; return; }
+    const prev=card();
+    const obj={id:'cartao', nome:$('ccNome').value.trim()||'Cartão de crédito', dia, pagos:Object.assign({}, prev&&prev.pagos)};
+    if (limite>0) obj.limite=limite;
+    try{ await Store.save('config', obj); ccDlg.close(); toast('Cartão salvo.'); }catch(_){}
+  });
   let busy=false;
   async function togglePaid(src,id){
     if (busy) return; busy=true;
@@ -614,6 +729,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
   }
 
   $('ledger').addEventListener('click', e=>{
+    if (e.target.closest('[data-toggle-fatura]')) return toggleFatura();
     const t=e.target.closest('[data-toggle]'); if(t) return togglePaid(t.dataset.src, t.dataset.toggle);
     const ed=e.target.closest('[data-edit]'); if(ed) openForm(ed.dataset.src==='dividas'?'divida':null, ed.dataset.src, ed.dataset.edit);
   });
@@ -634,13 +750,19 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
     $('movFields').hidden = t==='divida'; $('divFields').hidden = t!=='divida';
     $('catList').innerHTML = (CATS[t]||[]).map(c=>'<option value="'+esc(c)+'">').join('');
     $('fPagoLbl').textContent = (t==='entrada'?'Já recebi':'Já paguei')+' em '+labelM(S.month).toLowerCase();
-    syncRec();
+    syncRec(); syncCartao();
   }
+  function syncCartao(){
+    const on = F.type==='saida' && $('fCartao').checked;
+    $('fCartaoWrap').hidden = F.type!=='saida';
+    $('fPagoWrap').hidden = on; $('fCartaoHint').hidden = !on;
+  }
+  $('fCartao').addEventListener('change', syncCartao);
   function syncRec(){ const r=$('fRec').checked; document.querySelectorAll('[data-rec]').forEach(el=>el.hidden = (el.dataset.rec==='1')!==r); $('stopBtn').hidden = !(F.id && F.src==='movimentos' && r); }
   $('fRec').addEventListener('change', syncRec);
   document.querySelectorAll('#typeSeg button').forEach(b=>b.addEventListener('click',()=>{ if(!F.id || F.src==='movimentos' && b.dataset.t!=='divida') setType(b.dataset.t); }));
 
-  function openForm(type, src, id){
+  function openForm(type, src, id, opts){
     F={type:type||'entrada', src:src||null, id:id||null};
     $('formErr').hidden=true; $('form').reset();
     const dflDay = S.month===THIS_M ? today.getDate() : 5;
@@ -651,12 +773,13 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       const m=S.mov.find(x=>x.id===id); F.type=m.tipo;
       $('fDesc').value=m.desc||''; $('fValor').value=String(m.valor).replace('.',','); $('fCat').value=m.categoria||'';
       $('fRec').checked=!!m.recorrente; $('fDia').value=m.dia||dflDay; $('fInicio').value=m.inicio||S.month; if(m.data) $('fData').value=m.data;
-      $('fPago').checked=!!(m.pagos&&m.pagos[S.month]);
+      $('fPago').checked=!!(m.pagos&&m.pagos[S.month]); $('fCartao').checked=!!m.cartao;
     } else if (id && src==='dividas'){
       const d=S.div.find(x=>x.id===id); F.type='divida';
       $('dDesc').value=d.desc||''; $('dCredor').value=d.credor||''; $('dParcela').value=String(d.parcela).replace('.',',');
-      $('dParcelas').value=d.parcelas; $('dPagas').value=debtInfo(d).pagas; $('dInicio').value=d.inicio; $('dDia').value=d.dia; $('dJuros').value=d.juros?String(d.juros).replace('.',','):'';
+      $('dParcelas').value=d.parcelas; $('dPagas').value=debtInfo(d).pagas; $('dInicio').value=d.inicio; $('dDia').value=d.dia; $('dJuros').value=d.juros?String(d.juros).replace('.',','):''; $('dCartao').checked=!!d.cartao;
     } else if (type==='entrada' || type==='saida') { $('fRec').checked=false; }
+    if (!id && opts && opts.cartao){ $('fCartao').checked=true; $('dCartao').checked=true; }
     $('dlgTitle').textContent = id ? 'Editar lançamento' : 'Novo lançamento';
     $('delBtn').hidden = !id;
     setType(F.type);
@@ -679,7 +802,7 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       if(!validYM(inicio)) return fail('Informe o mês da 1ª parcela (AAAA-MM).');
       if(!(dia>=1&&dia<=31)) return fail('Dia de vencimento entre 1 e 31.');
       const pagos={}; for(let k=0;k<pagas;k++) pagos[ymOf(ymIdx(inicio)+k)]=true;
-      const obj={id:F.id||uid('d'), desc, credor:$('dCredor').value.trim(), parcela, parcelas, inicio, dia, pagos};
+      const obj={id:F.id||uid('d'), desc, credor:$('dCredor').value.trim(), parcela, parcelas, inicio, dia, pagos, cartao:$('dCartao').checked};
       if (isFinite(juros)) obj.juros=juros;
       try{ await Store.save('dividas', obj); close(); toast('Dívida salva.'); }catch(_){}
     } else {
@@ -690,7 +813,8 @@ label.f input:focus{outline:2px solid var(--accent);outline-offset:0;border-colo
       const obj={id:F.id||uid('m'), tipo:F.type, desc, valor, categoria:$('fCat').value.trim()||'Outros', recorrente:rec, pagos: Object.assign({}, prev&&prev.pagos)};
       if (rec){ const dia=parseInt($('fDia').value,10), inicio=$('fInicio').value; if(!(dia>=1&&dia<=31)) return fail('Dia do mês entre 1 e 31.'); if(!validYM(inicio)) return fail('Informe o mês de início (AAAA-MM).'); obj.dia=dia; obj.inicio=inicio; if(prev&&prev.fim) obj.fim=prev.fim; }
       else { const data=$('fData').value; if(!/^\d{4}-\d{2}-\d{2}$/.test(data)) return fail('Informe a data.'); obj.data=data; }
-      if ($('fPago').checked) obj.pagos[S.month]=true; else delete obj.pagos[S.month];
+      obj.cartao = F.type==='saida' && $('fCartao').checked;
+      if ($('fPago').checked && !obj.cartao) obj.pagos[S.month]=true; else delete obj.pagos[S.month];
       try{ await Store.save('movimentos', obj); close(); toast('Lançamento salvo.'); }catch(_){}
     }
   });
